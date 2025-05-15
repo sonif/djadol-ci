@@ -41,7 +41,7 @@
             </div> -->
             <div class="card-body px-lg-5 py-lg-4 text-center">
               <h1><?php echo APP_NAME ?></h1>
-              <img src="<?php echo base_url('assets/img/brand/logo.jpeg') ?>" width="100%" style="max-width:240px;max-height:240px;" class="pb-4"/>
+              <img src="<?php echo base_url('assets/amanah.png') ?>" width="100%" style="max-width:240px;max-height:240px;" class="pb-4"/>
               <form role="form" id="login-form" action="<?php echo site_url('auth/login_action') ?>" method="post">
                 <div class="form-group mb-3">
                   <div class="input-group input-group-alternative">
