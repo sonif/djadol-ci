@@ -9,8 +9,27 @@ class Dropdown extends CI_Controller {
     public $dd_desc = "";
     public $dd_img = "";
 
+    
+
     public function dd($m='')
     {
+        $this->load->model('auth/users_model');
+        
+        if($m == 'dd_usergroup'){
+            $user_id = $this->session->userdata('user_id');
+            $user = $this->users_model->get($user_id);
+            $item = array();
+            if($user->usergroup_id != 1){
+                
+                $res = array("id"=>"4","title"=>"agen");
+                array_push($item,$res);
+                $output['items'] = $item;
+                return $this->output->set_content_type('application/json')->set_output(json_encode($output));
+            }
+            
+        }
+
+
         $sql = " SELECT * FROM s_dropdown WHERE dd_title='$m'";
         $setting_row = $this->db->query($sql);
         if ($setting_row->num_rows() > 0) {
