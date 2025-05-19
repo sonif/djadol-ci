@@ -92,7 +92,7 @@ class Formx_model extends MY_Model {
 
 	public function get_limit_data($limit, $start) {
         $user = $this->data['user'];
-
+        // var_dump($user);
 		$form_id=$this->input->post('form_id');
         $form_param = $this->get_param_datatable($form_id);
         $form_filter = $this->get_filter($form_id);
@@ -139,30 +139,36 @@ class Formx_model extends MY_Model {
             $where[$this->input->post('parent_column')] = $this->input->post('parent_id');
         }
 
-        if ($this->db->field_exists('user_siteid', $this->table))
-        {
-            $siteid_arr = json_decode($user->user_siteid,true);
-            $w_custom = "user_siteid::jsonb ?| array".str_replace("\"","'",$user->user_siteid);
-            $this->db->where($w_custom, NULL, FALSE);
+        if($user->usergroup_id != 1 ){
+            $this->db->where('company_id', $user->company_id, FALSE);
         }
-        elseif ($this->db->field_exists('siteid', $this->table))
-        {
-            $siteid_arr = json_decode($user->user_siteid,true);
-            $this->db->where_in('siteid', $siteid_arr);
-        }
+        // if ($this->db->field_exists('user_siteid', $this->table))
+        // {
+        //     $siteid_arr = json_decode($user->user_siteid,true);
+        //     $w_custom = "user_siteid::jsonb ?| array".str_replace("\"","'",$user->user_siteid);
+        //     $this->db->where($w_custom, NULL, FALSE);
+        // }
+        // elseif ($this->db->field_exists('siteid', $this->table))
+        // {
+        //     $siteid_arr = json_decode($user->user_siteid,true);
+        //     $this->db->where_in('siteid', $siteid_arr);
+        // }
         $this->db->where($where);
         $result['total_rows'] = $this->count_rows();
 
-        if ($this->db->field_exists('user_siteid', $this->table))
-        {
-            $siteid_arr = json_decode($user->user_siteid,true);
-            $w_custom = "user_siteid::jsonb ?| array".str_replace("\"","'",$user->user_siteid);
-            $this->db->where($w_custom, NULL, FALSE);
-        }
-        elseif ($this->db->field_exists('siteid', $this->table))
-        {
-            $siteid_arr = json_decode($user->user_siteid,true);
-            $this->db->where_in('siteid', $siteid_arr);
+        // if ($this->db->field_exists('user_siteid', $this->table))
+        // {
+        //     $siteid_arr = json_decode($user->user_siteid,true);
+        //     $w_custom = "user_siteid::jsonb ?| array".str_replace("\"","'",$user->user_siteid);
+        //     $this->db->where($w_custom, NULL, FALSE);
+        // }
+        // elseif ($this->db->field_exists('siteid', $this->table))
+        // {
+        //     $siteid_arr = json_decode($user->user_siteid,true);
+        //     $this->db->where_in('siteid', $siteid_arr);
+        // }
+        if($user->usergroup_id != 1 ){
+            $this->db->where('company_id', $user->company_id, FALSE);
         }
         $this->db->where($where);
         if ($order) {

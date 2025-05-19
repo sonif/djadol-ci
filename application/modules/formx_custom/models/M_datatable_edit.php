@@ -11,14 +11,14 @@ class M_datatable_edit extends CI_Model {
 	// 		return false;
 	// 	}
 	// }
-	public function t_media($row)
-	{
-		if ($row->status==1) {
-			return true;
-		}else{
-			return false;
-		}
-	}
+	// public function t_media($row)
+	// {
+	// 	if ($row->status==1) {
+	// 		return true;
+	// 	}else{
+	// 		return false;
+	// 	}
+	// }
 
 }
 
