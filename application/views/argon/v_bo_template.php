@@ -139,9 +139,9 @@
           </div>
         <!-- User -->
         <ul class="navbar-nav align-items-center d-none d-md-flex">
-          <li class="nav-item">
+          <!-- <li class="nav-item">
             <button id="btn_cekbelum" class="btn btn-default" data-toggle="modal" data-target="#modal-belum-input">Cek Belum Input</button>  
-          </li>
+          </li> -->
           <li class="nav-item dropdown">
             <a class="nav-link pr-0" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <div class="media align-items-center">
@@ -206,7 +206,7 @@
         
         <div class="modal-body">           
                 <?php
-                  $this->load->view('argon/v_transaksi_belum');
+                  //$this->load->view('argon/v_transaksi_belum');
                 ?>
         </div>
         <div class="modal-footer">
