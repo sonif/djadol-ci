@@ -166,12 +166,16 @@
                           $dd_value = (isset($row)) ? json_decode($row->{$p->column_name}) : [];
                           if($dd_value == NULL)$dd_value = [];
                         ?>
+                        <ul>
                         <?php foreach ($options as $key => $value): ?>
-                          <label class="mt-checkbox mt-checkbox-outline"> <?php echo $value ?>
-                              <input value="<?php echo $key ?>" name="<?php echo $p->column_name ?>[]" type="checkbox" <?php echo (in_array($key, $dd_value)) ? "checked" : "" ; ?>>
-                              <span></span>
-                          </label>
+                          <li>
+                            <label class="mt-checkbox mt-checkbox-outline"> 
+                                <input value="<?php echo $key ?>" name="<?php echo $p->column_name ?>[]" type="checkbox" <?php echo (in_array($key, $dd_value)) ? "checked" : "" ; ?>>
+                                <span> <?php echo $value ?> </span>
+                            </label>
+                          </li>
                         <?php endforeach ?>
+                        </ul>
                       </div>
                     <?php elseif ($p->type == 'upload'): ?>
                       <?php
