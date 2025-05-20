@@ -14,11 +14,11 @@ class Api extends REST_Controller {
     function __construct()
     {
         parent::__construct();
-        $this->load->helper(['jwt', 'authorization']); 
+        $this->load->helper(['jwt', 'authorization']);
 
         $this->verify_request();
 
-        
+
         $this->load->model('formx/Formx_model');
         $this->load->model('formx/M_form');
         $this->load->model('formx_custom/M_before_insert');
@@ -37,7 +37,7 @@ class Api extends REST_Controller {
             $this->data['user']  = $user;
             $this->usergroup_id = $user->usergroup_id;
         }
-        
+
     }
 
     public function all_get($form_id=null)

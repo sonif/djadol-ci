@@ -1,4 +1,4 @@
-<?php 
+<?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Auth extends CI_Controller {
@@ -24,7 +24,7 @@ class Auth extends CI_Controller {
 			$remember = $this->input->post('remember');
 			$username = $this->input->post('username');
 			$password = $this->input->post('password');
-			$w = array('username' => $username);
+			$w = array('email' => $username);
 			if ($user = $this->Auth_model->get($w)) {
 				if ($this->Auth_model->check_password($password, $user->password) ) {
 					if($user->active == 1){
