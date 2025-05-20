@@ -14,12 +14,10 @@
         <thead class="thead-light">
           <tr>
             <td>Usergroup</td>
-            <td>
-              <input type="checkbox" id="check_all_read"> Read<hr/>
-              <input type="checkbox" id="check_all_create"> Create<hr/>
-              <input type="checkbox" id="check_all_update"> Update<hr/>
-              <input type="checkbox" id="check_all_delete"> Delete
-            </td>
+            <td><input type="checkbox" id="check_all_read"> Read</td>
+            <td><input type="checkbox" id="check_all_create"> Create</td>
+            <td><input type="checkbox" id="check_all_update"> Update</td>
+            <td><input type="checkbox" id="check_all_delete"> Delete</td>
           </tr>
         </thead>
 
@@ -36,12 +34,10 @@
             ?>
             <tr>
               <td><?php echo $r_usergroup->name ?></td>
-              <td>
-                <input type="checkbox" name="ck_<?php echo $r_usergroup->id ?>[]" class="xread" value="xread" <?php echo (in_array("xread", $xvalue)) ? 'checked=""' : '' ?> ><br/>
-                <input type="checkbox" name="ck_<?php echo $r_usergroup->id ?>[]" class="xcreate" value="xcreate" <?php echo (in_array("xcreate", $xvalue)) ? 'checked=""' : '' ?> ><br/>
-                <input type="checkbox" name="ck_<?php echo $r_usergroup->id ?>[]" class="xupdate" value="xupdate" <?php echo (in_array("xupdate", $xvalue)) ? 'checked=""' : '' ?> ><br/>
-                <input type="checkbox" name="ck_<?php echo $r_usergroup->id ?>[]" class="xdelete" value="xdelete" <?php echo (in_array("xdelete", $xvalue)) ? 'checked=""' : '' ?> >
-              </td>
+              <td><input type="checkbox" name="ck_<?php echo $r_usergroup->id ?>[]" class="xread" value="xread" <?php echo (in_array("xread", $xvalue)) ? 'checked=""' : '' ?> ></td>
+              <td><input type="checkbox" name="ck_<?php echo $r_usergroup->id ?>[]" class="xcreate" value="xcreate" <?php echo (in_array("xcreate", $xvalue)) ? 'checked=""' : '' ?> ></td>
+              <td><input type="checkbox" name="ck_<?php echo $r_usergroup->id ?>[]" class="xupdate" value="xupdate" <?php echo (in_array("xupdate", $xvalue)) ? 'checked=""' : '' ?> ></td>
+              <td><input type="checkbox" name="ck_<?php echo $r_usergroup->id ?>[]" class="xdelete" value="xdelete" <?php echo (in_array("xdelete", $xvalue)) ? 'checked=""' : '' ?> ></td>
             </tr>
           <?php endforeach ?>
         </tbody>

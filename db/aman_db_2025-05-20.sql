@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 9.0.1)
 # Database: aman_db
-# Generation Time: 2025-05-20 02:37:50 +0000
+# Generation Time: 2025-05-20 03:03:33 +0000
 # ************************************************************
 
 
@@ -1934,7 +1934,7 @@ CREATE TABLE `s_form_param` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `lnk_m_form_m_form_param` (`form_id`) USING BTREE,
   CONSTRAINT `s_form_param_ibfk_1` FOREIGN KEY (`form_id`) REFERENCES `s_form` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=167 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=171 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
 
 LOCK TABLES `s_form_param` WRITE;
 /*!40000 ALTER TABLE `s_form_param` DISABLE KEYS */;
@@ -1965,10 +1965,6 @@ VALUES
 	(137,'media file',29,'media_file','file',NULL,NULL,'',NULL,1,1,NULL,'uploads/media/','col-md-6',0,NULL,NULL,NULL),
 	(138,'media title',29,'media_title','text',NULL,NULL,'',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
 	(139,'media url',29,'media_url','text',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
-	(140,'name',30,'name','text',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
-	(141,'picture',30,'picture','img',NULL,NULL,'',NULL,1,1,NULL,'uploads/product/','col-md-6',0,NULL,NULL,NULL),
-	(142,'price sale',30,'price_sale','text',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
-	(143,'price purchase',30,'price_purchase','text',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(144,'name',31,'name','text',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(145,'address',31,'address','textarea',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(146,'Latitude',31,'location','latitude',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
@@ -1991,7 +1987,11 @@ VALUES
 	(163,'count',34,'count','numeric',NULL,NULL,'',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
 	(164,'price',34,'price','numeric',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(165,'subtotal',34,'subtotal','text',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
-	(166,'status',34,'status','text',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL);
+	(166,'status',34,'status','text',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
+	(167,'name',30,'name','text',NULL,NULL,'',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
+	(168,'picture',30,'picture','img',NULL,NULL,'',NULL,1,1,NULL,'uploads/product/','col-md-6',0,NULL,NULL,NULL),
+	(169,'price sale',30,'price_sale','numeric',NULL,NULL,'',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
+	(170,'price purchase',30,'price_purchase','numeric',NULL,NULL,'',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL);
 
 /*!40000 ALTER TABLE `s_form_param` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -2262,9 +2262,9 @@ CREATE TABLE `t_product` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
   `picture` varchar(255) DEFAULT NULL,
-  `price_sale` int DEFAULT NULL,
+  `price_sale` decimal(20,0) DEFAULT NULL,
+  `price_purchase` decimal(20,0) DEFAULT NULL,
   `created_by` int DEFAULT NULL,
-  `price_purchase` int DEFAULT NULL,
   `updated_by` int DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
