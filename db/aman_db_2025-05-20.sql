@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 9.0.1)
 # Database: aman_db
-# Generation Time: 2025-05-20 02:00:06 +0000
+# Generation Time: 2025-05-20 02:37:50 +0000
 # ************************************************************
 
 
@@ -1613,33 +1613,6 @@ VALUES
 UNLOCK TABLES;
 
 
-# Dump of table m_dusun
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `m_dusun`;
-
-CREATE TABLE `m_dusun` (
-  `dusun_id` int NOT NULL AUTO_INCREMENT,
-  `dusun_name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  PRIMARY KEY (`dusun_id`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
-
-LOCK TABLES `m_dusun` WRITE;
-/*!40000 ALTER TABLE `m_dusun` DISABLE KEYS */;
-
-INSERT INTO `m_dusun` (`dusun_id`, `dusun_name`)
-VALUES
-	(1,'WALERAN - WALERAN'),
-	(2,'WALERAN - BORO'),
-	(3,'WALERAN - GEGUNUNG'),
-	(4,'WALERAN - KARANGLOR'),
-	(5,'WALERAN - PILANG/TLAWAH'),
-	(6,'WALERAN - TERANGTUNGGAK');
-
-/*!40000 ALTER TABLE `m_dusun` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
 # Dump of table m_flow
 # ------------------------------------------------------------
 
@@ -1760,7 +1733,7 @@ CREATE TABLE `s_akses` (
   KEY `lnk_m_usergroup_t_akses` (`usergroup_id`) USING BTREE,
   CONSTRAINT `s_akses_ibfk_1` FOREIGN KEY (`usergroup_id`) REFERENCES `s_usergroup` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `s_akses_ibfk_2` FOREIGN KEY (`menu_id`) REFERENCES `s_menu` (`menu_id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=77 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=78 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
 
 LOCK TABLES `s_akses` WRITE;
 /*!40000 ALTER TABLE `s_akses` DISABLE KEYS */;
@@ -1774,13 +1747,8 @@ VALUES
 	(30,1,21,'y','null',NULL),
 	(34,1,25,'y','null',NULL),
 	(35,1,26,'y','null',NULL),
-	(36,1,27,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
 	(40,2,25,'y','null',NULL),
 	(43,1,29,'y','[\"xupdate\"]',NULL),
-	(44,1,30,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(45,2,30,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(46,1,31,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(47,2,31,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
 	(48,1,32,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
 	(49,2,32,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
 	(57,1,37,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
@@ -1802,7 +1770,8 @@ VALUES
 	(73,1,42,'y','[\"xread\"]',NULL),
 	(74,3,43,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
 	(75,1,43,'y','[\"xread\"]',NULL),
-	(76,2,43,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL);
+	(76,2,43,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
+	(77,3,32,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL);
 
 /*!40000 ALTER TABLE `s_akses` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1861,17 +1830,13 @@ VALUES
 	(1,'s_usergroup','name','id',NULL,'dd_usergroup',NULL),
 	(2,NULL,NULL,NULL,NULL,'dd_ya_tidak',X'7B2231223A227961222C2230223A22746964616B227D'),
 	(4,'m_productcategory','productcategory_name','productcategory_id',NULL,'dd_category',NULL),
-	(5,'m_dusun','dusun_name','dusun_id',NULL,'dd_dusun',NULL),
-	(6,'v_customer','customer_fullname','customer_id','','dd_customer',NULL),
-	(7,'m_status_karyawan','name','id',NULL,'dd_status_karyawan',NULL),
 	(8,NULL,NULL,NULL,NULL,'dd_gender',X'7B2250223A22506572656D7075616E222C224C223A224C616B692D6C616B69227D'),
-	(12,NULL,NULL,NULL,NULL,'dd_year',X'7B2232303231223A2232303231222C2232303232223A2232303232227D'),
 	(13,NULL,NULL,NULL,NULL,'dd_month',X'7B2231223A224A616E75617269222C2232223A224665627275617269222C2233223A224D61726574222C2234223A22417072696C222C2235223A224D6569222C2236223A224A756E69222C2237223A224A756C69222C2238223A2241677573747573222C2239223A2253657074656D626572222C223130223A224F6B746F626572222C223131223A224E6F70656D626572222C223132223A22446573656D626572227D'),
 	(14,NULL,NULL,NULL,NULL,'dd_status_transaksi',X'7B227461676968616E223A227461676968616E222C226C756E6173223A226C756E6173227D'),
 	(15,'m_company','name','id',NULL,'dd_company',NULL),
 	(16,NULL,NULL,NULL,NULL,'dd_role_user_distributor',X'7B2234223A226167656E227D'),
 	(17,'m_retail','name','id',NULL,'dd_retail',NULL),
-	(18,NULL,NULL,NULL,NULL,'dd_jurnal_type',X'7B22696E223A22696E222C226F7574223A226F7574222C2261646A223A2261646A7573746D656E227D'),
+	(18,NULL,NULL,NULL,NULL,'dd_jurnal_type',X'7B22696E223A22696E222C226F7574223A226F7574222C2261646A223A2261646A7573746D656E74227D'),
 	(19,'t_product','name','id',NULL,'dd_product',NULL),
 	(20,'m_warehouse','name','id',NULL,'dd_warehouse',NULL);
 
@@ -2080,22 +2045,19 @@ LOCK TABLES `s_menu` WRITE;
 
 INSERT INTO `s_menu` (`menu_id`, `menu_nama`, `menu_ket`, `menu_url`, `menu_icon`, `menu_parent`, `menu_active`, `menu_kode`, `menu_order`)
 VALUES
-	(1,'SYS',NULL,'formx/formx/table/menu','fa fa-list',0,'y','form_1',0),
+	(1,'[< sys >]',NULL,'formx/formx/table/menu','fa fa-list',0,'y','form_1',0),
 	(2,'sys-menu',NULL,'formx/formx/table/menu','',1,'y','form_2',NULL),
 	(3,'user',NULL,'formx/formx/table/user','fa fa-user',10,'y','form_3',101),
 	(10,'Master',NULL,'','',0,'y','',1),
 	(21,'Transaksi',NULL,'','',0,'y','',2),
 	(25,'Pembayaran',NULL,'formx/formx/table/27','fa fa-calculator',21,'y','form_27',202),
 	(26,'Laporan',NULL,'','',0,'y','',3),
-	(27,'Tagihan (group by dusun)',NULL,'laporan/laporan/by_dusun','',26,'y','',NULL),
 	(29,'Config',NULL,'formx/formx/table/28',NULL,10,'y','form_28',0),
-	(30,'Pembayaran (group by dusun)',NULL,'laporan/laporan/bayar_by_dusun','fa fa-table',26,'y','',NULL),
-	(31,'Pencatatan Meteran',NULL,'laporan/laporan/pencatatan_meteran','fa fa-file',26,'y','',1),
-	(32,'Tunggakan',NULL,'laporan/laporan/tunggakan','fa fa-table',26,'y','',0),
+	(32,'Presensi Agen/Employee',NULL,'laporan/laporan/tunggakan','fa fa-table',26,'y','',0),
 	(37,'Data Toko Retail',NULL,'formx/formx/table/31','fa fa-home',10,'y','form_31',0),
 	(38,'Master Product',NULL,'formx/formx/table/30',NULL,10,'y','form_30',0),
 	(39,'Data Company',NULL,'formx/formx/table/32','',10,'y','form_32',0),
-	(40,'Jurnal',NULL,'','fa fa-chart',0,'y','',NULL),
+	(40,'Jurnal',NULL,'','fa fa-chart',0,'y','',1),
 	(41,'sys-form generator',NULL,'formx_gen/','',1,'y','',NULL),
 	(42,'Transaksi Agen/Sales',NULL,'formx/formx/table/33','',40,'y','form_33',0),
 	(43,'Jurnal Stok',NULL,'formx/formx/table/34',NULL,40,'y','form_34',0);
@@ -2311,204 +2273,6 @@ CREATE TABLE `t_product` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 
-
-# Dump of table t_transaksi
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `t_transaksi`;
-
-CREATE TABLE `t_transaksi` (
-  `transaksi_id` int NOT NULL AUTO_INCREMENT,
-  `transaksi_created_date` datetime DEFAULT CURRENT_TIMESTAMP,
-  `transaksi_year_issue` int DEFAULT NULL,
-  `transaksi_month_issue` int DEFAULT NULL,
-  `transaksi_count_now` double(30,0) DEFAULT '0',
-  `transaksi_count_before` double(30,0) DEFAULT '0',
-  `transaksi_price` double(30,2) DEFAULT '0.00',
-  `transaksi_price_type` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `transaksi_pinalty` double(30,2) DEFAULT '0.00',
-  `transaksi_customer_id` int DEFAULT NULL,
-  `transaksi_created_by` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `transaksi_status` enum('tagihan','lunas','cetak') CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT 'tagihan',
-  `transaksi_printed_date` datetime DEFAULT NULL,
-  `transaksi_printed_by` varchar(30) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `transaksi_admin_price` decimal(10,2) DEFAULT '0.00',
-  PRIMARY KEY (`transaksi_id`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
-
-LOCK TABLES `t_transaksi` WRITE;
-/*!40000 ALTER TABLE `t_transaksi` DISABLE KEYS */;
-
-INSERT INTO `t_transaksi` (`transaksi_id`, `transaksi_created_date`, `transaksi_year_issue`, `transaksi_month_issue`, `transaksi_count_now`, `transaksi_count_before`, `transaksi_price`, `transaksi_price_type`, `transaksi_pinalty`, `transaksi_customer_id`, `transaksi_created_by`, `transaksi_status`, `transaksi_printed_date`, `transaksi_printed_by`, `transaksi_admin_price`)
-VALUES
-	(1,'2021-01-23 22:12:56',2021,1,20,0,1000.00,'1',0.00,1090,NULL,'tagihan',NULL,NULL,0.00),
-	(2,'2021-01-23 22:12:56',2021,1,40,0,1000.00,'1',0.00,1091,NULL,'tagihan',NULL,NULL,0.00),
-	(3,'2021-01-23 22:12:56',2021,1,23,0,1000.00,'Abonemen',2000.00,1092,NULL,'lunas','2025-05-14 22:30:12','1',2000.00),
-	(4,'2021-01-23 22:14:24',2021,2,23,20,1000.00,'Abonemen',2000.00,1090,NULL,'lunas','2021-01-24 06:09:24','1',2000.00),
-	(5,'2021-01-23 22:14:24',2021,2,45,40,1000.00,'1',0.00,1091,NULL,'tagihan',NULL,NULL,2000.00),
-	(6,'2021-01-23 22:14:24',2021,2,30,23,1000.00,'1',0.00,1092,NULL,'tagihan',NULL,NULL,0.00);
-
-/*!40000 ALTER TABLE `t_transaksi` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Dump of view v_input
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `v_input`; DROP VIEW IF EXISTS `v_input`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_input`
-AS SELECT
-   `m_customer`.`customer_fullname` AS `customer_fullname`,
-   `m_customer`.`customer_id` AS `customer_id`,
-   `m_customer`.`customer_dusun_id` AS `customer_dusun_id`,
-   `m_customer`.`customer_code` AS `customer_code`,
-   `t_transaksi`.`transaksi_id` AS `transaksi_id`,
-   `t_transaksi`.`transaksi_year_issue` AS `transaksi_year_issue`,
-   `t_transaksi`.`transaksi_month_issue` AS `transaksi_month_issue`,
-   `t_transaksi`.`transaksi_count_now` AS `transaksi_count_now`,
-   `t_transaksi`.`transaksi_count_before` AS `transaksi_count_before`,(`t_transaksi`.`transaksi_count_now` - `t_transaksi`.`transaksi_count_before`) AS `transaksi_selisih`,
-   `t_transaksi`.`transaksi_created_by` AS `transaksi_created_by`,
-   `t_transaksi`.`transaksi_created_date` AS `transaksi_created_date`,
-   `t_transaksi`.`transaksi_customer_id` AS `transaksi_customer_id`,
-   `t_transaksi`.`transaksi_status` AS `transaksi_status`
-FROM (`m_customer` join `t_transaksi` on((`t_transaksi`.`transaksi_customer_id` = `m_customer`.`customer_id`))) order by `m_customer`.`customer_code`;
-
-# Dump of view v_customer
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `v_customer`; DROP VIEW IF EXISTS `v_customer`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_customer`
-AS SELECT
-   `m_customer`.`customer_id` AS `customer_id`,concat(`m_customer`.`customer_fullname`,' (',`m_customer`.`customer_code`,')') AS `customer_fullname`,
-   `m_productcategory`.`productcategory_price` AS `productcategory_price`,
-   `m_productcategory`.`productcategory_name` AS `productcategory_name`,
-   `m_productcategory`.`productcategory_id` AS `productcategory_id`,
-   `m_customer`.`customer_dusun_id` AS `customer_dusun_id`,
-   `m_customer`.`customer_productcategory_id` AS `customer_productcategory_id`,
-   `m_customer`.`customer_address` AS `customer_address`,
-   `m_customer`.`customer_rw` AS `customer_rw`,
-   `m_customer`.`customer_rt` AS `customer_rt`,
-   `m_customer`.`customer_phone` AS `customer_phone`,
-   `m_customer`.`customer_created_date` AS `customer_created_date`,
-   `m_customer`.`customer_created_by` AS `customer_created_by`,
-   `m_customer`.`customer_status` AS `customer_status`,
-   `m_customer`.`customer_active` AS `customer_active`,
-   `m_customer`.`customer_code` AS `customer_code`
-FROM (`m_customer` left join `m_productcategory` on((`m_productcategory`.`productcategory_id` = `m_customer`.`customer_productcategory_id`)));
-
-# Dump of view v_input_per_dusun
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `v_input_per_dusun`; DROP VIEW IF EXISTS `v_input_per_dusun`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_input_per_dusun`
-AS SELECT
-   `m_customer`.`customer_code` AS `customer_code`,
-   `m_customer`.`customer_fullname` AS `customer_fullname`,
-   `t_before`.`transaksi_count_now` AS `bulan_lalu`,
-   `t_now`.`transaksi_count_now` AS `bulan_ini`
-FROM ((`m_customer` left join (select `t_transaksi`.`transaksi_count_now` AS `transaksi_count_now`,`t_transaksi`.`transaksi_customer_id` AS `transaksi_customer_id` from `t_transaksi` where ((`t_transaksi`.`transaksi_year_issue` = '2020') and (`t_transaksi`.`transaksi_month_issue` = '12'))) `t_before` on((`m_customer`.`customer_id` = `t_before`.`transaksi_customer_id`))) left join (select `t_transaksi`.`transaksi_count_now` AS `transaksi_count_now`,`t_transaksi`.`transaksi_customer_id` AS `transaksi_customer_id` from `t_transaksi` where ((`t_transaksi`.`transaksi_year_issue` = '2021') and (`t_transaksi`.`transaksi_month_issue` = '01'))) `t_now` on((`m_customer`.`customer_id` = `t_now`.`transaksi_customer_id`))) where (`m_customer`.`customer_dusun_id` = '2');
-
-# Dump of view v_input_tagihan
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `v_input_tagihan`; DROP VIEW IF EXISTS `v_input_tagihan`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_input_tagihan`
-AS SELECT
-   `m_customer`.`customer_fullname` AS `customer_fullname`,
-   `m_customer`.`customer_id` AS `customer_id`,
-   `m_customer`.`customer_dusun_id` AS `customer_dusun_id`,
-   `m_customer`.`customer_code` AS `customer_code`,
-   `t_transaksi`.`transaksi_id` AS `transaksi_id`,
-   `t_transaksi`.`transaksi_year_issue` AS `transaksi_year_issue`,
-   `t_transaksi`.`transaksi_month_issue` AS `transaksi_month_issue`,
-   `t_transaksi`.`transaksi_count_now` AS `transaksi_count_now`,
-   `t_transaksi`.`transaksi_count_before` AS `transaksi_count_before`,(`t_transaksi`.`transaksi_count_now` - `t_transaksi`.`transaksi_count_before`) AS `transaksi_selisih`,
-   `t_transaksi`.`transaksi_created_by` AS `transaksi_created_by`,
-   `t_transaksi`.`transaksi_created_date` AS `transaksi_created_date`,
-   `t_transaksi`.`transaksi_customer_id` AS `transaksi_customer_id`,
-   `t_transaksi`.`transaksi_status` AS `transaksi_status`,
-   `t_transaksi`.`transaksi_price` AS `transaksi_price`,
-   `m_productcategory`.`productcategory_id` AS `productcategory_id`,
-   `m_productcategory`.`productcategory_name` AS `productcategory_name`,
-   `m_productcategory`.`productcategory_price` AS `productcategory_price`,
-   `m_productcategory`.`productcategory_created_date` AS `productcategory_created_date`,
-   `m_productcategory`.`productcategory_created_by` AS `productcategory_created_by`,
-   `m_productcategory`.`productcategory_parent_id` AS `productcategory_parent_id`,
-   `m_customer`.`customer_address` AS `customer_address`,
-   `m_customer`.`customer_rw` AS `customer_rw`,
-   `m_customer`.`customer_rt` AS `customer_rt`,
-   `m_dusun`.`dusun_name` AS `dusun_name`,
-   `m_customer`.`customer_productcategory_id` AS `customer_productcategory_id`,
-   `t_transaksi`.`transaksi_printed_date` AS `transaksi_printed_date`,(((`t_transaksi`.`transaksi_price` * (`t_transaksi`.`transaksi_count_now` - `t_transaksi`.`transaksi_count_before`)) + `t_transaksi`.`transaksi_pinalty`) + `t_transaksi`.`transaksi_admin_price`) AS `transaksi_total`,(`t_transaksi`.`transaksi_price` * (`t_transaksi`.`transaksi_count_now` - `t_transaksi`.`transaksi_count_before`)) AS `transaksi_subtotal`,
-   `t_transaksi`.`transaksi_pinalty` AS `transaksi_pinalty`,
-   `t_transaksi`.`transaksi_price_type` AS `transaksi_price_type`,
-   `t_transaksi`.`transaksi_printed_by` AS `transaksi_printed_by`,
-   `s_user`.`username` AS `username`,
-   `t_transaksi`.`transaksi_admin_price` AS `transaksi_admin_price`
-FROM ((((`m_customer` join `t_transaksi` on((`t_transaksi`.`transaksi_customer_id` = `m_customer`.`customer_id`))) left join `m_productcategory` on((`m_productcategory`.`productcategory_id` = `m_customer`.`customer_productcategory_id`))) left join `m_dusun` on((`m_dusun`.`dusun_id` = `m_customer`.`customer_dusun_id`))) left join `s_user` on((`s_user`.`id` = `t_transaksi`.`transaksi_printed_by`))) order by `m_customer`.`customer_code`;
-
-# Dump of view v_input_tagihan_cetak
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `v_input_tagihan_cetak`; DROP VIEW IF EXISTS `v_input_tagihan_cetak`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_input_tagihan_cetak`
-AS SELECT
-   `m_customer`.`customer_fullname` AS `customer_fullname`,
-   `m_customer`.`customer_id` AS `customer_id`,
-   `m_customer`.`customer_dusun_id` AS `customer_dusun_id`,
-   `m_customer`.`customer_code` AS `customer_code`,
-   `t_transaksi`.`transaksi_id` AS `transaksi_id`,
-   `t_transaksi`.`transaksi_year_issue` AS `transaksi_year_issue`,
-   `t_transaksi`.`transaksi_month_issue` AS `transaksi_month_issue`,
-   `t_transaksi`.`transaksi_count_now` AS `transaksi_count_now`,
-   `t_transaksi`.`transaksi_count_before` AS `transaksi_count_before`,(`t_transaksi`.`transaksi_count_now` - `t_transaksi`.`transaksi_count_before`) AS `transaksi_selisih`,
-   `t_transaksi`.`transaksi_created_by` AS `transaksi_created_by`,
-   `t_transaksi`.`transaksi_created_date` AS `transaksi_created_date`,
-   `t_transaksi`.`transaksi_customer_id` AS `transaksi_customer_id`,
-   `t_transaksi`.`transaksi_status` AS `transaksi_status`,
-   `t_transaksi`.`transaksi_price` AS `transaksi_price`,
-   `t_transaksi`.`transaksi_price_type` AS `transaksi_price_type`,
-   `m_productcategory`.`productcategory_id` AS `productcategory_id`,
-   `m_productcategory`.`productcategory_name` AS `productcategory_name`,
-   `m_productcategory`.`productcategory_price` AS `productcategory_price`,
-   `m_productcategory`.`productcategory_created_date` AS `productcategory_created_date`,
-   `m_productcategory`.`productcategory_created_by` AS `productcategory_created_by`,
-   `m_productcategory`.`productcategory_parent_id` AS `productcategory_parent_id`,
-   `m_customer`.`customer_address` AS `customer_address`,
-   `m_customer`.`customer_rw` AS `customer_rw`,
-   `m_customer`.`customer_rt` AS `customer_rt`,
-   `m_dusun`.`dusun_name` AS `dusun_name`,
-   `m_customer`.`customer_productcategory_id` AS `customer_productcategory_id`,
-   `t_transaksi`.`transaksi_printed_date` AS `transaksi_printed_date`,(`t_transaksi`.`transaksi_price` * (`t_transaksi`.`transaksi_count_now` - `t_transaksi`.`transaksi_count_before`)) AS `transaksi_total`,
-   `t_transaksi`.`transaksi_pinalty` AS `transaksi_pinalty`
-FROM (((`m_customer` join `t_transaksi` on((`t_transaksi`.`transaksi_customer_id` = `m_customer`.`customer_id`))) left join `m_productcategory` on((`m_productcategory`.`productcategory_id` = `m_customer`.`customer_productcategory_id`))) left join `m_dusun` on((`m_dusun`.`dusun_id` = `m_customer`.`customer_dusun_id`))) where (`t_transaksi`.`transaksi_status` = 'cetak') order by `m_customer`.`customer_code`;
-
-# Dump of view v_tunggakan
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `v_tunggakan`; DROP VIEW IF EXISTS `v_tunggakan`;
-
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `v_tunggakan`
-AS SELECT
-   `v_input_tagihan`.`customer_id` AS `tunggakan_customer_id`,count(`v_input_tagihan`.`customer_id`) AS `jumlah_tunggakan`
-FROM `v_input_tagihan` where (`v_input_tagihan`.`transaksi_status` = 'tagihan') group by `v_input_tagihan`.`customer_id`;
 
 
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
