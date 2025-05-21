@@ -14,7 +14,7 @@ class Dropdown extends CI_Controller {
     public function dd($m='')
     {
         $this->load->model('auth/users_model');
-        
+        //perlakuan khusus dropdown tertentu
         if($m == 'dd_usergroup'){
             $user_id = $this->session->userdata('user_id');
             $user = $this->users_model->get($user_id);
@@ -27,6 +27,14 @@ class Dropdown extends CI_Controller {
                 return $this->output->set_content_type('application/json')->set_output(json_encode($output));
             }
             
+        }
+
+        if($m == 'dd_user_agen'){
+            $user_id = $this->session->userdata('user_id');
+            $user = $this->users_model->get($user_id);
+            $company_id = $user->company_id;
+            $this->db->where('company_id', $company_id );
+            $this->db->where('usergroup_id', '4' );
         }
 
 

@@ -3,18 +3,33 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_after_insert extends CI_Model {
 
-	// public function t_patrol_check($id,$data)
-	// {
-	// 	$this->db->where('patrol_id', $data['patrol_id']);
-	// 	$t_item_patrol = $this->db->get('t_item_patrol');
-	// 	foreach ($t_item_patrol->result() as $r) {
-	// 		$n_data = array(
-	// 			'item_patrol_id' => $r->id, 
-	// 			'patrol_check_id' => $id, 
-	// 		);
-	// 		$this->db->insert('t_patrol_check_sub',$n_data);
-	// 	}
-	// }
+	public function t_jurnal_agen_sales($id,$data)
+	{
+		var_dump($data);
+		$this->db->where('agen_id', $data['agen_id']);
+		$this->db->where('product_id', $data['product_id']);
+		$this->db->where('company_id', $data['company_id']);
+
+		$stock_agen = $this->db->get('stock_agen');
+		if($stock_agen->num_rows > 0):
+			$row = $stock_agen->row();
+			$w = array(
+				'id' => $row->id
+			);
+			$n_data = array(
+				'count' => $row->count + $data['count'], 
+			);
+			$this->db->update('stock_agen',$n_data,$w);
+		else:
+			$n_data = array(
+				'agen_id' => $data['agen_id'], 
+				'product_id' => $data['product_id'], 
+				'company_id' => $data['company_id'],
+				'count' => $data['count']
+			);
+			$this->db->insert('stock_agen',$n_data);
+		endif;
+	}
 
 	// public function t_form_shift_meeting($id,$data)
 	// {
