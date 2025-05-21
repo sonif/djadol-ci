@@ -87,7 +87,8 @@ class Api extends REST_Controller {
 
                     }elseif ($p->type == 'select_ajax') {
                         if (!empty($d->{$p->column_name})) {
-                            $row[$p->column_name] = $this->Formx_model->get_value_dd($p->table_ref,$d->{$p->column_name});
+                            $row[$p->column_name.'_name'] = $this->Formx_model->get_value_dd($p->table_ref,$d->{$p->column_name});
+                            $row[$p->column_name] = $d->{$p->column_name};
                         } else{
                             $row[$p->column_name]='';
                         }
