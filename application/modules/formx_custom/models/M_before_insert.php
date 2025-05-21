@@ -29,11 +29,11 @@ class M_before_insert extends CI_Model {
 		return $data;
 	}
 
-	public function s_user($data){
-		$user = $this->data['user'];
-		$data['company_id'] = $user->company_id;
-		return $data;
-	}
+	// public function s_user($data){
+	// 	$user = $this->data['user'];
+	// 	$data['company_id'] = $user->company_id;
+	// 	return $data;
+	// }
 
 	// public function m_user($data)
 	// {

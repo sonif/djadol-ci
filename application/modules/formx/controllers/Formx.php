@@ -419,6 +419,11 @@ class Formx extends MY_Controller
                 }
                     # code...
 
+                $datalog_user = $this->data['user'];
+                if($datalog_user->usergroup_id !=1){
+                    $data['company_id'] = $datalog_user->company_id;
+                }
+
                 if($id =$this->Formx_model->insert($data)){
                     // if ($id_temp = $this->input->post('id_temp')) {
                     //     $temp_folder= "./uploads/temp/formx/".$id_temp;
