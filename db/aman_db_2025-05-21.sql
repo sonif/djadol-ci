@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 9.0.1)
 # Database: aman_db
-# Generation Time: 2025-05-21 03:34:49 +0000
+# Generation Time: 2025-05-21 08:14:31 +0000
 # ************************************************************
 
 
@@ -41,8 +41,19 @@ CREATE TABLE `jurnal_agen_sales` (
   `deleted_at` datetime DEFAULT NULL,
   `company_id` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+LOCK TABLES `jurnal_agen_sales` WRITE;
+/*!40000 ALTER TABLE `jurnal_agen_sales` DISABLE KEYS */;
+
+INSERT INTO `jurnal_agen_sales` (`id`, `agen_id`, `product_id`, `retail_id`, `count`, `price`, `subtotal`, `status`, `created_by`, `created_at`, `updated_by`, `updated_at`, `deleted_at`, `company_id`)
+VALUES
+	(1,31,4,1,100,20000,NULL,'in',NULL,NULL,NULL,NULL,NULL,1),
+	(2,31,4,1,50,20000,NULL,'in',NULL,NULL,NULL,NULL,NULL,1),
+	(3,31,4,1,30,20000,NULL,'in',NULL,NULL,NULL,NULL,NULL,1);
+
+/*!40000 ALTER TABLE `jurnal_agen_sales` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table jurnal_stock
@@ -258,7 +269,7 @@ CREATE TABLE `s_akses` (
   KEY `lnk_m_usergroup_t_akses` (`usergroup_id`) USING BTREE,
   CONSTRAINT `s_akses_ibfk_1` FOREIGN KEY (`usergroup_id`) REFERENCES `s_usergroup` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `s_akses_ibfk_2` FOREIGN KEY (`menu_id`) REFERENCES `s_menu` (`menu_id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=87 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
 
 LOCK TABLES `s_akses` WRITE;
 /*!40000 ALTER TABLE `s_akses` DISABLE KEYS */;
@@ -294,7 +305,7 @@ VALUES
 	(72,3,42,'y','[\"xread\",\"xcreate\"]',NULL),
 	(73,1,42,'y','[\"xread\"]',NULL),
 	(74,3,43,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(75,1,43,'y','[\"xread\"]',NULL),
+	(75,1,43,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
 	(76,2,43,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
 	(77,3,32,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
 	(78,1,44,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
@@ -302,10 +313,16 @@ VALUES
 	(80,1,45,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
 	(81,2,45,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
 	(82,3,45,'y','[\"xread\"]',NULL),
-	(83,2,42,'y','[\"xread\",\"xcreate\"]',NULL),
+	(83,2,42,'y','[\"xread\",\"xcreate\",\"xupdate\"]',NULL),
 	(84,1,47,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
 	(85,2,47,'y','[\"xread\",\"xcreate\"]',NULL),
-	(86,3,47,'y','[\"xread\",\"xcreate\"]',NULL);
+	(86,3,47,'y','[\"xread\",\"xcreate\"]',NULL),
+	(87,1,46,'y','[\"xread\"]',NULL),
+	(88,2,46,'y','null',NULL),
+	(89,3,46,'y','null',NULL),
+	(90,1,49,'y','[\"xread\"]',NULL),
+	(91,2,49,'y','[\"xread\"]',NULL),
+	(92,3,49,'y','[\"xread\"]',NULL);
 
 /*!40000 ALTER TABLE `s_akses` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -354,7 +371,7 @@ CREATE TABLE `s_dropdown` (
   `dd_title` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `json_value` longtext CHARACTER SET utf8mb4 COLLATE utf8mb4_bin,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
 
 LOCK TABLES `s_dropdown` WRITE;
 /*!40000 ALTER TABLE `s_dropdown` DISABLE KEYS */;
@@ -372,7 +389,8 @@ VALUES
 	(17,'m_retail','name','id',NULL,'dd_retail',NULL),
 	(18,NULL,NULL,NULL,NULL,'dd_jurnal_type',X'7B22696E223A22696E222C226F7574223A226F7574222C2261646A223A2261646A7573746D656E74227D'),
 	(19,'t_product','name','id',NULL,'dd_product',NULL),
-	(20,'m_warehouse','name','id',NULL,'dd_warehouse',NULL);
+	(20,'m_warehouse','name','id',NULL,'dd_warehouse',NULL),
+	(21,'s_user','email','id',NULL,'dd_user_agen',NULL);
 
 /*!40000 ALTER TABLE `s_dropdown` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -400,7 +418,7 @@ CREATE TABLE `s_form` (
   `is_import` smallint DEFAULT '0',
   `form_table_read` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
 
 LOCK TABLES `s_form` WRITE;
 /*!40000 ALTER TABLE `s_form` DISABLE KEYS */;
@@ -419,8 +437,9 @@ VALUES
 	(33,'Transaksi Agen/Sales','jurnal_agen_sales',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,'datatable','jurnal_agen_sales',0,'jurnal_agen_sales'),
 	(34,'Jurnal Stok','jurnal_stock',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,'datatable','jurnal_stock',0,'jurnal_stock'),
 	(35,'Warehouse','m_warehouse',NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,'datatable','m_warehouse',0,'m_warehouse'),
-	(36,'Stok Warehouse','stock_warehouse',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,'datatable','stock_warehouse',0,'stock_warehouse'),
-	(37,'Transaksi Warehouse','jurnal_stock',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,'datatable','jurnal_stock',0,'jurnal_stock');
+	(36,'Stock di Warehouse','stock_warehouse',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,'datatable','stock_warehouse',0,'stock_warehouse'),
+	(37,'Transaksi Warehouse','jurnal_stock',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,'datatable','jurnal_stock',0,'jurnal_stock'),
+	(39,'Stock di Agen','stock_agen',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,'datatable','stock_agen',0,'stock_agen');
 
 /*!40000 ALTER TABLE `s_form` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -471,7 +490,7 @@ CREATE TABLE `s_form_param` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `lnk_m_form_m_form_param` (`form_id`) USING BTREE,
   CONSTRAINT `s_form_param_ibfk_1` FOREIGN KEY (`form_id`) REFERENCES `s_form` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=189 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=198 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
 
 LOCK TABLES `s_form_param` WRITE;
 /*!40000 ALTER TABLE `s_form_param` DISABLE KEYS */;
@@ -517,13 +536,13 @@ VALUES
 	(156,'price',33,'price','numeric',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(157,'subtotal',33,'subtotal','numeric',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(158,'status',33,'status','select_ajax',NULL,NULL,'dd_jurnal_type',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
-	(159,'date',34,'date','text',NULL,NULL,'',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
-	(160,'warehouse id',34,'warehouse_id','select_ajax',NULL,NULL,'dd_warehouse',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
+	(159,'date',34,'date','date',NULL,NULL,'',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
+	(160,'warehouse id',34,'warehouse_id','select_ajax',NULL,NULL,'dd_warehouse',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
 	(161,'company id',34,'company_id','select_ajax',NULL,NULL,'dd_company',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
-	(162,'product id',34,'product_id','select_ajax',NULL,NULL,'dd_product',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
+	(162,'product id',34,'product_id','select_ajax',NULL,NULL,'dd_product',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
 	(163,'count',34,'count','numeric',NULL,NULL,'',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
-	(164,'price',34,'price','numeric',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
-	(165,'subtotal',34,'subtotal','text',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
+	(164,'price',34,'price','numeric',NULL,NULL,'',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
+	(165,'subtotal',34,'subtotal','text',NULL,NULL,'',NULL,NULL,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(166,'status',34,'status','select_ajax',NULL,NULL,'dd_status_transaksi',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(167,'name',30,'name','text',NULL,NULL,'',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
 	(168,'picture',30,'picture','img',NULL,NULL,'',NULL,1,1,NULL,'uploads/product/','col-md-6',0,NULL,NULL,NULL),
@@ -535,10 +554,10 @@ VALUES
 	(174,'logo',35,'logo','img',NULL,NULL,'',NULL,1,NULL,NULL,'uploads/warehouse/','col-md-6',0,NULL,NULL,NULL),
 	(175,'latitude',35,'latitude','text',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(176,'longitude',35,'longitude','text',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
-	(177,'product id',36,'product_id','select_ajax',NULL,NULL,'dd_product',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
-	(178,'company id',36,'company_id','select_ajax',NULL,NULL,'dd_company',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
-	(179,'warehouse id',36,'warehouse_id','select_ajax',NULL,NULL,'dd_warehouse',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
-	(180,'count',36,'count','numeric',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
+	(177,'product id',36,'product_id','select_ajax',3,NULL,'dd_product',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
+	(178,'company id',36,'company_id','select_ajax',1,NULL,'dd_company',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
+	(179,'warehouse id',36,'warehouse_id','select_ajax',2,NULL,'dd_warehouse',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
+	(180,'count',36,'count','numeric',4,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(181,'date',37,'date','date',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(182,'warehouse id',37,'warehouse_id','select_ajax',NULL,NULL,'dd_warehouse',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(183,'company id',37,'company_id','select_ajax',NULL,NULL,'dd_company',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
@@ -546,7 +565,12 @@ VALUES
 	(185,'count',37,'count','numeric',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(186,'price',37,'price','numeric',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(187,'subtotal',37,'subtotal','numeric',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
-	(188,'status',37,'status','select_ajax',NULL,NULL,'dd_jurnal_type',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL);
+	(188,'status',37,'status','select_ajax',NULL,NULL,'dd_jurnal_type',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
+	(189,'agen id',33,'agen_id','select_ajax',NULL,NULL,'dd_user_agen',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
+	(194,'product id',39,'product_id','select_ajax',3,NULL,'dd_product',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
+	(195,'agen id',39,'agen_id','select_ajax',2,NULL,'dd_user_agen',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
+	(196,'count',39,'count','numeric',4,NULL,'',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
+	(197,'company id',39,'company_id','select_ajax',1,NULL,'dd_company',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL);
 
 /*!40000 ALTER TABLE `s_form_param` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -593,7 +617,7 @@ CREATE TABLE `s_menu` (
   `menu_kode` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `menu_order` smallint DEFAULT NULL,
   PRIMARY KEY (`menu_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=50 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
 
 LOCK TABLES `s_menu` WRITE;
 /*!40000 ALTER TABLE `s_menu` DISABLE KEYS */;
@@ -617,9 +641,10 @@ VALUES
 	(42,'Transaksi Agen/Sales',NULL,'formx/formx/table/33','',40,'y','form_33',0),
 	(43,'Jurnal Stok',NULL,'formx/formx/table/34',NULL,40,'y','form_34',0),
 	(44,'Warehouse',NULL,'formx/formx/table/35',NULL,10,'y','form_35',4),
-	(45,'Stok Warehouse',NULL,'formx/formx/table/36',NULL,46,'y','form_36',0),
+	(45,'Stok di Warehouse',NULL,'formx/formx/table/36','',46,'y','form_36',0),
 	(46,'Stock',NULL,'','',0,'y','',3),
-	(47,'Transaksi Warehouse',NULL,'formx/formx/table/37',NULL,40,'y','form_37',0);
+	(47,'Transaksi Warehouse',NULL,'formx/formx/table/37',NULL,40,'y','form_37',0),
+	(49,'Stock di Agen',NULL,'formx/formx/table/39',NULL,46,'y','form_39',0);
 
 /*!40000 ALTER TABLE `s_menu` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -653,6 +678,8 @@ CREATE TABLE `s_user` (
   `last_login` timestamp NULL DEFAULT NULL,
   `foto` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `employee_id` bigint unsigned DEFAULT NULL,
+  `assign_lat` decimal(10,0) DEFAULT NULL,
+  `assign_long` decimal(10,0) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   KEY `lnk_m_usergroup_m_user` (`usergroup_id`) USING BTREE,
   CONSTRAINT `s_user_ibfk_1` FOREIGN KEY (`usergroup_id`) REFERENCES `s_usergroup` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
@@ -661,17 +688,17 @@ CREATE TABLE `s_user` (
 LOCK TABLES `s_user` WRITE;
 /*!40000 ALTER TABLE `s_user` DISABLE KEYS */;
 
-INSERT INTO `s_user` (`id`, `usergroup_id`, `ip_address`, `username`, `password`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `active`, `full_name`, `company_id`, `phone`, `created_at`, `updated_at`, `deleted_at`, `created_by`, `updated_by`, `last_login`, `foto`, `employee_id`)
+INSERT INTO `s_user` (`id`, `usergroup_id`, `ip_address`, `username`, `password`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `active`, `full_name`, `company_id`, `phone`, `created_at`, `updated_at`, `deleted_at`, `created_by`, `updated_by`, `last_login`, `foto`, `employee_id`, `assign_lat`, `assign_long`)
 VALUES
-	(1,1,NULL,'admin','$2y$10$2Ln2x4QpuA/N7mQLKpdmJuBLLbfNMCt1oW8YNWLPet6qvaS62Q6UW','owner',NULL,NULL,NULL,NULL,1,'Administrator',0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
-	(29,3,NULL,NULL,'$2y$10$LHiseKYmK88tT9IvD/yhbO.kVmBnBpaHfunON3e8xfnCK0TQQfKHS','distributor',NULL,NULL,NULL,NULL,1,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
-	(30,2,NULL,NULL,'$2y$10$zbdzA25JoytWAlHkeCHfr.Mo.JclvxCGIxcZAIbnIyRcG4SawzK9S','admin',NULL,NULL,NULL,NULL,1,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
-	(31,4,NULL,NULL,'$2y$10$QeQQl5XSUfCWHbgLCpwAPeu7aecMbbXTuMcINbWob/leZaFP82JiO','sales1',NULL,NULL,NULL,NULL,1,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
-	(32,4,NULL,NULL,'$2y$10$VgaE3lDdXWD/N4Fq2O/0S./Chkk1SVQ47uCBRrWVtQJjUD.5VVJeq','sales2',NULL,NULL,NULL,NULL,1,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
-	(33,4,NULL,NULL,'$2y$10$X1KIxL7UQNH5HIn540jpaOKk7Ba0UwthBH7tUoswDIPt4Nt7ThZcK','sales1.2',NULL,NULL,NULL,NULL,1,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
-	(34,4,NULL,NULL,'$2y$10$mDRR77qWSpgkIhgVI4g/6OQEo07p9fyaPDEeIsvfGI2j/2MfGnt3i','sales1.2',NULL,NULL,NULL,NULL,1,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
-	(35,3,NULL,NULL,'$2y$10$3dG1SReo5weyR1/ILAgrJO4XAVY4Ksi3Yz1KCuAKvlEpD5OXW4nKK','distributor2',NULL,NULL,NULL,NULL,1,NULL,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
-	(37,4,NULL,NULL,'$2y$10$dTrwvPrfLFmg9GWKPk0pjuDNndRqD96RlNw1En6MaVKTGitesfYTW','sales2.1',NULL,NULL,NULL,NULL,1,NULL,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
+	(1,1,NULL,'admin','$2y$10$2Ln2x4QpuA/N7mQLKpdmJuBLLbfNMCt1oW8YNWLPet6qvaS62Q6UW','owner',NULL,NULL,NULL,NULL,1,'Administrator',0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+	(29,3,NULL,NULL,'$2y$10$LHiseKYmK88tT9IvD/yhbO.kVmBnBpaHfunON3e8xfnCK0TQQfKHS','distributor',NULL,NULL,NULL,NULL,1,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+	(30,2,NULL,NULL,'$2y$10$zbdzA25JoytWAlHkeCHfr.Mo.JclvxCGIxcZAIbnIyRcG4SawzK9S','admin',NULL,NULL,NULL,NULL,1,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+	(31,4,NULL,NULL,'$2y$10$QeQQl5XSUfCWHbgLCpwAPeu7aecMbbXTuMcINbWob/leZaFP82JiO','sales1',NULL,NULL,NULL,NULL,1,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+	(32,4,NULL,NULL,'$2y$10$VgaE3lDdXWD/N4Fq2O/0S./Chkk1SVQ47uCBRrWVtQJjUD.5VVJeq','sales2',NULL,NULL,NULL,NULL,2,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+	(33,4,NULL,NULL,'$2y$10$X1KIxL7UQNH5HIn540jpaOKk7Ba0UwthBH7tUoswDIPt4Nt7ThZcK','sales1.2',NULL,NULL,NULL,NULL,1,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+	(34,4,NULL,NULL,'$2y$10$mDRR77qWSpgkIhgVI4g/6OQEo07p9fyaPDEeIsvfGI2j/2MfGnt3i','sales1.2',NULL,NULL,NULL,NULL,1,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+	(35,3,NULL,NULL,'$2y$10$3dG1SReo5weyR1/ILAgrJO4XAVY4Ksi3Yz1KCuAKvlEpD5OXW4nKK','distributor2',NULL,NULL,NULL,NULL,1,NULL,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
+	(37,4,NULL,NULL,'$2y$10$dTrwvPrfLFmg9GWKPk0pjuDNndRqD96RlNw1En6MaVKTGitesfYTW','sales2.1',NULL,NULL,NULL,NULL,2,NULL,2,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 
 /*!40000 ALTER TABLE `s_user` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -724,8 +751,17 @@ CREATE TABLE `stock_agen` (
   `updated_by` int DEFAULT NULL,
   `company_id` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+LOCK TABLES `stock_agen` WRITE;
+/*!40000 ALTER TABLE `stock_agen` DISABLE KEYS */;
+
+INSERT INTO `stock_agen` (`id`, `product_id`, `agen_id`, `count`, `created_at`, `created_by`, `updated_at`, `updated_by`, `company_id`)
+VALUES
+	(1,4,31,30,NULL,NULL,NULL,NULL,1);
+
+/*!40000 ALTER TABLE `stock_agen` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table stock_warehouse
@@ -744,8 +780,17 @@ CREATE TABLE `stock_warehouse` (
   `updated_at` datetime DEFAULT NULL,
   `updated_by` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
+LOCK TABLES `stock_warehouse` WRITE;
+/*!40000 ALTER TABLE `stock_warehouse` DISABLE KEYS */;
+
+INSERT INTO `stock_warehouse` (`id`, `product_id`, `company_id`, `warehouse_id`, `count`, `created_at`, `created_by`, `updated_at`, `updated_by`)
+VALUES
+	(1,4,1,1,500,NULL,NULL,NULL,NULL);
+
+/*!40000 ALTER TABLE `stock_warehouse` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table t_absen
