@@ -30,46 +30,6 @@ class Laporan extends MY_Controller {
         $data = array();
     }
 
-    public function list_tagihan_by_dusun($year,$dusun,$m){
-        $v_data['rtitle'] = 'Rincian Tagihan';
-        $q = "SELECT v_input_tagihan.*, v_tunggakan.*
-                FROM v_input_tagihan   
-                LEFT JOIN v_tunggakan ON  v_input_tagihan.customer_id = v_tunggakan.tunggakan_customer_id                          
-            WHERE  transaksi_status = 'tagihan' AND transaksi_year_issue = '".$year."'"
-            ." AND transaksi_month_issue='".$m."'"
-            ." AND customer_dusun_id='".$dusun."'"
-            ." ORDER BY customer_code";
-
-        $v_data['v_customer'] = $this->db->query($q);
-        $v_data['input_tahun']=$year;
-        $v_data['input_dusun']=$dusun;
-
-        $this->load->model("laporan/M_laporan");
-        $v_data['month'] = $this->M_laporan->get_month_array_s();
-
-        $this->template('v_laporan_tunggakan_ajax_2',$v_data);
-    }
-
-    public function list_bayar_by_dusun($year,$dusun,$m){
-        $v_data['rtitle'] = 'Rincian Pembayaran';
-        $q = "SELECT v_input_tagihan.*, v_tunggakan.*
-                FROM v_input_tagihan   
-                LEFT JOIN v_tunggakan ON  v_input_tagihan.customer_id = v_tunggakan.tunggakan_customer_id                          
-            WHERE  transaksi_status = 'lunas' AND transaksi_year_issue = '".$year."'"
-            ." AND transaksi_month_issue='".$m."'"
-            ." AND customer_dusun_id='".$dusun."'"
-            ." ORDER BY customer_code";
-
-        $v_data['v_customer'] = $this->db->query($q);
-        $v_data['input_tahun']=$year;
-        $v_data['input_dusun']=$dusun;
-
-        $this->load->model("laporan/M_laporan");
-        $v_data['month'] = $this->M_laporan->get_month_array_s();
-
-        $this->template('v_laporan_tunggakan_ajax_2',$v_data);
-    }
-
     public function tunggakan(){
         $this->load->model("laporan/M_laporan");
         $v_data['month'] = $this->M_laporan->get_month_array();

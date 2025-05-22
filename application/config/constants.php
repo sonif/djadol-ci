@@ -90,6 +90,6 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 |--------------------------------------------------------------------------
 
 */
-defined('APP_NAME')                        OR define('APP_NAME', 'A-MANA-H');
+defined('APP_NAME')                        OR define('APP_NAME', 'Djava Distribution Online');
 defined('COMAPANY_NAME')                   OR define('COMAPANY_NAME', 'Fal-Son');
 defined('ROLE_ADMIN')                      OR define('ROLE_ADMIN', 1);
