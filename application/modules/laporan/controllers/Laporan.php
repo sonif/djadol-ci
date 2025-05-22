@@ -47,9 +47,9 @@ class Laporan extends MY_Controller {
                 ,IFNULL(`t_absen_datang`.absen_date_time,0) as datang
                 ,IFNULL(`t_absen_pulang`.absen_date_time,0) as pulang
                 ,IFNULL(`t_absen_datang`.absen_date,0)
-                ,`t_absen_datang`.absen_user_id as uid_datang
+                ,`t_absen_datang`.created_by as uid_datang
                 ,`t_absen_datang`.absen_status as status_datang
-                ,`t_absen_pulang`.absen_user_id as uid_pulang
+                ,`t_absen_pulang`.created_by as uid_pulang
                 ,`t_absen_pulang`.absen_status as status_pulang
                 FROM 
                 (SELECT date_field
@@ -72,10 +72,10 @@ class Laporan extends MY_Controller {
                     ) AAA
                     WHERE MONTH(date_field) = '".$cb_month."') AS tbday
                     LEFT JOIN 
-                    (SELECT absen_date_time,absen_date,absen_user_id,absen_status FROM t_absen WHERE absen_user_id = '".$cb_agen."') as t_absen_datang 
+                    (SELECT absen_date_time,absen_date,created_by,absen_status FROM t_absen WHERE created_by = '".$cb_agen."') as t_absen_datang 
                     ON tbday.date_field = t_absen_datang.absen_date 
                     LEFT JOIN 
-                    (SELECT absen_date_time,absen_date,absen_user_id,absen_status FROM t_absen_out WHERE absen_user_id = '".$cb_agen."') as t_absen_pulang 
+                    (SELECT absen_date_time,absen_date,created_by,absen_status FROM t_absen_out WHERE created_by = '".$cb_agen."') as t_absen_pulang 
                     ON tbday.date_field = t_absen_pulang.absen_date 
                     ORDER BY date_field;";
         // echo $q;
