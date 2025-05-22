@@ -8,7 +8,7 @@
         </div>
         <div class='card-body form'>
                 <div class="row">
-                    <div class="form-group col-md-5">
+                    <div class="form-group col-md-3">
                         <label for="cb_month">Bulan</label>
                         <select name='cb_month' id="cb_month" class='form-control select2-ajax' data-url='<?php echo site_url('formx/dropdown/dd/dd_month') ?>'>
                             
@@ -16,7 +16,14 @@
                     </div>
                     <div class="form-group col-md-3">
                         <label for="cb_year">Tahun</label>
-                        <input type="text" class="form-control date-year" name="cb_tahun" id="cb_tahun" value="<?php echo date('Y'); ?>"/>
+                        <select name='cb_year' id="cb_year" class='form-control select2-ajax' data-url='<?php echo site_url('formx/dropdown/dd/dd_year') ?>'>
+                            <option value="<?php echo date('Y'); ?>" selected><?php echo date('Y'); ?></option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label for="cb_agen">Agen</label>
+                        <select name='cb_agen' id="cb_agen" class='form-control select2-ajax' data-url='<?php echo site_url('formx/dropdown/dd/dd_user_agen') ?>'>
+                        </select> 
                     </div>
                 </div>
                 <div id="row">
@@ -48,7 +55,8 @@
     function load_report(){
         $("#wrap_loading").show();
         $("#wrap_table").load("<?php echo site_url('laporan/laporan/tunggakan_ajax/');?>"
-            ,{ cb_dusun : $("#cb_dusun").val(),
+            ,{ cb_month : $("#cb_month").val(),
+                cb_agen : $("#cb_agen").val(),
                 cb_year : $("#cb_year").val(),}
             , function() {
                 $("#wrap_loading").hide();

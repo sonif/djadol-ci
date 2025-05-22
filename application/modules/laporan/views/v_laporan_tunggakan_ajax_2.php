@@ -66,6 +66,7 @@
         <?php
             $i=0;
             $tstyle = " ";
+            
             foreach($v_customer->result() as $r):
                 $i++;
                 if($i % 2 == 0):

@@ -224,7 +224,6 @@
                                 $report_out = explode("##",$mystring);
 								$keterangan .= " | ".$report_out[1];
                                 $report_out = $report_out[0];
-								
                             }
                             
 				    ?>

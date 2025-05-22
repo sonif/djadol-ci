@@ -40,20 +40,48 @@ class Laporan extends MY_Controller {
     public function tunggakan_ajax(){
         $v_data = array();
         $cb_year = $this->input->post('cb_year');
-        $cb_dusun = $this->input->post('cb_dusun');
+        $cb_month = $this->input->post('cb_month');
+        $cb_agen = $this->input->post('cb_agen');
 
-        $q = "SELECT v_input_tagihan.*, v_tunggakan.*
-                FROM v_input_tagihan   
-                LEFT JOIN v_tunggakan ON  v_input_tagihan.customer_id = v_tunggakan.tunggakan_customer_id                          
-            WHERE  transaksi_status = 'tagihan' AND transaksi_year_issue = '".$cb_year."' AND customer_dusun_id='".$cb_dusun."'"
-            ." ORDER BY customer_code";
-
-        $v_data['v_customer'] = $this->db->query($q);
-        $v_data['input_tahun']=$cb_year;
-        $v_data['input_dusun']=$cb_dusun;
-
-        $this->load->model("laporan/M_laporan");
-        $v_data['month'] = $this->M_laporan->get_month_array_s();
+        $q = "SELECT DISTINCT(date_field)
+                ,IFNULL(`t_absen_datang`.absen_date_time,0) as datang
+                ,IFNULL(`t_absen_pulang`.absen_date_time,0) as pulang
+                ,IFNULL(`t_absen_datang`.absen_date,0)
+                ,`t_absen_datang`.absen_user_id as uid_datang
+                ,`t_absen_datang`.absen_status as status_datang
+                ,`t_absen_pulang`.absen_user_id as uid_pulang
+                ,`t_absen_pulang`.absen_status as status_pulang
+                FROM 
+                (SELECT date_field
+                    FROM
+                    (
+                        SELECT
+                            MAKEDATE(".$cb_year.",1) +
+                            INTERVAL ('".$cb_month."'-1) MONTH +
+                            INTERVAL daynum DAY date_field
+                        FROM
+                        (
+                            SELECT t*10+u daynum
+                            FROM
+                                (SELECT 0 t UNION SELECT 1 UNION SELECT 2 UNION SELECT 3) A,
+                                (SELECT 0 u UNION SELECT 1 UNION SELECT 2 UNION SELECT 3
+                                UNION SELECT 4 UNION SELECT 5 UNION SELECT 6 UNION SELECT 7
+                                UNION SELECT 8 UNION SELECT 9) B
+                            ORDER BY daynum
+                        ) AA
+                    ) AAA
+                    WHERE MONTH(date_field) = '".$cb_month."') AS tbday
+                    LEFT JOIN 
+                    (SELECT absen_date_time,absen_date,absen_user_id,absen_status FROM t_absen WHERE absen_user_id = '".$cb_agen."') as t_absen_datang 
+                    ON tbday.date_field = t_absen_datang.absen_date 
+                    LEFT JOIN 
+                    (SELECT absen_date_time,absen_date,absen_user_id,absen_status FROM t_absen_out WHERE absen_user_id = '".$cb_agen."') as t_absen_pulang 
+                    ON tbday.date_field = t_absen_pulang.absen_date 
+                    ORDER BY date_field;";
+        // echo $q;
+        $v_data['v_report'] = $this->db->query($q);
+        $v_data['input_month']=$cb_month;
+        $v_data['input_year']=$cb_year;
 
         $this->load->view('v_laporan_tunggakan_ajax',$v_data);
     }

@@ -24,35 +24,33 @@
 
     <center>
         <?php
-            $tt = "Laporan Tunggakan";
+            $tt = "Laporan Presensi";
             if(!empty($rtitle)){
                 $tt = $rtitle;
             }
         ?>
-        <h2><?php echo $tt." (Tahun ".$input_tahun.")"; ?></h2>
+        <h2><?php echo $tt." (Tahun ".$input_year.")"; ?></h2>
+        <h3>Nama User : </h3>
     </center>
 
     <table align="center" class="table-report" border="1" width="98%" cellspacing="0" cellpadding="2px" style="width: 98%;">
         <thead>                            
             <tr>
-                <th width="30" align="center">No</th>
-                <th width="30" align="center">Tag. Bulan</th>
-                <th width="200" align="center">Pelanggan</th>
-                <th width="200" align="center">Dusun</th>
-                <th width="80" align="center">RT/RW</th>
-                <th width="80" align="center">Stan</th>
-                <th width="100" align="center">(m3)</th> 
-                <th width="100" align="center" >Tunggakan</th>
-                <th width="100" align="center" >Denda</th>
-                <th width="100" align="center" >Admin</th>
-                <th width="100" align="center" >Total</th>   
+                <th rowspan="2" align="center">Tanggal</th>
+                <th colspan="2">Absen</th>
+                <th rowspan="2">Keterangan</th>
+            </tr>
+            <tr>
+                <th>Datang</th>
+                <th>Pulang</th>
             </tr>
         </thead>
     <tbody>
         <?php
             $i=0;
             $tstyle = " ";
-            foreach($v_customer->result() as $r):
+            // var_dump($v_report->result());
+            foreach($v_report->result() as $r):
                 $i++;
                 if($i % 2 == 0):
                     $tstyle = " class='trow' ";
@@ -60,28 +58,40 @@
                     $tstyle = "";
                 endif;
 
+                $jam_dtg = explode(" ",$r->datang);
+                $jam_plg = explode(" ",$r->pulang);
+                
+                $mystring = $r->status_datang;
+                $findme   = '##';
+                $pos = strpos($mystring, $findme);
+                
+                $keterangan = "";
+                if($pos == false){
+                    $report_in = (isset($jam_dtg[1])) ? $jam_dtg[1] : "";
+                }else{
+                    $report_in = explode("##",$mystring);
+                    $keterangan = $report_in[1];
+                    $report_in = $report_in[0];    
+                }
+                
+                $mystring = $r->status_pulang;
+                $findme   = '##';
+                $pos = strpos($mystring, $findme);
+                
+                if($pos == false){
+                    $report_out = (isset($jam_plg[1])) ? $jam_plg[1] : "";
+                }else{
+                    $report_out = explode("##",$mystring);
+                    $keterangan .= " | ".$report_out[1];
+                    $report_out = $report_out[0];
+                }
         ?>
         
             <tr <?php echo $tstyle; ?>>
-
-                <td align="center" >
-                    <?php 
-                        echo $i; 
-                        if($r->jumlah_tunggakan >= 3):
-                            echo "(*)";
-                        endif;
-                    ?>
-                </td>
-                <td align="center" ><?php echo $month[$r->transaksi_month_issue]."/".$r->transaksi_year_issue; ?></td>
-                <td><?php echo "(".$r->customer_code.") ".$r->customer_fullname;?></td>
-                <td><?php echo $r->dusun_name;?></td>
-                <td align="center"><?php echo $r->customer_rt."/".$r->customer_rw;?></td>
-                <td align="center"><?php echo $r->transaksi_count_before."-".$r->transaksi_count_now;?></td>
-                <td align="center" ><?php echo ($r->transaksi_count_now-$r->transaksi_count_before); ?></td>
-                <td align="right" ><?php echo $r->transaksi_subtotal; ?></td>   
-                <td align="right" ><?php echo ($r->transaksi_pinalty); ?></td>
-                <td align="right" ><?php echo ($r->transaksi_admin_price); ?></td>  
-                <td align="right" ><?php echo ($r->transaksi_total); ?></td>   
+                <td align="center"><?php echo $r->date_field;?></td>
+                <td><?php echo $report_in;?> </td>
+                <td><?php echo $report_out;?> </td>
+                <td><?php echo $keterangan;?></td>
             </tr>
             
         <?php
