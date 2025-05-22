@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 9.0.1)
 # Database: aman_db
-# Generation Time: 2025-05-22 13:39:30 +0000
+# Generation Time: 2025-05-22 14:04:09 +0000
 # ************************************************************
 
 
@@ -301,7 +301,7 @@ VALUES
 	(69,2,40,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
 	(70,4,40,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
 	(71,4,42,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(72,3,42,'y','[\"xread\",\"xcreate\"]',NULL),
+	(72,3,42,'y','[\"xread\"]',NULL),
 	(73,1,42,'y','[\"xread\"]',NULL),
 	(77,3,32,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
 	(78,1,44,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
@@ -309,7 +309,7 @@ VALUES
 	(80,1,45,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
 	(81,2,45,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
 	(82,3,45,'y','[\"xread\"]',NULL),
-	(83,2,42,'y','[\"xread\",\"xcreate\",\"xupdate\"]',NULL),
+	(83,2,42,'y','[\"xread\"]',NULL),
 	(84,1,47,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
 	(85,2,47,'y','[\"xread\",\"xcreate\"]',NULL),
 	(86,3,47,'y','[\"xread\",\"xcreate\"]',NULL),
@@ -493,7 +493,7 @@ CREATE TABLE `s_form_param` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `lnk_m_form_m_form_param` (`form_id`) USING BTREE,
   CONSTRAINT `s_form_param_ibfk_1` FOREIGN KEY (`form_id`) REFERENCES `s_form` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=230 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=231 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
 
 LOCK TABLES `s_form_param` WRITE;
 /*!40000 ALTER TABLE `s_form_param` DISABLE KEYS */;
@@ -551,8 +551,8 @@ VALUES
 	(183,'company id',37,'company_id','select_ajax',NULL,NULL,'dd_company',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(184,'product id',37,'product_id','select_ajax',NULL,NULL,'dd_product',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(185,'count',37,'count','numeric',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
-	(186,'price',37,'price','numeric',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
-	(187,'subtotal',37,'subtotal','numeric',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
+	(186,'price',37,'price','numeric',NULL,NULL,'',NULL,NULL,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
+	(187,'subtotal',37,'subtotal','numeric',NULL,NULL,'',NULL,NULL,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(188,'status',37,'status','select_ajax',NULL,NULL,'dd_jurnal_type',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(189,'agen id',33,'agen_id','select_ajax',NULL,NULL,'dd_user_agen',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(194,'product id',39,'product_id','select_ajax',3,NULL,'dd_product',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
@@ -590,7 +590,8 @@ VALUES
 	(226,'absen lattitude',42,'absen_lattitude','latitude',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(227,'absen longitude',42,'absen_longitude','longitude',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(228,'absen foto',42,'absen_foto','img',NULL,NULL,'',NULL,1,1,NULL,'uploads/absen_pulang/','col-md-6',0,NULL,NULL,NULL),
-	(229,'absen status',42,'absen_status','text',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL);
+	(229,'absen status',42,'absen_status','text',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
+	(230,'agen id (diisi jika out ke agen)',37,'agen_id','select_ajax',NULL,NULL,'dd_user_agen',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL);
 
 /*!40000 ALTER TABLE `s_form_param` ENABLE KEYS */;
 UNLOCK TABLES;
