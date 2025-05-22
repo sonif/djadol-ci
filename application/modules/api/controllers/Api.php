@@ -124,9 +124,8 @@ class Api extends REST_Controller {
 
     public function form_action_post()
     {
-
-        $res['status'] = 'NOT OK';
-        $res['success'] = false;
+        $http_code =400;
+        $this->output->set_status_header($http_code);
         $res['message'] = 'Simpan gagal';
 
         $form_id = $this->input->post('form_id');
@@ -166,6 +165,7 @@ class Api extends REST_Controller {
         if ($this->form_validation->run() == FALSE) {
             $res['message'] = 'Lengkapi form dengan benar';
             $res['field_error'] = $this->form_validation->error_array();
+            
         } else {
             foreach ($form_param->result() as $p) {
                 if ($p->type == 'upload') continue;
@@ -221,11 +221,13 @@ class Api extends REST_Controller {
                     $data[$key]=$value;
                 }
             }
-            // var_dump($data);die();
             // $this->db->trans_start();
             $data['created_at'] = date("Y-m-d H:i:s");
             if (empty($id)) {
                 $data['created_by'] = $this->data['user']->id;
+                 if($this->data['user']->usergroup_id !=1){
+                    $data['company_id'] = $this->data['user']->company_id;
+                }
                 // DO before insert
                 // if(file_exists(APPPATH."modules/formx_custom/models/M_".$m_form->form_table."_custom.php")){
                 //     $this->load->model("formx_custom/M_".$m_form->form_table."_custom.php");
@@ -234,6 +236,7 @@ class Api extends REST_Controller {
                     $data = $this->M_before_insert->{$m_form->form_table}($data);
                 }
                     # code...
+                    // var_dump($data);die();
 
                 if($id =$this->Formx_model->insert($data)){
                     if ($id_temp = $this->input->post('id_temp')) {
@@ -257,8 +260,7 @@ class Api extends REST_Controller {
                     }
 
                     // resturn respone
-                    $res['status'] = 'OK';
-                    $res['success'] = true;
+                    $http_code = 200;
                     $res['id'] = $id;
                     $res['message'] = 'Simpan berhasil';
                 }
@@ -277,19 +279,17 @@ class Api extends REST_Controller {
                         }else{
                             $res['datatable'] = 'datatable_'.$form_id;
                         }
-                        $res['status'] = 'OK';
-                        $res['success'] = true;
+                        $http_code = 200;
                         $res['message'] = 'Simpan berhasil';
                     }
                 } else {
-                    $res['status'] = 'NOT OK';
-                    $res['success'] = false;
                     $res['message'] = 'Data not found';
                 }
             }
             // $this->db->trans_complete();
         }
-        $this->output->set_content_type('application/json')->set_output(json_encode($res));
+        $this->response($res,$http_code);
+        // $this->output->set_content_type('application/json')->set_output(json_encode($res));
     }
 
     public function _upload($targetPath="",$form_upload_name='doc_file')
