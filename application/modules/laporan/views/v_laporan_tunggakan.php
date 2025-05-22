@@ -11,7 +11,7 @@
                     <div class="form-group col-md-5">
                         <label for="cb_month">Bulan</label>
                         <select name='cb_month' id="cb_month" class='form-control select2-ajax' data-url='<?php echo site_url('formx/dropdown/dd/dd_month') ?>'>
-                            <option value="<?php echo date('m')+0; ?>" selected="selected"></option>
+                            
                         </select>   
                     </div>
                     <div class="form-group col-md-3">
