@@ -29,8 +29,11 @@
                 $tt = $rtitle;
             }
         ?>
-        <h2><?php echo $tt." (Tahun ".$input_year.")"; ?></h2>
-        <h3>Nama User : </h3>
+        <h2><?php echo $tt; ?></h2>
+        <div>
+            <?php echo "(Bulan : ".$input_month.", Tahun ".$input_year.")"; ?><br/>
+            Nama User : 
+        </div>
     </center>
 
     <table align="center" class="table-report" border="1" width="98%" cellspacing="0" cellpadding="2px" style="width: 98%;">
