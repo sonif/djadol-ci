@@ -1,0 +1,33 @@
+###
+
+POST http://amanah.local/index.php/api/auth/login
+Content-Type: application/x-www-form-urlencoded
+
+username=sales1&&password=sales1
+###
+
+
+POST http://amanah.local/index.php/api/form_action
+token: e8084ef026210fca3137f2a956c37cf1c7d07c5146a7445491bc622354c69dd7
+Content-Type: application/x-www-form-urlencoded
+
+form_id=41&&absen_lattitude=8198277&&absen_longitude=276183612786
+###
+
+
+POST http://amanah.local/index.php/api/form_action
+token: e8084ef026210fca3137f2a956c37cf1c7d07c5146a7445491bc622354c69dd7
+Content-Type: application/x-www-form-urlencoded
+
+form_id=42&&absen_lattitude=8198277&&absen_longitude=276183612786
+###
+
+POST http://amanah.local/index.php/api/form_action
+token: e8084ef026210fca3137f2a956c37cf1c7d07c5146a7445491bc622354c69dd7
+Content-Type: application/x-www-form-urlencoded
+
+form_id=31&&name=tokoabc&&location_lat=276183612786&&location_long=276112786
+### 
+todo : query laporan absen by created_by
+todo : before insert jurnal_agen_sales
+todo : after input jurnal_stock
