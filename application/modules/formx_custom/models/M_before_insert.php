@@ -30,11 +30,25 @@ class M_before_insert extends CI_Model {
 	}
 
 	public function jurnal_agen_sales($data){
-		$user = $this->data['created_by'];
+		$user = $data['created_by'];
 		$data['agen_id'] = $user;
 		return $data;
 	}
 
+	public function jurnal_stock($data){
+		$product_id = $data['product_id'];
+		$q = "SELECT * FROM t_product WHERE id='".$product_id."';";
+		$product = $this->db->query($q);
+		$product = $product->row();
+		$product_price_purchase = $product->price_purchase;
+		if($data['status']=='out'){
+			$data['count'] = $data['count'] * -1;
+		}
+		
+		$data['price'] = $product_price_purchase;
+		$data['subtotal'] = $product_price_purchase * $data['count'];
+		return $data;
+	}
 	// public function m_user($data)
 	// {
 	// 	$w = array(
