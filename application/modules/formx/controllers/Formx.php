@@ -410,7 +410,8 @@ class Formx extends MY_Controller
             // $this->db->trans_start();
             if (empty($id)) {
                 $this->_is_allowed("xcreate",$form_id);
-
+                $data['created_by'] = $this->data['user_id'];
+                $data['created_at'] = date('Y-m-d H:i:s');
                 // $this->load->library('uuid');
                 // $data['id']=$this->uuid->v4();
                 // DO before insert
@@ -458,6 +459,8 @@ class Formx extends MY_Controller
                 }
             }else{
                 $this->_is_allowed("xupdate",$form_id);
+                $data['updated_by'] = $this->data['user_id'];
+                $data['updated_at'] = date('Y-m-d H:i:s');
 
                 $row = $this->Formx_model->get($id);
 
