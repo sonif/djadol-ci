@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 9.0.1)
 # Database: aman_db
-# Generation Time: 2025-05-23 03:22:55 +0000
+# Generation Time: 2025-05-23 15:31:46 +0000
 # ************************************************************
 
 
@@ -67,18 +67,8 @@ CREATE TABLE `jurnal_stock` (
   `deleted_at` datetime DEFAULT NULL,
   `agen_id` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-LOCK TABLES `jurnal_stock` WRITE;
-/*!40000 ALTER TABLE `jurnal_stock` DISABLE KEYS */;
-
-INSERT INTO `jurnal_stock` (`id`, `date`, `warehouse_id`, `company_id`, `product_id`, `count`, `price`, `subtotal`, `status`, `created_by`, `created_at`, `updated_by`, `updated_at`, `deleted_at`, `agen_id`)
-VALUES
-	(1,'2025-05-23',1,1,4,500,28000,14000000,'in',NULL,NULL,NULL,NULL,NULL,NULL),
-	(3,'2025-05-23',1,1,4,-200,28000,-5600000,'out',NULL,NULL,NULL,NULL,NULL,NULL);
-
-/*!40000 ALTER TABLE `jurnal_stock` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump of table m_company
@@ -206,7 +196,7 @@ CREATE TABLE `m_retail` (
   `updated_by` int DEFAULT NULL,
   `company_id` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 LOCK TABLES `m_retail` WRITE;
 /*!40000 ALTER TABLE `m_retail` DISABLE KEYS */;
@@ -214,7 +204,8 @@ LOCK TABLES `m_retail` WRITE;
 INSERT INTO `m_retail` (`id`, `name`, `address`, `location_lat`, `location_long`, `picture`, `created_at`, `updated_at`, `deleted_at`, `created_by`, `updated_by`, `company_id`)
 VALUES
 	(1,'Toko Socah','Socah','0.177878','0.9892187','Screenshot_2025-04-11_at_14.12.58.png',NULL,NULL,NULL,NULL,NULL,NULL),
-	(2,'tokoabc',NULL,'276183612786','276112786',NULL,'2025-05-22 13:38:23',NULL,NULL,31,NULL,1);
+	(2,'tokoabc','Rungkut','276183612786','276112786',NULL,'2025-05-22 13:38:23','2025-05-23 15:29:06',NULL,31,1,1),
+	(3,'Toko Basmalah','Graha Kamal Permai','8723166','171833',NULL,NULL,'2025-05-23 15:30:27',NULL,NULL,1,NULL);
 
 /*!40000 ALTER TABLE `m_retail` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -310,7 +301,7 @@ VALUES
 	(82,3,45,'y','[\"xread\"]',NULL),
 	(83,2,42,'y','[\"xread\"]',NULL),
 	(84,1,47,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(85,2,47,'y','[\"xread\",\"xcreate\",\"xupdate\"]',NULL),
+	(85,2,47,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
 	(86,3,47,'y','[\"xread\",\"xcreate\",\"xupdate\"]',NULL),
 	(87,1,46,'y','[\"xread\"]',NULL),
 	(88,2,46,'y','null',NULL),
@@ -791,17 +782,8 @@ CREATE TABLE `stock_warehouse` (
   `updated_at` datetime DEFAULT NULL,
   `updated_by` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
-LOCK TABLES `stock_warehouse` WRITE;
-/*!40000 ALTER TABLE `stock_warehouse` DISABLE KEYS */;
-
-INSERT INTO `stock_warehouse` (`id`, `product_id`, `company_id`, `warehouse_id`, `count`, `created_at`, `created_by`, `updated_at`, `updated_by`)
-VALUES
-	(3,4,1,1,800,NULL,NULL,NULL,NULL);
-
-/*!40000 ALTER TABLE `stock_warehouse` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump of table t_absen
@@ -908,8 +890,8 @@ CREATE TABLE `t_product` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
   `picture` varchar(255) DEFAULT NULL,
-  `price_sale` decimal(20,0) DEFAULT NULL,
   `price_purchase` decimal(20,0) DEFAULT NULL,
+  `price_sale` decimal(20,0) DEFAULT NULL,
   `price_agen` decimal(20,0) DEFAULT NULL,
   `created_by` int DEFAULT NULL,
   `updated_by` int DEFAULT NULL,
@@ -918,17 +900,34 @@ CREATE TABLE `t_product` (
   `deleted_at` datetime DEFAULT NULL,
   `company_id` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 LOCK TABLES `t_product` WRITE;
 /*!40000 ALTER TABLE `t_product` DISABLE KEYS */;
 
-INSERT INTO `t_product` (`id`, `name`, `picture`, `price_sale`, `price_purchase`, `price_agen`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`, `company_id`)
+INSERT INTO `t_product` (`id`, `name`, `picture`, `price_purchase`, `price_sale`, `price_agen`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`, `company_id`)
 VALUES
-	(1,'Genesis Mild',NULL,12000,10000,15000,NULL,NULL,NULL,NULL,NULL,1),
-	(2,'Genesis Kretek',NULL,22000,20000,24000,NULL,NULL,NULL,NULL,NULL,1),
-	(3,'Genesis Forsa',NULL,24000,20000,25000,NULL,NULL,NULL,NULL,NULL,1),
-	(4,'genesis alpha',NULL,30000,28000,31000,NULL,NULL,NULL,NULL,NULL,1);
+	(1,'DJAVA HIJAU-(12)',NULL,6650,7800,7600,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(2,'DJAVA HIJAU-(16)',NULL,8300,9500,8500,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(3,'LENTERA-(16)',NULL,8300,9500,8500,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(4,'DJAVA MERAH-(12)',NULL,6650,7800,7600,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(5,'DJAVA PREMIUM GOLD-(12)',NULL,10500,11300,11100,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(6,'LONGSIZE-(12)',NULL,10000,11000,10800,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(7,'OCHA-(12)',NULL,8100,9100,8900,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(8,'HK REEBORN-(12)',NULL,6600,7750,7550,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(9,'OCHA MANGO-(12)',NULL,8000,9000,8800,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(10,'OCHA GUAVA-(12)',NULL,8000,9000,8800,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(11,'OCHA FILTER-(12)',NULL,14500,15500,15300,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(12,'OCHA FILTER-(20)',NULL,24000,26000,24800,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(13,'DJAVA FILTER-(12)',NULL,14500,15500,15300,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(14,'DJAVA FILTER-(20)',NULL,24000,25000,24800,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(15,'LAKSAMANA-(12)',NULL,14500,15500,15300,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(16,'LAKSAMANA-(20)',NULL,24000,25000,24800,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(17,'DJAVA MILD BLUE-(16)',NULL,22000,23000,22800,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(18,'DJAVA FLAVOUR BLUEBERRY-(16)',NULL,23000,24000,23800,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(19,'DJAVA FLAVOUR PINEAPPLE-(16)',NULL,23000,24000,23800,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(20,'KING DJAVA CLASSIC-(20)',NULL,24500,25500,25300,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(21,'KING DJAVA MENTHOL-(20)',NULL,25500,26500,26300,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1);
 
 /*!40000 ALTER TABLE `t_product` ENABLE KEYS */;
 UNLOCK TABLES;
