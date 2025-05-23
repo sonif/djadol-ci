@@ -309,6 +309,11 @@ class Formx extends MY_Controller
         $res['success'] = false;
         $res['message'] = 'Simpan gagal';
 
+        $datalog_user = $this->data['user'];
+        if($datalog_user->usergroup_id !=1){
+            $data['company_id'] = $datalog_user->company_id;
+        }
+
         $form_id = $this->input->post('form_id');
         $id = $this->input->post('id');
         $m_form = $this->M_form->get($form_id);
@@ -410,7 +415,7 @@ class Formx extends MY_Controller
             // $this->db->trans_start();
             if (empty($id)) {
                 $this->_is_allowed("xcreate",$form_id);
-                $data['created_by'] = $this->data['user_id'];
+                $data['created_by'] = $datalog_user->id;
                 $data['created_at'] = date('Y-m-d H:i:s');
                 // $this->load->library('uuid');
                 // $data['id']=$this->uuid->v4();
@@ -419,11 +424,6 @@ class Formx extends MY_Controller
                     $data = $this->M_before_insert->{$m_form->form_table}($data);
                 }
                     # code...
-
-                $datalog_user = $this->data['user'];
-                if($datalog_user->usergroup_id !=1){
-                    $data['company_id'] = $datalog_user->company_id;
-                }
 
                 if($id =$this->Formx_model->insert($data)){
                     // if ($id_temp = $this->input->post('id_temp')) {
@@ -459,7 +459,7 @@ class Formx extends MY_Controller
                 }
             }else{
                 $this->_is_allowed("xupdate",$form_id);
-                $data['updated_by'] = $this->data['user_id'];
+                $data['updated_by'] = $datalog_user->id;
                 $data['updated_at'] = date('Y-m-d H:i:s');
 
                 $row = $this->Formx_model->get($id);
@@ -615,7 +615,7 @@ class Formx extends MY_Controller
         $ar_haklistakses= get_listakses_formx($this->usergroup_id, 'form_'.$form_id);
 
         if (!in_array($access, $ar_haklistakses)){
-            show_error('not have permission');
+            show_error('not have permission'); //cut off procedure
         }
     }
 
