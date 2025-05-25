@@ -40,7 +40,7 @@ class Api extends REST_Controller {
 
     }
 
-    public function all_get($form_id=null)
+    public function all_post($form_id=null)
     {
         if(empty($form_id))
             $form_id = $this->input->post('form_id');
