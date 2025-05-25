@@ -267,7 +267,11 @@ class Formx extends MY_Controller
 
     public function form($form_id=null,$id=null)
     {
-        $this->_is_allowed("xupdate",$form_id);
+        if (empty($id)) {
+            $this->_is_allowed("xcreate",$form_id);
+        }else{
+            $this->_is_allowed("xupdate",$form_id);
+        }
 
         $this->_form_data($form_id,$id);
     }
