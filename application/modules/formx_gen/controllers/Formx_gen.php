@@ -339,7 +339,7 @@ class Formx_gen extends MY_Controller {
 
         $data['non_pk'] = $this->Formx_model->get_param($form_id)->result();
         $data['dt'] = $this->Formx_model->get_param_datatable($form_id)->result();
-        $data['label'] = $data['dt']{0}->column_name;
+        $data['label'] = $data['dt'][0]->column_name;
 
         // var_dump ($c);
         // die();
