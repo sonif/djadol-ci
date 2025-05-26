@@ -19,7 +19,7 @@
     	<?php foreach ($field->result() as $r): ?>
             <?php if($r->column_name == $pk) continue;?>
             <?php if($r->column_name == 'id') continue;?>
-            <?php if($r->column_name == 'created_at') continue;?>
+            <?php //if($r->column_name == 'created_at') continue;?>
             <?php if($r->column_name == 'created_by') continue;?>
             <?php if($r->column_name == 'updated_at') continue;?>
             <?php if($r->column_name == 'updated_by') continue;?>
