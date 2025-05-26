@@ -11,6 +11,7 @@ application/logs/*
 application/config/database.php
 application/config/config.php
 
+db/*.gz
 composer.lock
 
 user_guide_src/build/*
