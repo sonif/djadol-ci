@@ -28,6 +28,22 @@ class Formx_gen extends MY_Controller {
         system($command);
     }
 
+    public function backupdb(){
+        $dbhost = 'localhost:3036';
+        $dbname = 'aman';
+        $dbuser = 'root';
+        $dbpass = 'adisonif1';
+        
+        $backup_file = $dbname . date("Y-m-d-H-i-s") . '.gz';
+        $command = "mysqldump --opt -h $dbhost -u $dbuser -p $dbpass ". "test_db | gzip > $backup_file";
+        
+        system($command);
+        $command = "mv $backup_file  db/$backup_file";
+        system($command);
+
+        //header('Location: '.base_url(). "db/".$backup_file);
+    }
+
     public function getDatatable()
     {
         $customActionName=$this->input->post('customActionName');
