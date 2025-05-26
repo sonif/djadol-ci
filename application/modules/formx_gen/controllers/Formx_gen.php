@@ -33,34 +33,38 @@ class Formx_gen extends MY_Controller {
     }
 
     public function backupdb(){
-        $this->load->database();
+        try {
+            $this->load->database();
 
-        $dbhost = $this->db->hostname.':3036';
-        $dbname = $this->db->database;
-        $dbuser = $this->db->username;
-        $dbpass = $this->db->password;
-        
-        //$backup_file = $dbname . date("Y-m-d-H-i-s") . '.gz';
-        $backup_file = $dbname . '.gz';
-        $command = "mysqldump --opt -h $dbhost -u $dbuser -p $dbpass ". "test_db | gzip > $backup_file";
-        
-        system($command);
-        $command = "mv $backup_file  db/$backup_file";
-        system($command);
-        //force_download("db/".$backup_file);
-        //header('Location: '.base_url(). "db/".$backup_file);
-        $res['success'] = true;
-        $res['message'] = 'Backup DB Berhasil : db/'.$backup_file;
-        $data['html_content'] = "
-        <h1>Backup DB Berhasil</h1>
-        <p>
-        Download File Dsini : <br/>
-        <a href='".base_url("db/".$backup_file)."' target='_blank'>File Backup</a>
-        <p>
-        ";
-         
-        // $this->output->set_content_type('application/json')->set_output(json_encode($res));
-        $this->template("v_custom_html",$data);
+            $dbhost = $this->db->hostname.':3036';
+            $dbname = $this->db->database;
+            $dbuser = $this->db->username;
+            $dbpass = $this->db->password;
+            
+            //$backup_file = $dbname . date("Y-m-d-H-i-s") . '.gz';
+            $backup_file = $dbname . '.gz';
+            $command = "mysqldump --opt -h $dbhost -u $dbuser -p $dbpass ". "test_db | gzip > $backup_file";
+            
+            system($command);
+            $command = "mv $backup_file  db/$backup_file";
+            system($command);
+            //force_download("db/".$backup_file);
+            //header('Location: '.base_url(). "db/".$backup_file);
+            $res['success'] = true;
+            $res['message'] = 'Backup DB Berhasil : db/'.$backup_file;
+            $data['html_content'] = "
+            <h1>Backup DB Berhasil</h1>
+            <p>
+            Download File Dsini : <br/>
+            <a href='".base_url("db/".$backup_file)."' target='_blank'>File Backup</a>
+            <p>
+            ";
+            
+            // $this->output->set_content_type('application/json')->set_output(json_encode($res));
+            $this->template("v_custom_html",$data);
+        } catch (Exception $e) {
+            echo 'Caught exception: ',  $e->getMessage(), "\n";
+        }
     }
 
     public function getDatatable()
