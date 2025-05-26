@@ -46,9 +46,9 @@ class Formx_gen extends MY_Controller {
             $backup_file = $dbname . '.gz';
             $command = "mysqldump --opt -h $dbhost -u $dbuser -p $dbpass ". "test_db | gzip > $backup_file";
             
-            system($command);
+            shell_exec($command);
             $command = "mv $backup_file  db/$backup_file";
-            system($command);
+            shell_exec($command);
             //force_download("db/".$backup_file);
             //header('Location: '.base_url(). "db/".$backup_file);
             $res['success'] = true;
