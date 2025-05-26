@@ -111,7 +111,7 @@ class Formx_model extends MY_Model {
             if ($p->type == 'upload') {
                 continue;
             }
-            if ($p->type == 'int' || $p->type == 'int_separator' || $p->type == 'date') {
+            if ($p->type == 'int' || $p->type == 'int_separator' || $p->type == 'date'|| $p->type == 'datetime') {
                 if(!empty($this->input->post($p->column_name.'_min'))){
                     $where[$p->column_name.' >='] = $this->input->post($p->column_name.'_min');
                 }
