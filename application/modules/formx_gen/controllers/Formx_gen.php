@@ -25,9 +25,10 @@ class Formx_gen extends MY_Controller {
 
     public function gitpull(){
         $command = "sudo git pull";
-        system($command);
+        $output = system($command);
         $res['success'] = true;
         $res['message'] = 'Pull Repository OK';
+        $res['output'] = $output;
          
         $this->output->set_content_type('application/json')->set_output(json_encode($res));
     }
