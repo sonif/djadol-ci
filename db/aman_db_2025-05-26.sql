@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 9.0.1)
 # Database: aman_db
-# Generation Time: 2025-05-22 14:04:09 +0000
+# Generation Time: 2025-05-26 03:08:45 +0000
 # ************************************************************
 
 
@@ -33,7 +33,7 @@ CREATE TABLE `jurnal_agen_sales` (
   `count` int DEFAULT NULL,
   `price` decimal(10,0) DEFAULT NULL,
   `subtotal` decimal(10,0) DEFAULT NULL,
-  `status` varchar(3) DEFAULT NULL,
+  `status` varchar(3) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `created_by` int DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_by` int DEFAULT NULL,
@@ -41,19 +41,8 @@ CREATE TABLE `jurnal_agen_sales` (
   `deleted_at` datetime DEFAULT NULL,
   `company_id` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
-LOCK TABLES `jurnal_agen_sales` WRITE;
-/*!40000 ALTER TABLE `jurnal_agen_sales` DISABLE KEYS */;
-
-INSERT INTO `jurnal_agen_sales` (`id`, `agen_id`, `product_id`, `retail_id`, `count`, `price`, `subtotal`, `status`, `created_by`, `created_at`, `updated_by`, `updated_at`, `deleted_at`, `company_id`)
-VALUES
-	(1,31,4,1,100,20000,NULL,'in',NULL,NULL,NULL,NULL,NULL,1),
-	(2,31,4,1,50,20000,NULL,'in',NULL,NULL,NULL,NULL,NULL,1),
-	(3,31,4,1,30,20000,NULL,'in',NULL,NULL,NULL,NULL,NULL,1);
-
-/*!40000 ALTER TABLE `jurnal_agen_sales` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump of table jurnal_stock
@@ -70,7 +59,7 @@ CREATE TABLE `jurnal_stock` (
   `count` int DEFAULT NULL,
   `price` decimal(10,0) DEFAULT NULL,
   `subtotal` decimal(10,0) DEFAULT NULL,
-  `status` varchar(3) DEFAULT NULL,
+  `status` varchar(3) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `created_by` int DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_by` int DEFAULT NULL,
@@ -78,7 +67,7 @@ CREATE TABLE `jurnal_stock` (
   `deleted_at` datetime DEFAULT NULL,
   `agen_id` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
 
 
@@ -89,14 +78,14 @@ DROP TABLE IF EXISTS `m_company`;
 
 CREATE TABLE `m_company` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `address` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `phone` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `logo` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `phone` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `logo` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `latitude` decimal(10,0) DEFAULT NULL,
   `longitude` decimal(10,0) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
-  `created_by` int DEFAULT NULL,
+  `created_by` int(10) unsigned zerofill DEFAULT NULL,
   `updated_by` int DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `deleted_at` datetime DEFAULT NULL,
@@ -112,31 +101,6 @@ VALUES
 	(2,'CV. Surabaya','Surabaya','085259300068',NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 
 /*!40000 ALTER TABLE `m_company` ENABLE KEYS */;
-UNLOCK TABLES;
-
-
-# Dump of table m_config
-# ------------------------------------------------------------
-
-DROP TABLE IF EXISTS `m_config`;
-
-CREATE TABLE `m_config` (
-  `config_id` int NOT NULL,
-  `config_name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `config_value` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  PRIMARY KEY (`config_id`) USING BTREE
-) ENGINE=MyISAM DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
-
-LOCK TABLES `m_config` WRITE;
-/*!40000 ALTER TABLE `m_config` DISABLE KEYS */;
-
-INSERT INTO `m_config` (`config_id`, `config_name`, `config_value`)
-VALUES
-	(1,'app_name','Hippam'),
-	(2,'admin_price','2000'),
-	(3,'company_address','Bojonegoro');
-
-/*!40000 ALTER TABLE `m_config` ENABLE KEYS */;
 UNLOCK TABLES;
 
 
@@ -167,11 +131,11 @@ DROP TABLE IF EXISTS `m_productcategory`;
 
 CREATE TABLE `m_productcategory` (
   `productcategory_id` int NOT NULL AUTO_INCREMENT,
-  `productcategory_name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `productcategory_name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `productcategory_price` decimal(10,2) DEFAULT NULL,
   `productcategory_created_date` datetime DEFAULT CURRENT_TIMESTAMP,
-  `productcategory_created_by` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `productcategory_parent_id` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `productcategory_created_by` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `productcategory_parent_id` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   PRIMARY KEY (`productcategory_id`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
@@ -195,11 +159,11 @@ DROP TABLE IF EXISTS `m_retail`;
 
 CREATE TABLE `m_retail` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) DEFAULT NULL,
-  `address` varchar(255) DEFAULT NULL,
-  `location_lat` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci DEFAULT NULL,
-  `location_long` varchar(100) DEFAULT NULL,
-  `picture` varchar(255) DEFAULT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `location_lat` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `location_long` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `picture` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
@@ -207,7 +171,7 @@ CREATE TABLE `m_retail` (
   `updated_by` int DEFAULT NULL,
   `company_id` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb3;
 
 LOCK TABLES `m_retail` WRITE;
 /*!40000 ALTER TABLE `m_retail` DISABLE KEYS */;
@@ -215,7 +179,8 @@ LOCK TABLES `m_retail` WRITE;
 INSERT INTO `m_retail` (`id`, `name`, `address`, `location_lat`, `location_long`, `picture`, `created_at`, `updated_at`, `deleted_at`, `created_by`, `updated_by`, `company_id`)
 VALUES
 	(1,'Toko Socah','Socah','0.177878','0.9892187','Screenshot_2025-04-11_at_14.12.58.png',NULL,NULL,NULL,NULL,NULL,NULL),
-	(2,'tokoabc',NULL,'276183612786','276112786',NULL,'2025-05-22 13:38:23',NULL,NULL,31,NULL,1);
+	(2,'tokoabc','Rungkut','276183612786','276112786',NULL,'2025-05-22 13:38:23','2025-05-23 15:29:06',NULL,31,1,1),
+	(3,'Toko Basmalah','Graha Kamal Permai','8723166','171833',NULL,NULL,'2025-05-23 15:30:27',NULL,NULL,1,NULL);
 
 /*!40000 ALTER TABLE `m_retail` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -228,10 +193,10 @@ DROP TABLE IF EXISTS `m_warehouse`;
 
 CREATE TABLE `m_warehouse` (
   `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `address` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `phone` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
-  `logo` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `address` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `phone` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `logo` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `latitude` decimal(10,0) DEFAULT NULL,
   `longitude` decimal(10,0) DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
@@ -266,6 +231,10 @@ CREATE TABLE `s_akses` (
   `akses_active` varchar(1) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT 'y',
   `akses_code` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `order` int DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `updated_by` int DEFAULT NULL,
+  `created_by` int DEFAULT NULL,
   PRIMARY KEY (`akses_id`) USING BTREE,
   KEY `lnk_m_menu_t_akses` (`menu_id`) USING BTREE,
   KEY `lnk_m_usergroup_t_akses` (`usergroup_id`) USING BTREE,
@@ -276,52 +245,51 @@ CREATE TABLE `s_akses` (
 LOCK TABLES `s_akses` WRITE;
 /*!40000 ALTER TABLE `s_akses` DISABLE KEYS */;
 
-INSERT INTO `s_akses` (`akses_id`, `usergroup_id`, `menu_id`, `akses_active`, `akses_code`, `order`)
+INSERT INTO `s_akses` (`akses_id`, `usergroup_id`, `menu_id`, `akses_active`, `akses_code`, `order`, `created_at`, `updated_at`, `updated_by`, `created_by`)
 VALUES
-	(1,1,1,'y','[\"xcreate\",\"xread\",\"xupdate\",\"xdelete\"]',1),
-	(2,1,2,'y','[\"xcreate\",\"xread\",\"xupdate\",\"xdelete\"]',1),
-	(3,1,3,'y','[\"xcreate\",\"xupdate\",\"xdelete\"]',1),
-	(19,1,10,'y','null',NULL),
-	(35,1,26,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(43,1,29,'y','[\"xupdate\"]',NULL),
-	(48,1,32,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(49,2,32,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(57,1,37,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(58,3,37,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(59,4,37,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(60,1,38,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(61,2,38,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(62,1,39,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(63,3,3,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(64,3,10,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(65,1,40,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(66,1,41,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(67,2,10,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(68,2,3,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(69,2,40,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(70,4,40,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(71,4,42,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(72,3,42,'y','[\"xread\"]',NULL),
-	(73,1,42,'y','[\"xread\"]',NULL),
-	(77,3,32,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(78,1,44,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(79,2,44,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(80,1,45,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(81,2,45,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(82,3,45,'y','[\"xread\"]',NULL),
-	(83,2,42,'y','[\"xread\"]',NULL),
-	(84,1,47,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(85,2,47,'y','[\"xread\",\"xcreate\"]',NULL),
-	(86,3,47,'y','[\"xread\",\"xcreate\"]',NULL),
-	(87,1,46,'y','[\"xread\"]',NULL),
-	(88,2,46,'y','null',NULL),
-	(89,3,46,'y','null',NULL),
-	(90,1,49,'y','[\"xread\"]',NULL),
-	(91,2,49,'y','[\"xread\"]',NULL),
-	(92,3,49,'y','[\"xread\"]',NULL),
-	(94,1,50,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(95,2,26,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL),
-	(96,3,26,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL);
+	(1,1,1,'y','[\"xcreate\",\"xread\",\"xupdate\",\"xdelete\"]',1,NULL,NULL,NULL,NULL),
+	(2,1,2,'y','[\"xcreate\",\"xread\",\"xupdate\",\"xdelete\"]',1,NULL,NULL,NULL,NULL),
+	(3,1,3,'y','[\"xcreate\",\"xupdate\",\"xdelete\"]',1,NULL,NULL,NULL,NULL),
+	(19,1,10,'y','null',NULL,NULL,NULL,NULL,NULL),
+	(35,1,26,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
+	(48,1,32,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
+	(49,2,32,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
+	(57,1,37,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
+	(58,3,37,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
+	(59,4,37,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
+	(60,1,38,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
+	(61,2,38,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
+	(62,1,39,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
+	(63,3,3,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
+	(64,3,10,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
+	(65,1,40,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
+	(66,1,41,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
+	(67,2,10,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
+	(68,2,3,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
+	(69,2,40,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
+	(70,4,40,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
+	(71,4,42,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
+	(72,3,42,'y','[\"xread\"]',NULL,NULL,NULL,NULL,NULL),
+	(73,1,42,'y','[\"xread\"]',NULL,NULL,NULL,NULL,NULL),
+	(77,3,32,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
+	(78,1,44,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
+	(79,2,44,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
+	(80,1,45,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
+	(81,2,45,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
+	(82,3,45,'y','[\"xread\"]',NULL,NULL,NULL,NULL,NULL),
+	(83,2,42,'y','[\"xread\"]',NULL,NULL,NULL,NULL,NULL),
+	(84,1,47,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
+	(85,2,47,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
+	(86,3,47,'y','[\"xread\",\"xcreate\",\"xupdate\"]',NULL,NULL,NULL,NULL,NULL),
+	(87,1,46,'y','[\"xread\"]',NULL,NULL,NULL,NULL,NULL),
+	(88,2,46,'y','null',NULL,NULL,NULL,NULL,NULL),
+	(89,3,46,'y','null',NULL,NULL,NULL,NULL,NULL),
+	(90,1,49,'y','[\"xread\"]',NULL,NULL,NULL,NULL,NULL),
+	(91,2,49,'y','[\"xread\"]',NULL,NULL,NULL,NULL,NULL),
+	(92,3,49,'y','[\"xread\"]',NULL,NULL,NULL,NULL,NULL),
+	(94,1,50,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
+	(95,2,26,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
+	(96,3,26,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL);
 
 /*!40000 ALTER TABLE `s_akses` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -493,7 +461,7 @@ CREATE TABLE `s_form_param` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `lnk_m_form_m_form_param` (`form_id`) USING BTREE,
   CONSTRAINT `s_form_param_ibfk_1` FOREIGN KEY (`form_id`) REFERENCES `s_form` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=231 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=233 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
 
 LOCK TABLES `s_form_param` WRITE;
 /*!40000 ALTER TABLE `s_form_param` DISABLE KEYS */;
@@ -533,7 +501,7 @@ VALUES
 	(157,'subtotal',33,'subtotal','numeric',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(158,'status',33,'status','select_ajax',NULL,NULL,'dd_jurnal_type',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(167,'name',30,'name','text',NULL,NULL,'',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
-	(168,'picture',30,'picture','img',NULL,NULL,'',NULL,1,1,NULL,'uploads/product/','col-md-6',0,NULL,NULL,NULL),
+	(168,'picture',30,'picture','img',NULL,NULL,'',NULL,1,NULL,NULL,'uploads/product/','col-md-6',0,NULL,NULL,NULL),
 	(169,'price sale',30,'price_sale','numeric',NULL,NULL,'',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
 	(170,'price purchase',30,'price_purchase','numeric',NULL,NULL,'',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
 	(171,'name',35,'name','text',NULL,NULL,'',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
@@ -553,7 +521,7 @@ VALUES
 	(185,'count',37,'count','numeric',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(186,'price',37,'price','numeric',NULL,NULL,'',NULL,NULL,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(187,'subtotal',37,'subtotal','numeric',NULL,NULL,'',NULL,NULL,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
-	(188,'status',37,'status','select_ajax',NULL,NULL,'dd_jurnal_type',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
+	(188,'status',37,'status','select',NULL,NULL,'dd_jurnal_type',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(189,'agen id',33,'agen_id','select_ajax',NULL,NULL,'dd_user_agen',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(194,'product id',39,'product_id','select_ajax',3,NULL,'dd_product',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
 	(195,'agen id',39,'agen_id','select_ajax',2,NULL,'dd_user_agen',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
@@ -591,7 +559,9 @@ VALUES
 	(227,'absen longitude',42,'absen_longitude','longitude',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(228,'absen foto',42,'absen_foto','img',NULL,NULL,'',NULL,1,1,NULL,'uploads/absen_pulang/','col-md-6',0,NULL,NULL,NULL),
 	(229,'absen status',42,'absen_status','text',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
-	(230,'agen id (diisi jika out ke agen)',37,'agen_id','select_ajax',NULL,NULL,'dd_user_agen',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL);
+	(230,'agen id (diisi jika out ke agen)',37,'agen_id','select_ajax',NULL,NULL,'dd_user_agen',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
+	(231,'price agen',30,'price_agen','numeric',NULL,NULL,'',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
+	(232,'company id',30,'company_id','text',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL);
 
 /*!40000 ALTER TABLE `s_form_param` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -606,7 +576,7 @@ CREATE TABLE `s_form_parent` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `form_parent_id` int NOT NULL,
   `form_child_id` int NOT NULL,
-  `form_child_fk` varchar(100) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `form_child_fk` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `id` (`id`) USING BTREE
 ) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
@@ -650,11 +620,10 @@ VALUES
 	(3,'user',NULL,'formx/formx/table/user','fa fa-user',10,'y','form_3',101),
 	(10,'Master',NULL,'','',0,'y','',1),
 	(26,'Laporan',NULL,'','',0,'y','',3),
-	(29,'Config',NULL,'formx/formx/table/28',NULL,10,'y','form_28',0),
 	(32,'Presensi Agen/Employee',NULL,'laporan/laporan/tunggakan','fa fa-table',26,'y','',0),
 	(37,'Data Toko Retail',NULL,'formx/formx/table/31','fa fa-home',10,'y','form_31',0),
 	(38,'Master Product',NULL,'formx/formx/table/30',NULL,10,'y','form_30',0),
-	(39,'Data Company',NULL,'formx/formx/table/32','',10,'y','form_32',0),
+	(39,'Data Company',NULL,'formx/formx/table/32','',1,'y','form_32',0),
 	(40,'Jurnal',NULL,'','fa fa-chart',0,'y','',1),
 	(41,'sys-form generator',NULL,'formx_gen/','',1,'y','',NULL),
 	(42,'Transaksi Agen/Sales',NULL,'formx/formx/table/33','',40,'y','form_33',0),
@@ -745,10 +714,10 @@ LOCK TABLES `s_usergroup` WRITE;
 
 INSERT INTO `s_usergroup` (`id`, `created_at`, `updated_at`, `deleted_at`, `created_by`, `updated_by`, `name`, `desc`)
 VALUES
-	(1,'2019-02-14 03:47:52',NULL,NULL,NULL,NULL,'1. owner','administrator'),
-	(2,'2021-01-19 06:00:20',NULL,NULL,NULL,NULL,'2. admin',NULL),
-	(3,'2021-01-19 06:00:20',NULL,NULL,NULL,NULL,'3. distributor',NULL),
-	(4,'2021-01-19 06:00:20',NULL,NULL,NULL,NULL,'4. agen',NULL);
+	(1,'2019-02-14 10:47:52',NULL,NULL,NULL,NULL,'1. owner','administrator'),
+	(2,'2021-01-19 13:00:20',NULL,NULL,NULL,NULL,'2. admin',NULL),
+	(3,'2021-01-19 13:00:20',NULL,NULL,NULL,NULL,'3. distributor',NULL),
+	(4,'2021-01-19 13:00:20',NULL,NULL,NULL,NULL,'4. agen',NULL);
 
 /*!40000 ALTER TABLE `s_usergroup` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -770,17 +739,8 @@ CREATE TABLE `stock_agen` (
   `updated_by` int DEFAULT NULL,
   `company_id` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
-LOCK TABLES `stock_agen` WRITE;
-/*!40000 ALTER TABLE `stock_agen` DISABLE KEYS */;
-
-INSERT INTO `stock_agen` (`id`, `product_id`, `agen_id`, `count`, `created_at`, `created_by`, `updated_at`, `updated_by`, `company_id`)
-VALUES
-	(1,4,31,30,NULL,NULL,NULL,NULL,1);
-
-/*!40000 ALTER TABLE `stock_agen` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump of table stock_warehouse
@@ -799,17 +759,8 @@ CREATE TABLE `stock_warehouse` (
   `updated_at` datetime DEFAULT NULL,
   `updated_by` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
-LOCK TABLES `stock_warehouse` WRITE;
-/*!40000 ALTER TABLE `stock_warehouse` DISABLE KEYS */;
-
-INSERT INTO `stock_warehouse` (`id`, `product_id`, `company_id`, `warehouse_id`, `count`, `created_at`, `created_by`, `updated_at`, `updated_by`)
-VALUES
-	(1,4,1,1,500,NULL,NULL,NULL,NULL);
-
-/*!40000 ALTER TABLE `stock_warehouse` ENABLE KEYS */;
-UNLOCK TABLES;
 
 
 # Dump of table t_absen
@@ -820,12 +771,12 @@ DROP TABLE IF EXISTS `t_absen`;
 CREATE TABLE `t_absen` (
   `absen_id` int NOT NULL AUTO_INCREMENT,
   `absen_date` date DEFAULT NULL,
-  `absen_user_id` varchar(255) DEFAULT NULL,
+  `absen_user_id` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `absen_date_time` datetime DEFAULT NULL,
-  `absen_lattitude` varchar(255) DEFAULT NULL,
-  `absen_longitude` varchar(255) DEFAULT NULL,
-  `absen_foto` text,
-  `absen_status` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `absen_lattitude` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `absen_longitude` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `absen_foto` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci,
+  `absen_status` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `created_by` int DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
@@ -854,12 +805,12 @@ DROP TABLE IF EXISTS `t_absen_out`;
 CREATE TABLE `t_absen_out` (
   `absen_id` int NOT NULL AUTO_INCREMENT,
   `absen_date` date DEFAULT NULL,
-  `absen_user_id` varchar(255) DEFAULT NULL,
+  `absen_user_id` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `absen_date_time` datetime DEFAULT NULL,
-  `absen_lattitude` varchar(255) DEFAULT NULL,
-  `absen_longitude` varchar(255) DEFAULT NULL,
-  `absen_foto` text,
-  `absen_status` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci DEFAULT NULL,
+  `absen_lattitude` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `absen_longitude` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `absen_foto` text CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci,
+  `absen_status` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   `created_by` int DEFAULT NULL,
@@ -887,10 +838,10 @@ DROP TABLE IF EXISTS `t_media`;
 
 CREATE TABLE `t_media` (
   `media_id` int NOT NULL AUTO_INCREMENT,
-  `media_file` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `media_title` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `media_category` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `media_url` varchar(100) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `media_file` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `media_title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `media_category` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `media_url` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `status` int DEFAULT NULL,
   PRIMARY KEY (`media_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -914,10 +865,11 @@ DROP TABLE IF EXISTS `t_product`;
 
 CREATE TABLE `t_product` (
   `id` int unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) DEFAULT NULL,
-  `picture` varchar(255) DEFAULT NULL,
-  `price_sale` decimal(20,0) DEFAULT NULL,
+  `name` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
+  `picture` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `price_purchase` decimal(20,0) DEFAULT NULL,
+  `price_sale` decimal(20,0) DEFAULT NULL,
+  `price_agen` decimal(20,0) DEFAULT NULL,
   `created_by` int DEFAULT NULL,
   `updated_by` int DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
@@ -925,17 +877,34 @@ CREATE TABLE `t_product` (
   `deleted_at` datetime DEFAULT NULL,
   `company_id` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb3;
 
 LOCK TABLES `t_product` WRITE;
 /*!40000 ALTER TABLE `t_product` DISABLE KEYS */;
 
-INSERT INTO `t_product` (`id`, `name`, `picture`, `price_sale`, `price_purchase`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`, `company_id`)
+INSERT INTO `t_product` (`id`, `name`, `picture`, `price_purchase`, `price_sale`, `price_agen`, `created_by`, `updated_by`, `created_at`, `updated_at`, `deleted_at`, `company_id`)
 VALUES
-	(1,'Genesis Mild',NULL,12000,10000,NULL,NULL,NULL,NULL,NULL,1),
-	(2,'Genesis Kretek',NULL,22000,20000,NULL,NULL,NULL,NULL,NULL,1),
-	(3,'Genesis Forsa',NULL,24000,20000,NULL,NULL,NULL,NULL,NULL,1),
-	(4,'genesis alpha',NULL,30000,28000,NULL,NULL,NULL,NULL,NULL,1);
+	(1,'DJAVA HIJAU-(12)',NULL,6650,7800,7600,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(2,'DJAVA HIJAU-(16)',NULL,8300,9500,8500,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(3,'LENTERA-(16)',NULL,8300,9500,8500,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(4,'DJAVA MERAH-(12)',NULL,6650,7800,7600,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(5,'DJAVA PREMIUM GOLD-(12)',NULL,10500,11300,11100,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(6,'LONGSIZE-(12)',NULL,10000,11000,10800,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(7,'OCHA-(12)',NULL,8100,9100,8900,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(8,'HK REEBORN-(12)',NULL,6600,7750,7550,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(9,'OCHA MANGO-(12)',NULL,8000,9000,8800,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(10,'OCHA GUAVA-(12)',NULL,8000,9000,8800,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(11,'OCHA FILTER-(12)',NULL,14500,15500,15300,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(12,'OCHA FILTER-(20)',NULL,24000,26000,24800,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(13,'DJAVA FILTER-(12)',NULL,14500,15500,15300,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(14,'DJAVA FILTER-(20)',NULL,24000,25000,24800,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(15,'LAKSAMANA-(12)',NULL,14500,15500,15300,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(16,'LAKSAMANA-(20)',NULL,24000,25000,24800,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(17,'DJAVA MILD BLUE-(16)',NULL,22000,23000,22800,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(18,'DJAVA FLAVOUR BLUEBERRY-(16)',NULL,23000,24000,23800,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(19,'DJAVA FLAVOUR PINEAPPLE-(16)',NULL,23000,24000,23800,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(20,'KING DJAVA CLASSIC-(20)',NULL,24500,25500,25300,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1),
+	(21,'KING DJAVA MENTHOL-(20)',NULL,25500,26500,26300,30,NULL,'2025-05-23 14:21:45',NULL,NULL,1);
 
 /*!40000 ALTER TABLE `t_product` ENABLE KEYS */;
 UNLOCK TABLES;
