@@ -181,7 +181,7 @@
           <div class="col-xl-6">
             <div class="copyright text-center text-xl-left text-muted">
               <!-- &copy; 2020  -->
-              <a href="http://binotech.co.id" class="font-weight-bold ml-1" target="_blank"> Powered by Binotech</a>
+              <a href="http://kopicode.com" class="font-weight-bold ml-1" target="_blank"> Powered by fal-son</a>
             </div>
           </div>
         </div>
