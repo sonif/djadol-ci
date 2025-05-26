@@ -9,7 +9,7 @@ class Formx_gen extends MY_Controller {
         $this->load->model('M_form');
         $this->load->model('M_form_param');
         $this->load->helper('permission');
-
+        $this->load->helper('download');
         if($this->db->dbdriver == 'mysqli'){
             $this->load->model('M_table_mysql','M_table');
         }elseif($this->db->dbdriver == 'postgre'){
@@ -40,7 +40,7 @@ class Formx_gen extends MY_Controller {
         system($command);
         $command = "mv $backup_file  db/$backup_file";
         system($command);
-
+        force_download("db/".$backup_file);
         //header('Location: '.base_url(). "db/".$backup_file);
     }
 
