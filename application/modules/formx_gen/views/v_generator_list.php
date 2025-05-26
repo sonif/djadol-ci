@@ -9,7 +9,7 @@
                 <div class="col-4 text-right">
                     <div class="btn-group" >
                         <button data-url="<?php echo site_url('formx_gen/formx_gen/backupdb/')?>" class="btn btn-circle btn-success btn-sm openmodal">
-                            <i class="fa fa-pencil"></i> Dump Dbx
+                            <i class="fa fa-pencil"></i> Dump Db
                         </button>
                     </div>
                     <div class="btn-group" >
