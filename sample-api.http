@@ -1,39 +1,41 @@
+@token = 357de571a276f7c10ee474cd365bda98e4f4b5a2a8f7d155655bd4399907bb8e
+@host = https://kirim.kopicode.com/index.php/api
 ###
 
-POST http://amanah.local/index.php/api/auth/login
+POST {{host}}/auth/login
 Content-Type: application/x-www-form-urlencoded
 
 username=sales1&&password=sales1
 ###
 
 
-POST http://amanah.local/index.php/api/form_action
-token: e8084ef026210fca3137f2a956c37cf1c7d07c5146a7445491bc622354c69dd7
+POST {{host}}/form_action
+token: {{token}}
 Content-Type: application/x-www-form-urlencoded
 
 form_id=41&&absen_lattitude=8198277&&absen_longitude=276183612786
 ###
 
 
-POST http://amanah.local/index.php/api/form_action
-token: e8084ef026210fca3137f2a956c37cf1c7d07c5146a7445491bc622354c69dd7
+POST {{host}}/form_action
+token: {{token}}
 Content-Type: application/x-www-form-urlencoded
 
 form_id=42&&absen_lattitude=8198277&&absen_longitude=276183612786
 ###
 //test toko retail
-POST http://amanah.local/index.php/api/form_action
-token: e8084ef026210fca3137f2a956c37cf1c7d07c5146a7445491bc622354c69dd7
+POST {{host}}/form_action
+token: {{token}}
 Content-Type: application/x-www-form-urlencoded
 
 form_id=31&&name=tokoabc&&location_lat=276183612786&&location_long=276112786
 ### 
-###
+
 //test jurnal agen
-POST http://amanah.local/index.php/api/form_action
-token: e8084ef026210fca3137f2a956c37cf1c7d07c5146a7445491bc622354c69dd7
+POST {{host}}/form_action
+token: {{token}}
 Content-Type: application/x-www-form-urlencoded
 
-form_id=33&&count=10&&price=10000&&retail_id=1&&product_id=4
+form_id=33&&count=10&&retail_id=1&&product_id=4
 ### 
 todo : after input jurnal_stock, isi harga, isi subtotal, dan aksi terhadap jurnal agen sales
