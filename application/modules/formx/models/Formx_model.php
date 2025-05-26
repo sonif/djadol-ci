@@ -116,7 +116,7 @@ class Formx_model extends MY_Model {
                     $where[$p->column_name.' >='] = $this->input->post($p->column_name.'_min')." 00:00:00";
                 }
                 if(!empty($this->input->post($p->column_name.'_max'))){
-                    $where[$p->column_name.' <='] = $this->input->post($p->column_name.'_max')." 24:00:00";
+                    $where[$p->column_name.' <='] = $this->input->post($p->column_name.'_max')." 23:59:59";
                 }
             }
             if ($p->type == 'int' || $p->type == 'int_separator' || $p->type == 'date') {
