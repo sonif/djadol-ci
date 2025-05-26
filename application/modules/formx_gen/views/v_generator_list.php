@@ -8,7 +8,7 @@
                 </div>
                 <div class="col-4 text-right">
                     <div class="btn-group" >
-                        <button data-url="<?php echo site_url('formx_gen/formx_gen/gitpull/')?>" class="btn btn-circle btn-info btn-sm openmodal">
+                        <button data-url="<?php echo site_url('formx_gen/formx_gen/gitpull/')?>" class="btn btn-circle btn-warning btn-sm openmodal">
                             <i class="fa fa-pencil"></i> Git Pull
                         </button>
                     </div>
