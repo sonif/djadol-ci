@@ -25,12 +25,11 @@ class Formx_gen extends MY_Controller {
 
     public function gitpull(){
         $command = "git pull";
-        $output = shell_exec($command);
-        $res['success'] = true;
-        $res['message'] = 'Pull Repository OK';
-        $res['output'] = $output;
+        echo shell_exec($command);
+        // $res['success'] = true;
+        // $res['message'] = 'Pull Repository OK';
          
-        $this->output->set_content_type('application/json')->set_output(json_encode($res));
+        // $this->output->set_content_type('application/json')->set_output(json_encode($res));
     }
 
     public function backupdb(){
