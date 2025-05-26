@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 9.0.1)
 # Database: aman_db
-# Generation Time: 2025-05-26 03:47:02 +0000
+# Generation Time: 2025-05-26 14:58:49 +0000
 # ************************************************************
 
 
@@ -18,6 +18,27 @@ SET NAMES utf8mb4;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE='NO_AUTO_VALUE_ON_ZERO', SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+
+# Dump of table jurnal_agen
+# ------------------------------------------------------------
+
+DROP TABLE IF EXISTS `jurnal_agen`;
+
+CREATE TABLE `jurnal_agen` (
+  `id` int unsigned NOT NULL AUTO_INCREMENT,
+  `company_id` int DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `created_by` int DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL,
+  `updated_by` int DEFAULT NULL,
+  `retail_id` int DEFAULT NULL,
+  `photo` varchar(255) DEFAULT NULL,
+  `agen_id` int DEFAULT NULL,
+  `latlong` varchar(100) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+
 
 
 # Dump of table jurnal_agen_sales
@@ -40,6 +61,7 @@ CREATE TABLE `jurnal_agen_sales` (
   `updated_at` datetime DEFAULT NULL,
   `deleted_at` datetime DEFAULT NULL,
   `company_id` int DEFAULT NULL,
+  `jurnal_id` int DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
 
@@ -461,7 +483,7 @@ CREATE TABLE `s_form_param` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `lnk_m_form_m_form_param` (`form_id`) USING BTREE,
   CONSTRAINT `s_form_param_ibfk_1` FOREIGN KEY (`form_id`) REFERENCES `s_form` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=233 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=235 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
 
 LOCK TABLES `s_form_param` WRITE;
 /*!40000 ALTER TABLE `s_form_param` DISABLE KEYS */;
@@ -487,8 +509,8 @@ VALUES
 	(139,'media url',29,'media_url','text',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(144,'name',31,'name','text',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(145,'address',31,'address','textarea',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
-	(146,'latitude',31,'location_lat','latitude',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
-	(147,'longitude',31,'location_long','longitude',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
+	(146,'latitude',31,'location_lat','latlong',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
+	(147,'longitude',31,'location_long','text',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(148,'picture',31,'picture','img',NULL,NULL,'',NULL,1,NULL,NULL,'uploads/retail/','col-md-6',0,NULL,NULL,NULL),
 	(149,'name',32,'name','text',NULL,NULL,'',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
 	(150,'address',32,'address','textarea',NULL,NULL,'',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
@@ -500,10 +522,10 @@ VALUES
 	(156,'price',33,'price','numeric',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(157,'subtotal',33,'subtotal','numeric',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(158,'status',33,'status','select_ajax',NULL,NULL,'dd_jurnal_type',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
-	(167,'name',30,'name','text',NULL,NULL,'',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
-	(168,'picture',30,'picture','img',NULL,NULL,'',NULL,1,NULL,NULL,'uploads/product/','col-md-6',0,NULL,NULL,NULL),
-	(169,'price sale',30,'price_sale','numeric',NULL,NULL,'',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
-	(170,'price purchase',30,'price_purchase','numeric',NULL,NULL,'',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
+	(167,'name',30,'name','text',1,NULL,'',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
+	(168,'picture',30,'picture','img',2,NULL,'',NULL,1,NULL,NULL,'uploads/product/','col-md-6',0,NULL,NULL,NULL),
+	(169,'price sale',30,'price_sale','numeric',4,NULL,'',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
+	(170,'price purchase',30,'price_purchase','numeric',3,NULL,'',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
 	(171,'name',35,'name','text',NULL,NULL,'',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
 	(172,'address',35,'address','text',NULL,NULL,'',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
 	(173,'phone',35,'phone','text',NULL,NULL,'',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
@@ -560,8 +582,10 @@ VALUES
 	(228,'absen foto',42,'absen_foto','img',NULL,NULL,'',NULL,1,1,NULL,'uploads/absen_pulang/','col-md-6',0,NULL,NULL,NULL),
 	(229,'absen status',42,'absen_status','text',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(230,'agen id (diisi jika out ke agen)',37,'agen_id','select_ajax',NULL,NULL,'dd_user_agen',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
-	(231,'price agen',30,'price_agen','numeric',NULL,NULL,'',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
-	(232,'company id',30,'company_id','text',NULL,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL);
+	(231,'price agen',30,'price_agen','numeric',5,NULL,'',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
+	(232,'company id',30,'company_id','select_ajax',6,NULL,'dd_company',NULL,NULL,NULL,NULL,'','col-md-6',0,NULL,NULL,NULL),
+	(233,'created at',33,'created_at','date',NULL,NULL,'',NULL,NULL,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
+	(234,'latitude',32,'latitude','latlong',NULL,NULL,'',NULL,NULL,1,NULL,'','col-md-6',0,NULL,NULL,NULL);
 
 /*!40000 ALTER TABLE `s_form_param` ENABLE KEYS */;
 UNLOCK TABLES;
