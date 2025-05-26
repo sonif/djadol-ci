@@ -33,10 +33,12 @@ class Formx_gen extends MY_Controller {
     }
 
     public function backupdb(){
-        $dbhost = 'localhost:3036';
-        $dbname = 'aman';
-        $dbuser = 'root';
-        $dbpass = 'adisonif1';
+        $this->load->database();
+
+        $dbhost = $this->db->hostname.':3036';
+        $dbname = $this->db->database;
+        $dbuser = $this->db->username;
+        $dbpass = $this->db->password;
         
         //$backup_file = $dbname . date("Y-m-d-H-i-s") . '.gz';
         $backup_file = $dbname . '.gz';
