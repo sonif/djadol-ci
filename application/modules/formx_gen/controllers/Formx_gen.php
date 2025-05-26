@@ -25,7 +25,7 @@ class Formx_gen extends MY_Controller {
 
     public function gitpull(){
         $command = "sudo git pull";
-        $output = system($command);
+        $output = shell_exec($command);
         $res['success'] = true;
         $res['message'] = 'Pull Repository OK';
         $res['output'] = $output;
