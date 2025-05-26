@@ -23,6 +23,11 @@ class Formx_gen extends MY_Controller {
         $this->template('v_generator_list');
     }
 
+    public function gitpull(){
+        $command = "sudo git pull";
+        system($command);
+    }
+
     public function getDatatable()
     {
         $customActionName=$this->input->post('customActionName');
