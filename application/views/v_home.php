@@ -27,6 +27,12 @@
       <div id="refquran" class=""></div>
       </div>
     </div>
+    <div class="card">
+      <div class="card-body">
+         <a class="btn btn-warning" href="<?php echo base_url("android/djadol-release.apk"); ?>" target="blank">Download App-Android</a>
+      </div>
+    </div>
+
   </div>
 </div>
 
