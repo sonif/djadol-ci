@@ -106,8 +106,7 @@
                             "file":"file",
                             "img":"img",
                             "password":"password",
-                            "latitude":"latitude",
-                            "longitude":"longitude"
+                            "latlong":"latlong"
                         }',true);
                         // echo form_dropdown("type_".$r->column_name, $options,$set_type);
                      ?>

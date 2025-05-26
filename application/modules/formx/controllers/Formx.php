@@ -212,6 +212,10 @@ class Formx extends MY_Controller
                         $row[]='<a href="'. base_url($p->path_upload.$d->{$p->column_name}).'" class="btn blue"><i class="fa fa-download"></i> Download'
                         // .$d->{$p->column_name}
                         .'</a>';
+                    }elseif ($p->type == 'latlong') {
+                        $row[]='<a href="#" target="blank" class="btn blue"><i class="fa fa-map"></i> show'
+                        // .$d->{$p->column_name}
+                        .'</a>';
                     }elseif ($p->type == 'img') {
                         if(!empty($p->path_upload)){
                             $folder_upload = $p->path_upload;
