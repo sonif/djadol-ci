@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 9.0.1)
 # Database: aman_db
-# Generation Time: 2025-05-26 15:20:05 +0000
+# Generation Time: 2025-05-27 01:42:32 +0000
 # ************************************************************
 
 
@@ -37,8 +37,17 @@ CREATE TABLE `jurnal_agen` (
   `agen_id` int DEFAULT NULL,
   `latlong` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 
+LOCK TABLES `jurnal_agen` WRITE;
+/*!40000 ALTER TABLE `jurnal_agen` DISABLE KEYS */;
+
+INSERT INTO `jurnal_agen` (`id`, `company_id`, `created_at`, `created_by`, `updated_at`, `updated_by`, `retail_id`, `photo`, `agen_id`, `latlong`)
+VALUES
+	(1,1,'2025-05-26 15:27:40',30,NULL,NULL,3,NULL,31,'');
+
+/*!40000 ALTER TABLE `jurnal_agen` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table jurnal_agen_sales
@@ -65,8 +74,17 @@ CREATE TABLE `jurnal_agen_sales` (
   PRIMARY KEY (`id`),
   KEY `jurnal_agen_sales_relation_1` (`jurnal_id`),
   CONSTRAINT `jurnal_agen_sales_relation_1` FOREIGN KEY (`jurnal_id`) REFERENCES `jurnal_agen` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 
+LOCK TABLES `jurnal_agen_sales` WRITE;
+/*!40000 ALTER TABLE `jurnal_agen_sales` DISABLE KEYS */;
+
+INSERT INTO `jurnal_agen_sales` (`id`, `agen_id`, `product_id`, `retail_id`, `count`, `price`, `subtotal`, `status`, `created_by`, `created_at`, `updated_by`, `updated_at`, `deleted_at`, `company_id`, `jurnal_id`)
+VALUES
+	(1,30,14,3,-80,3000,-1984000,'out',30,'2025-05-26 15:34:49',NULL,NULL,NULL,1,1);
+
+/*!40000 ALTER TABLE `jurnal_agen_sales` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table jurnal_stock
@@ -264,7 +282,7 @@ CREATE TABLE `s_akses` (
   KEY `lnk_m_usergroup_t_akses` (`usergroup_id`) USING BTREE,
   CONSTRAINT `s_akses_ibfk_1` FOREIGN KEY (`usergroup_id`) REFERENCES `s_usergroup` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
   CONSTRAINT `s_akses_ibfk_2` FOREIGN KEY (`menu_id`) REFERENCES `s_menu` (`menu_id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=100 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
 
 LOCK TABLES `s_akses` WRITE;
 /*!40000 ALTER TABLE `s_akses` DISABLE KEYS */;
@@ -301,7 +319,7 @@ VALUES
 	(80,1,45,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
 	(81,2,45,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
 	(82,3,45,'y','[\"xread\"]',NULL,NULL,NULL,NULL,NULL),
-	(83,2,42,'y','[\"xread\"]',NULL,NULL,NULL,NULL,NULL),
+	(83,2,42,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,'2025-05-26 15:33:15',1,NULL),
 	(84,1,47,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
 	(85,2,47,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
 	(86,3,47,'y','[\"xread\",\"xcreate\",\"xupdate\"]',NULL,NULL,NULL,NULL,NULL),
@@ -313,7 +331,10 @@ VALUES
 	(92,3,49,'y','[\"xread\"]',NULL,NULL,NULL,NULL,NULL),
 	(94,1,50,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
 	(95,2,26,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
-	(96,3,26,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL);
+	(96,3,26,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,NULL,NULL,NULL,NULL),
+	(97,1,51,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,'2025-05-26 15:26:24',NULL,NULL,1),
+	(98,2,51,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,'2025-05-26 15:26:33',NULL,NULL,1),
+	(99,4,51,'y','[\"xread\",\"xcreate\",\"xupdate\",\"xdelete\"]',NULL,'2025-05-26 15:26:41',NULL,NULL,1);
 
 /*!40000 ALTER TABLE `s_akses` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -412,7 +433,7 @@ CREATE TABLE `s_form` (
   `is_import` smallint DEFAULT '0',
   `form_table_read` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=44 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
 
 LOCK TABLES `s_form` WRITE;
 /*!40000 ALTER TABLE `s_form` DISABLE KEYS */;
@@ -427,14 +448,15 @@ VALUES
 	(30,'Master Product','t_product',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,'datatable','t_product_admin',0,'t_product'),
 	(31,'Data Toko Retail','m_retail',NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,'datatable','m_retail',0,'m_retail'),
 	(32,'Data Company','m_company',NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,'datatable','m_company',0,'m_company'),
-	(33,'Transaksi Agen/Sales','jurnal_agen_sales',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,'datatable','jurnal_agen_sales',0,'jurnal_agen_sales'),
+	(33,'Transaksi Agen/Sales','jurnal_agen_sales',43,'jurnal_id',0,NULL,NULL,NULL,NULL,NULL,'datatable','jurnal_agen_sales',0,'jurnal_agen_sales'),
 	(35,'Warehouse','m_warehouse',NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,'datatable','m_warehouse',0,'m_warehouse'),
 	(36,'Stock di Warehouse','stock_warehouse',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,'datatable','stock_warehouse',0,'stock_warehouse'),
 	(37,'Transaksi Warehouse','jurnal_stock',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,'datatable','jurnal_stock',0,'jurnal_stock'),
 	(39,'Stock di Agen','stock_agen',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,'datatable','stock_agen',0,'stock_agen'),
 	(40,'sys-user','s_user',NULL,NULL,1,NULL,NULL,NULL,NULL,NULL,'datatable','sys-s_user',0,'s_user'),
 	(41,'Absen Datang','t_absen',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,'datatable','t_absen',0,'t_absen'),
-	(42,'Absen Pulang','t_absen_out',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,'datatable','t_absen_out',0,'t_absen_out');
+	(42,'Absen Pulang','t_absen_out',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,'datatable','t_absen_out',0,'t_absen_out'),
+	(43,'jurnal_agen','jurnal_agen',NULL,NULL,0,NULL,NULL,NULL,NULL,NULL,'datatable','jurnal_agen',0,'jurnal_agen');
 
 /*!40000 ALTER TABLE `s_form` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -485,7 +507,7 @@ CREATE TABLE `s_form_param` (
   PRIMARY KEY (`id`) USING BTREE,
   KEY `lnk_m_form_m_form_param` (`form_id`) USING BTREE,
   CONSTRAINT `s_form_param_ibfk_1` FOREIGN KEY (`form_id`) REFERENCES `s_form` (`id`) ON DELETE CASCADE ON UPDATE RESTRICT
-) ENGINE=InnoDB AUTO_INCREMENT=235 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=240 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
 
 LOCK TABLES `s_form_param` WRITE;
 /*!40000 ALTER TABLE `s_form_param` DISABLE KEYS */;
@@ -587,7 +609,12 @@ VALUES
 	(231,'price agen',30,'price_agen','numeric',5,NULL,'',NULL,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
 	(232,'company id',30,'company_id','select_ajax',6,NULL,'dd_company',NULL,NULL,NULL,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(233,'created at',33,'created_at','date',NULL,NULL,'',NULL,NULL,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
-	(234,'latitude',32,'latitude','latlong',NULL,NULL,'',NULL,NULL,1,NULL,'','col-md-6',0,NULL,NULL,NULL);
+	(234,'latitude',32,'latitude','latlong',NULL,NULL,'',NULL,NULL,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
+	(235,'agen id',43,'agen_id','select_ajax',1,NULL,'dd_user_agen',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
+	(236,'created at',43,'created_at','datetime',5,NULL,'',NULL,NULL,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
+	(237,'latlong',43,'latlong','latlong',4,NULL,'',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
+	(238,'photo',43,'photo','img',3,NULL,'',NULL,1,1,NULL,'uploads/jurnal_agen/','col-md-6',0,NULL,NULL,NULL),
+	(239,'retail id',43,'retail_id','select_ajax',2,NULL,'dd_retail',NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL);
 
 /*!40000 ALTER TABLE `s_form_param` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -605,14 +632,15 @@ CREATE TABLE `s_form_parent` (
   `form_child_fk` varchar(100) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci NOT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   UNIQUE KEY `id` (`id`) USING BTREE
-) ENGINE=MyISAM AUTO_INCREMENT=20 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
+) ENGINE=MyISAM AUTO_INCREMENT=21 DEFAULT CHARSET=latin1 ROW_FORMAT=DYNAMIC;
 
 LOCK TABLES `s_form_parent` WRITE;
 /*!40000 ALTER TABLE `s_form_parent` DISABLE KEYS */;
 
 INSERT INTO `s_form_parent` (`id`, `form_parent_id`, `form_child_id`, `form_child_fk`)
 VALUES
-	(19,1,2,'menu_id');
+	(19,1,2,'menu_id'),
+	(20,43,33,'jurnal_id');
 
 /*!40000 ALTER TABLE `s_form_parent` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -634,7 +662,7 @@ CREATE TABLE `s_menu` (
   `menu_kode` varchar(255) CHARACTER SET utf8mb3 COLLATE utf8mb3_general_ci DEFAULT NULL,
   `menu_order` smallint DEFAULT NULL,
   PRIMARY KEY (`menu_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=51 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=utf8mb3 ROW_FORMAT=DYNAMIC;
 
 LOCK TABLES `s_menu` WRITE;
 /*!40000 ALTER TABLE `s_menu` DISABLE KEYS */;
@@ -658,7 +686,8 @@ VALUES
 	(46,'Stock',NULL,'','',0,'y','',3),
 	(47,'Transaksi Warehouse',NULL,'formx/formx/table/37',NULL,40,'y','form_37',0),
 	(49,'Stock di Agen',NULL,'formx/formx/table/39',NULL,46,'y','form_39',0),
-	(50,'sys-user',NULL,'formx/formx/table/40',NULL,1,'y','form_40',0);
+	(50,'sys-user',NULL,'formx/formx/table/40',NULL,1,'y','form_40',0),
+	(51,'jurnal_agen',NULL,'formx/formx/table/43',NULL,40,'y','form_43',0);
 
 /*!40000 ALTER TABLE `s_menu` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -765,8 +794,17 @@ CREATE TABLE `stock_agen` (
   `updated_by` int DEFAULT NULL,
   `company_id` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb3;
 
+LOCK TABLES `stock_agen` WRITE;
+/*!40000 ALTER TABLE `stock_agen` DISABLE KEYS */;
+
+INSERT INTO `stock_agen` (`id`, `product_id`, `agen_id`, `count`, `created_at`, `created_by`, `updated_at`, `updated_by`, `company_id`)
+VALUES
+	(1,14,30,-80,NULL,NULL,NULL,NULL,1);
+
+/*!40000 ALTER TABLE `stock_agen` ENABLE KEYS */;
+UNLOCK TABLES;
 
 
 # Dump of table stock_warehouse
