@@ -1,10 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class M_form_parent extends MY_Model {
+class M_jurnal_agen_sales extends MY_Model {
 
 	protected $timestamps = FALSE;
-    public $table = 's_form_parent';
+    public $table = 'jurnal_agen_sales';
     public $label = 'form_name';
     public $primary_key = 'id';
 

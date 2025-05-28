@@ -7,7 +7,7 @@ use Restserver\Libraries\REST_Controller;
 header("Access-Control-Allow-Origin: *");
 header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
 
-class Api extends REST_Controller {
+class Bulk extends REST_Controller {
     public $data    = array();
     public $usergroup_id;
 
@@ -123,19 +123,22 @@ class Api extends REST_Controller {
         $this->output->set_content_type('application/json')->set_output(json_encode($records));
     }
 
-    public function form_action_post()
+    public function form_action_post($relation_id)
     {
         $http_code =400;
+        $form_id = "";
         $this->output->set_status_header($http_code);
         $res['message'] = 'Simpan gagal';
 
-        $data_receive = json_decode($this->input->post('detailmaster'));
-        $relation_id = $this->input->post('relation_id');
+        $data_receive = json_decode($this->input->post('detail'));
+        //var_dump($data_receive);
+        // $relation_id = $this->input->post('relation_id');
 
         $q = "SELECT * FROM s_form_parent WHERE id='$relation_id'";
         $tb_relation = $this->db->query($q);
         $tb_relation = $tb_relation->row();
-
+        
+        
         if(isset($tb_relation->form_parent_id)){
             $form_id = $tb_relation->form_parent_id;
             $child_id = $tb_relation->form_child_id;
@@ -231,7 +234,7 @@ class Api extends REST_Controller {
                     $data[$key]=$value;
                 }
             }
-            $this->db->trans_start();
+            //$this->db->trans_start();
             //$data = $data_receive['master'];
 
             $data['created_at'] = date("Y-m-d H:i:s");
@@ -249,7 +252,7 @@ class Api extends REST_Controller {
             }
                 # code...
                 // var_dump($data);die();
-
+            $last_id = 0;
             if($id =$this->Formx_model->insert($data)){
                 if ($id_temp = $this->input->post('id_temp')) {
                     $temp_folder= "./uploads/temp/formx/".$id_temp;
@@ -275,21 +278,26 @@ class Api extends REST_Controller {
                 $http_code = 200;
                 $res['id'] = $id;
                 $res['message'] = 'Simpan berhasil';
-            }
-
-            if ($this->db->trans_status() === FALSE) {
-                $this->db->trans_rollback();
-            } else {
-                $this->db->trans_commit();
-                $last_id = $this->db->insert_id();
-            }
+                $last_id = $id;
+            }          
+            
             //end insert master
-            //loop
-            foreach($data_receive['detail'] as $det){
-                $det['jurnal_id'] = $last_id;
-                $this->M_jurnal_agen_sales->insert($det);
+            //loop child table
+            
+            $form_child_param= $this->Formx_model->get_param($child_id);
+            $m_form_child = $this->M_form->get($child_id);
+            foreach($data_receive as $det){
+                $arr_data = [];
+                foreach ($form_child_param->result() as $p) {
+                    if(isset($det->{$p->column_name})){
+                        $arr_data[$p->column_name] = $det->{$p->column_name};
+                    }
+                }
+                $arr_data[$child_key] = $last_id;
+                $this->db->insert($m_form_child->form_table, $arr_data);
             }
 
+            
         }
         $this->response($res,$http_code);
         // $this->output->set_content_type('application/json')->set_output(json_encode($res));
