@@ -24,6 +24,7 @@ class Api extends REST_Controller {
         $this->load->model('formx_custom/M_before_insert');
         $this->load->model('formx_custom/M_after_insert');
         $this->load->model('formx_custom/M_before_update');
+        $this->load->model('formx/M_jurnal_agen_sales');
         $this->load->library('form_validation');
         $this->data['authorize'] = 'write';
 
@@ -128,7 +129,7 @@ class Api extends REST_Controller {
         $this->output->set_status_header($http_code);
         $res['message'] = 'Simpan gagal';
 
-        $data_receive = json_decode($this->input->post('data'));
+        $data_receive = json_decode($this->input->post('detailmaster'));
         $relation_id = $this->input->post('relation_id');
 
         $q = "SELECT * FROM s_form_parent WHERE id='$relation_id'";
@@ -231,7 +232,7 @@ class Api extends REST_Controller {
                 }
             }
             $this->db->trans_start();
-            $data = $data_receive['master'];
+            //$data = $data_receive['master'];
 
             $data['created_at'] = date("Y-m-d H:i:s");
             ///insert master
@@ -285,142 +286,8 @@ class Api extends REST_Controller {
             //end insert master
             //loop
             foreach($data_receive['detail'] as $det){
-
-                    $m_form = $this->M_form->get($form_id);
-                    $this->Formx_model->set_table($form_id);
-                    $form_param= $this->Formx_model->get_param($form_id);
-
-                    foreach ($form_param->result() as $p) {
-                        $validation_arr = array('trim');
-                        if ($p->type == 'numeric') {
-                            $validation_arr[] = 'numeric';
-                        }
-                        if ($p->type == 'int') {
-                            $validation_arr[] = 'integer';
-                        }
-                        if ($p->required) {
-                            $validation_arr[] = 'required';
-                        }
-                        if (!empty($p->validation)) {
-                            $validation_arr[] = $p->validation;
-                        }
-                        $validation = implode('|', $validation_arr);
-                        if (!empty($p->label_name))
-                            $label = $p->label_name;
-                        else
-                            $label = $p->column_name;
-
-                        if ($p->type == 'checkbox')
-                            $this->form_validation->set_rules($p->column_name.'[]',$label,$validation);
-                        else
-                            $this->form_validation->set_rules($p->column_name,$label,$validation);
-                    }
-
-                    if ($this->form_validation->run() == FALSE) {
-                        $res['message'] = 'Lengkapi form dengan benar';
-                        $res['field_error'] = $this->form_validation->error_array();
-                        
-                    } else {
-                        foreach ($form_param->result() as $p) {
-                            if ($p->type == 'upload') continue;
-
-                            if ( in_array($p->type, ['int','numeric','date','select_ajax','select'])) {
-                                if (!empty($this->input->post($p->column_name))) {
-                                    $data[$p->column_name] = $this->input->post($p->column_name);
-                                } else {
-                                    $data[$p->column_name] = NULL;
-                                }
-                            }
-                            elseif ($p->type == 'int_separator') {
-                                if (!empty($this->input->post($p->column_name))) {
-                                    $data[$p->column_name] = str_replace('.','', $this->input->post($p->column_name));
-                                } else {
-                                    $data[$p->column_name] = NULL;
-                                }
-                            }
-                            elseif ($p->type == 'checkbox') {
-                                $data[$p->column_name] = json_encode($this->input->post($p->column_name));
-                            }
-                            elseif ($p->type == 'img' || $p->type == 'file') {
-                                if (!empty($_FILES[$p->column_name]['name'])) {
-                                    $res = $this->_upload($p->path_upload,$p->column_name);
-                                    if ($res['success']) {
-                                        if (isset($res['upload_data'])) {
-                                            $data[$p->column_name] = $res['upload_data']['file_name'];
-                                        }
-                                    }else{
-                                        $this->output->set_content_type('application/json')->set_output(json_encode($res))->_display();
-                                        exit();
-                                    }
-                                }
-                            }
-                            elseif ($p->type == 'password') {
-                                if (!empty($this->input->post($p->column_name))) {
-                                    // $data[$p->column_name] = md5($this->input->post($p->column_name));
-                                    $data[$p->column_name] = password_hash($this->input->post($p->column_name), PASSWORD_BCRYPT);
-                                }
-                            }
-                            else{
-                                $data[$p->column_name] = $this->input->post($p->column_name);
-                            }
-                        }
-                        if ($this->input->post('parent_id')) {
-                            $data[$this->input->post('parent_column')] = $this->input->post('parent_id');
-                        }
-                        if ($this->input->post('t_flow_id')) {
-                            $data['t_flow_id'] = $this->input->post('t_flow_id');
-                        }
-                        if (!empty($col=$this->input->post('col'))) {
-                            foreach ($col=$this->input->post('col') as $key => $value) {
-                                $data[$key]=$value;
-                            }
-                        }
-                        
-                        $data = $det;
-                        $data[$child_key] = $last_id;
-                        $data['created_at'] = date("Y-m-d H:i:s");
-                        ///insert master
-                        $data['created_by'] = $this->data['user']->id;
-                        if($this->data['user']->usergroup_id !=1){
-                            $data['company_id'] = $this->data['user']->company_id;
-                        }
-                        // DO before insert
-                        // if(file_exists(APPPATH."modules/formx_custom/models/M_".$m_form->form_table."_custom.php")){
-                        //     $this->load->model("formx_custom/M_".$m_form->form_table."_custom.php");
-                        // }
-                        if (method_exists($this->M_before_insert, $m_form->form_table)) {
-                            $data = $this->M_before_insert->{$m_form->form_table}($data);
-                        }
-                            # code...
-                            // var_dump($data);die();
-
-                        if($id =$this->Formx_model->insert($data)){
-                            if ($id_temp = $this->input->post('id_temp')) {
-                                $temp_folder= "./uploads/temp/formx/".$id_temp;
-                                $target_folder = "./uploads/formx/".$id;
-                                if(file_exists($temp_folder)) {
-                                    mkdir($target_folder,0775,true);
-                                    rename($temp_folder, $target_folder);
-                                }
-                            }
-
-                            if ($m_form->table_type == 'tree') {
-                                $res['url']     = 'reload';
-                            }else{
-                                $res['datatable'] = 'datatable_'.$form_id;
-                            }
-
-                            // do after insert
-                            if (method_exists($this->M_after_insert, $m_form->form_table)) {
-                                $this->M_after_insert->{$m_form->form_table}($id,$data);
-                            }
-
-                            // resturn respone
-                            $http_code = 200;
-                            $res['id'] = $id;
-                            $res['message'] = 'Simpan berhasil';
-                        }
-                }
+                $det['jurnal_id'] = $last_id;
+                $this->M_jurnal_agen_sales->insert($det);
             }
 
         }

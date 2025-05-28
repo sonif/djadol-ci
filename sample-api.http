@@ -1,5 +1,6 @@
-@token = 357de571a276f7c10ee474cd365bda98e4f4b5a2a8f7d155655bd4399907bb8e
+@token = b750a78fa2e6f3e55dc6991eb4abdc861e43c4eaa93a557bcd04cc531b47b20d
 @host = https://kirim.kopicode.com/index.php/api
+@host2 = https://kirim.kopicode.com/index.php/api_masterdetil
 ###
 
 POST {{host}}/auth/login
@@ -38,4 +39,13 @@ Content-Type: application/x-www-form-urlencoded
 
 form_id=33&&count=10&&retail_id=1&&product_id=4
 ### 
+//test master jurnal
+POST {{host2}}/form_action
+token: {{token}}
+content-type: application/json
+
+{
+    "": "sample",
+    "time": "Wed, 21 Oct 2015 18:27:50 GMT"
+}
 todo : after input jurnal_stock, isi harga, isi subtotal, dan aksi terhadap jurnal agen sales
