@@ -294,6 +294,7 @@ class Bulk extends REST_Controller {
                     }
                 }
                 $arr_data[$child_key] = $last_id;
+                $data['company_id'] = $this->data['user']->company_id;
                 $this->db->insert($m_form_child->form_table, $arr_data);
             }
 
