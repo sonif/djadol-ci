@@ -287,15 +287,15 @@ class Bulk extends REST_Controller {
             $form_child_param= $this->Formx_model->get_param($child_id);
             $m_form_child = $this->M_form->get($child_id);
             foreach($data_receive as $det){
-                $arr_data = [];
+                $data = [];
                 foreach ($form_child_param->result() as $p) {
                     if(isset($det->{$p->column_name})){
-                        $arr_data[$p->column_name] = $det->{$p->column_name};
+                        $data[$p->column_name] = $det->{$p->column_name};
                     }
                 }
-                $arr_data[$child_key] = $last_id;
+                $data[$child_key] = $last_id;
                 $data['company_id'] = $this->data['user']->company_id;
-                $this->db->insert($m_form_child->form_table, $arr_data);
+                $this->db->insert($m_form_child->form_table, $data);
             }
 
             
