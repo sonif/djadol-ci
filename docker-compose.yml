@@ -1,30 +1,35 @@
 version: '3.8'
-
 services:
-  app:
-    build:
-      context: .
+  php-apache-environment:
+    container_name: php-apache-ci
+    build: 
+      context: ./php
       dockerfile: Dockerfile
-    container_name: ci3-docker  # Set the container name here
-    ports:
-      - "8080:80"  # Map port 80 of the container to port 8080 on the host
-    volumes:
-      - .:/var/www/html  # Mount current directory to /var/www/html inside the container
     depends_on:
-      - db  # Ensure the database is up before starting the application
-
+      - db
+    volumes:
+      - ./php/src:/var/www/html/
+    ports:
+      - 7700:80
   db:
-    image: mysql:8.0  # Uses the official MySQL image
-    container_name: mysql
+    container_name: db-ci
+    # image: mysql:5.7
+    image: mariadb:10.5
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root  # Root password for MySQL
-      MYSQL_DATABASE: djadol  # Initial database to create
+      MYSQL_ROOT_PASSWORD: 'password'
+      MYSQL_DATABASE: djadol
+      MYSQL_USER: 'userci'
+      MYSQL_PASSWORD: 'password'
     ports:
-      - "3306:3306"  # Expose port 3306 for database connections
-    volumes:
-      - db_data:/var/lib/mysql  # Persist MySQL data
-
-volumes:
-  db_data:
-    name: ci3-docker  # Name the volume for MySQL data persistence
+      - 3310:3306
+  phpmyadmin:
+    container_name: phpmyadmin-ci
+    image: phpmyadmin/phpmyadmin
+    ports:
+        - '8080:80'
+    restart: always
+    environment:
+        PMA_HOST: db
+    depends_on:
+        - db
