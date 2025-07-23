@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: ci3_web
     ports:
-      - "8080:80"
+      - "7700:80"
     volumes:
       - ./src:/var/www/html
       - ./php/php.ini:/usr/local/etc/php/php.ini
@@ -34,6 +34,22 @@ services:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
+    networks:
+      - ci3_network
+
+  phpmyadmin:
+    image: phpmyadmin
+    container_name: ci3_phpmyadmin
+    restart: always
+    ports:
+      - "7701:80"
+    environment:
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: root_password
+    depends_on:
+      - db
     networks:
       - ci3_network
 
