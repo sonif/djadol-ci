@@ -1,35 +1,62 @@
 version: '3.8'
+
 services:
-  php-apache-environment:
-    container_name: php-apache-ci
-    build: 
-      context: ./php
+  web:
+    build:
+      context: .
       dockerfile: Dockerfile
+    container_name: ci3_web
+    ports:
+      - "8080:80"
+    volumes:
+      - ./src:/var/www/html
+      - ./php/php.ini:/usr/local/etc/php/php.ini
     depends_on:
       - db
-    volumes:
-      - ./php/src:/var/www/html/
-    ports:
-      - 7700:80
+    environment:
+      - DB_HOST=db
+      - DB_NAME=codeigniter
+      - DB_USER=ci_user
+      - DB_PASS=ci_password
+    networks:
+      - ci3_network
+
   db:
-    container_name: db-ci
-    # image: mysql:5.7
-    image: mariadb:10.5
+    image: mariadb:11
+    container_name: ci3_mariadb
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: 'password'
-      MYSQL_DATABASE: djadol
-      MYSQL_USER: 'userci'
-      MYSQL_PASSWORD: 'password'
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: codeigniter
+      MYSQL_USER: ci_user
+      MYSQL_PASSWORD: ci_password
     ports:
-      - 3310:3306
+      - "3306:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - ci3_network
+
   phpmyadmin:
-    container_name: phpmyadmin-ci
-    image: phpmyadmin/phpmyadmin
-    ports:
-        - '8080:80'
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: ci3_phpmyadmin
     restart: always
+    ports:
+      - "8081:80"
     environment:
-        PMA_HOST: db
+      PMA_HOST: db
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: root_password
     depends_on:
-        - db
+      - db
+    networks:
+      - ci3_network
+
+volumes:
+  db_data:
+
+networks:
+  ci3_network:
+    driver: bridge
