@@ -34,7 +34,7 @@ RUN docker-php-ext-configure gd --with-freetype --with-jpeg \
 RUN a2enmod rewrite
 
 # Copy kode CodeIgniter ke dalam container
-COPY .src /var/www/html
+COPY ./src /var/www/html
 
 # Set working directory
 WORKDIR /var/www/html
