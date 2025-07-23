@@ -39,7 +39,7 @@ services:
       - ci3_network
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
+    image: phpmyadmin
     container_name: ci3_phpmyadmin
     restart: always
     ports:
