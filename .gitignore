@@ -8,8 +8,6 @@ application/logs/*
 
 !application/*/.htaccess
 
-application/config/database.php
-application/config/config.php
 
 db/*.gz
 composer.lock
