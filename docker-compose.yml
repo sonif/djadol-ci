@@ -20,7 +20,7 @@ services:
       - DB_PASS=ci_password
 
   db:
-    image: mariadb:10.5
+    image: mariadb:11.4
     container_name: ci3_mariadb
     restart: always
     environment:
