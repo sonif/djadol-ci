@@ -37,22 +37,6 @@ services:
     networks:
       - ci3_network
 
-  phpmyadmin:
-    image: phpmyadmin
-    container_name: ci3_phpmyadmin
-    restart: always
-    ports:
-      - "8081:80"
-    environment:
-      PMA_HOST: db
-      PMA_PORT: 3306
-      PMA_USER: root
-      PMA_PASSWORD: root_password
-    depends_on:
-      - db
-    networks:
-      - ci3_network
-
 volumes:
   db_data:
 
