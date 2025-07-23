@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     container_name: ci3_web
     ports:
-      - "8080:80"
+      - "80:80"
     volumes:
       - ./src:/var/www/html
       - ./php/php.ini:/usr/local/etc/php/php.ini
