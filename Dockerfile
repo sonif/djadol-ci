@@ -1,6 +1,13 @@
 FROM php:7.4-apache
 
-RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev \
+    && docker-php-ext-configure gd --with-jpeg \
+    && docker-php-ext-install mysqli gd \
+    && docker-php-ext-enable mysqli gd
 
 # Set proper permissions for Apache to access files
-RUN chown -R www-data:www-data /var/www/html && chmod -R 755 /var/www/html
+RUN mkdir -p /var/www/html \
+    && chown -R www-data:www-data /var/www/html \
+    && chmod -R 775 /var/www/html
+
+USER www-data
