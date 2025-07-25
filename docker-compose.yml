@@ -10,11 +10,9 @@ services:
       - "${PORT_CI}:80"
     volumes:
       - ./src:/var/www/html
-    depends_on:
-      - db
     environment:
       - APP_URL=${APP_URL}
-      - DB_HOST=db
+      - DB_HOST=${DB_HOST}
       - DB_NAME=${DB_NAME}
       - DB_USER=${DB_USER}
       - DB_PASS=${DB_PASS}
