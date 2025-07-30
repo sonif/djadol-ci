@@ -18,6 +18,9 @@ services:
       - DB_NAME=codeigniter
       - DB_USER=ci_user
       - DB_PASS=ci_password
+    networks:
+      codeigniter_net:
+
 
   db:
     image: mariadb:11.4
@@ -32,8 +35,15 @@ services:
       - "3306:3306"
     volumes:
       - db_data:/var/lib/mysql
+    networks:
+      codeigniter_net:
+
 
 volumes:
   db_data:
+
+
+networks:
+  codeigniter_net:
 
 
