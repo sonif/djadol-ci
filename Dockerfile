@@ -1,4 +1,4 @@
-FROM php:7.4-apache
+FROM php:7.4-apache-alpine
 
 RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev \
     && docker-php-ext-configure gd --with-jpeg \
