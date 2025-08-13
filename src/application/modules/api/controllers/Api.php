@@ -5,6 +5,7 @@ require APPPATH . 'third_party/REST_Controller.php';
 require APPPATH . 'third_party/Format.php';
 use Restserver\Libraries\REST_Controller;
 
+
 class Api extends REST_Controller {
     public $data    = array();
     public $usergroup_id;
@@ -12,6 +13,10 @@ class Api extends REST_Controller {
     function __construct()
     {
         parent::__construct();
+
+        header("Access-Control-Allow-Origin: *");
+        header("Access-Control-Allow-Methods: GET, POST, OPTIONS, PUT, DELETE");
+
         $this->load->helper(['jwt', 'authorization']);
 
         $this->verify_request();
