@@ -1,6 +1,6 @@
-FROM php:7.4-fpm-alpine
+FROM php:7.4-apache
 
-RUN apt-get install -y libpng-dev libjpeg-dev \
+RUN apt-get update && apt-get install -y libpng-dev libjpeg-dev \
     && docker-php-ext-configure gd --with-jpeg \
     && docker-php-ext-install mysqli gd \
     && docker-php-ext-enable mysqli gd
