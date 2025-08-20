@@ -37,12 +37,18 @@ class M_before_insert extends CI_Model {
 		$q = "SELECT * FROM t_product WHERE id='".$product_id."';";
 		$product = $this->db->query($q);
 		$product = $product->row();
-		$product_price_agen = $product->price_agen;
+		if(($product->price_sale3>0) && ($product->price_sale_min3< $data['count'])){
+			$product_price_agen = $product->price_sale3;
+		} elseif(($product->price_sale2>0) && ($product->price_sale_min2< $data['count'])){
+			$product_price_agen = $product->price_sale2;
+		} else {
+			$product_price_agen = $product->price_sale;
+		}
 		if($data['status']=='out'){
 			$data['count'] = $data['count'] * -1;
 		}
-		// $data['price'] = $product_price_agen;
-		 $data['subtotal'] = $product_price_agen * $data['count'];
+		$data['price'] = $product_price_agen;
+		$data['subtotal'] = $product_price_agen * $data['count'];
 
 		return $data;
 	}
