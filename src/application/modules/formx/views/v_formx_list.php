@@ -94,7 +94,7 @@
                                                             <input type="text" class="form-control form-filter" name="<?php echo $p->column_name ?>_max" placeholder="max">
                                                         </div>
                                                     </td>
-                                                <?php elseif ($p->type == 'date'): ?>
+                                                <?php elseif ($p->type == 'date' || $p->type == 'datetime'): ?>
                                                     <td>
                                                         <div class="date-picker input-daterange">
                                                             <input autocomplete="off" type="text" class="form-control form-control-sm form-filter" name="<?php echo $p->column_name ?>_min" placeholder="from">
