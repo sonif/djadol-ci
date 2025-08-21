@@ -119,6 +119,31 @@ class Api extends REST_Controller {
         $this->output->set_content_type('application/json')->set_output(json_encode($records));
     }
 
+    public function record_delete()
+    {
+        $http_code =400;
+        $this->output->set_status_header($http_code);
+        $form_id = $this->input->post('form_id');
+        $id = $this->input->post('id');
+        $m_form = $this->M_form->get($form_id);
+        if (!$m_form) {
+            $res['message'] = 'Form not found';
+            $this->response($res,$http_code);
+        }
+
+        $this->Formx_model->set_table($form_id);
+        if ($this->Formx_model->delete($id)) {
+            $http_code = 200;
+            $res['message'] = 'Record deleted successfully';
+            $this->response($res,$http_code);
+            exit();
+        } else {
+            $http_code = 500;
+            $res['message'] = 'Failed to delete record';
+            $this->response($res,$http_code);
+        }
+    }
+
     public function form_action_post()
     {
         $http_code =400;
