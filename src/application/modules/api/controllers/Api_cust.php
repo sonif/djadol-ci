@@ -112,7 +112,7 @@ class Api_cust extends REST_Controller {
                 $row['created_by']=$d->created_by;
                 $records["data"][] = $row;
 
-                if($form_id == '43'):
+                if($form_id == '44'):
                     $records["total_sales"] += $d->total_price;
                 endif;
             }
