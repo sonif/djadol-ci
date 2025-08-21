@@ -15,10 +15,7 @@ class Api extends REST_Controller {
         parent::__construct();
 
         $this->load->helper(['jwt', 'authorization']);
-
         $this->verify_request();
-
-
         $this->load->model('formx/Formx_model');
         $this->load->model('formx/M_form');
         $this->load->model('formx_custom/M_before_insert');
