@@ -36,11 +36,12 @@ class Auth extends CI_Controller {
 						// single device login
 						// $this->Api_keys_model->replace($data,array('user_id'=>$user->id));
 						// multi device login
-            $this->Api_keys_model->insert($data);
+            			$this->Api_keys_model->insert($data);
 
 						$res['token'] 	= $token;
 						$res['success'] 	= true;
 						$res['message'] 	= 'Login success';
+						$res['user_id'] 	= $user->id;
 					}
 				} else {
 					$res['success'] 	= false;
