@@ -142,6 +142,7 @@ class Api extends REST_Controller {
             $res['message'] = 'Failed to delete record';
             $this->response($res,$http_code);
         }
+
     }
 
     public function form_action_post()
