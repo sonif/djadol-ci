@@ -90,6 +90,90 @@ class Formx_model extends MY_Model {
         return $this->db->get('s_form_filter');
     }
 
+    public function get_all_non_paging() {
+        $user = $this->data['user'];
+        // var_dump($user);
+		$form_id=$this->input->post('form_id');
+        $form_param = $this->get_param_datatable($form_id);
+        $form_filter = $this->get_filter($form_id);
+
+        $order            = $this->input->post('order');
+        $dataorder = array();
+        $where = array();
+
+        $i=0;
+        $dataorder[$i++] = $this->primary_key;
+        foreach ($form_param->result() as $value) {
+        	$dataorder[$i++] = $value->column_name;
+        }
+
+      	foreach ($form_param->result() as $p) {
+            if ($p->type == 'upload') {
+                continue;
+            }
+            if ($p->type == 'datetime' ||$p->type == 'date') {
+                if(!empty($this->input->post($p->column_name.'_min'))){
+                    $where[$p->column_name.' >='] = $this->input->post($p->column_name.'_min')." 00:00:00";
+                }
+                if(!empty($this->input->post($p->column_name.'_max'))){
+                    $where[$p->column_name.' <='] = $this->input->post($p->column_name.'_max')." 23:59:59";
+                }
+            }
+            if ($p->type == 'int' || $p->type == 'int_separator' ) {
+                if(!empty($this->input->post($p->column_name.'_min'))){
+                    $where[$p->column_name.' >='] = $this->input->post($p->column_name.'_min');
+                }
+                if(!empty($this->input->post($p->column_name.'_max'))){
+                    $where[$p->column_name.' <='] = $this->input->post($p->column_name.'_max');
+                }
+            }
+            elseif ($p->type == 'select_ajax' || $p->type == 'select') {
+                if(!empty($this->input->post($p->column_name))){
+                    $where[$p->column_name] = $this->input->post($p->column_name);
+                }
+            }
+            else{
+            	if(!empty($this->input->post($p->column_name))){
+    	            $where["LOWER($p->column_name) LIKE"] = '%'.strtolower($this->input->post($p->column_name)).'%';
+    	        }
+            }
+        }
+        // foreach ($form_filter->result() as $p) {
+        //     if(!empty($this->input->post($p->column_name))){
+        //         $where[$p->column_name] = $this->input->post($p->column_name);
+        //     }
+        // }
+        if ($this->input->post('parent_id')) {
+            $where[$this->input->post('parent_column')] = $this->input->post('parent_id');
+        }
+
+        if($user->usergroup_id != 1 ){
+            $this->db->where('company_id', $user->company_id, FALSE);
+        }
+        // if ($this->db->field_exists('user_siteid', $this->table))
+        // {
+        //     $siteid_arr = json_decode($user->user_siteid,true);
+        //     $w_custom = "user_siteid::jsonb ?| array".str_replace("\"","'",$user->user_siteid);
+        //     $this->db->where($w_custom, NULL, FALSE);
+        // }
+        // elseif ($this->db->field_exists('siteid', $this->table))
+        // {
+        //     $siteid_arr = json_decode($user->user_siteid,true);
+        //     $this->db->where_in('siteid', $siteid_arr);
+        // }
+        $this->db->where($where);
+        $result['total_rows'] = $this->count_rows();
+        if($user->usergroup_id != 1 ){
+            $this->db->where('company_id', $user->company_id, FALSE);
+        }
+        $this->db->where($where);
+        if ($order) {
+            $this->db->order_by( $dataorder[$order[0]["column"]],  $order[0]["dir"]);
+        }
+        $result['get_db']=$this->get_all();
+        return $result;
+    }
+
 	public function get_limit_data($limit, $start) {
         $user = $this->data['user'];
         // var_dump($user);
@@ -182,7 +266,9 @@ class Formx_model extends MY_Model {
         if ($order) {
             $this->db->order_by( $dataorder[$order[0]["column"]],  $order[0]["dir"]);
         }
+        // $result['get_db_all'] = $this->get_all();
         $this->db->limit($start, $limit);
+
         $result['get_db']=$this->get_all();
         return $result;
     }

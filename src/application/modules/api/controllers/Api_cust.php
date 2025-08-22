@@ -61,6 +61,7 @@ class Api_cust extends REST_Controller {
 
         $this->Formx_model->set_table($form_id,'view');
         $t              = $this->Formx_model->get_limit_data($iDisplayStart, $iDisplayLength);
+        
         $iTotalRecords  = $t['total_rows'];
         $get_data       = $t['get_db'];
 
@@ -111,11 +112,14 @@ class Api_cust extends REST_Controller {
                 $row['created_at']=$d->created_at;
                 $row['created_by']=$d->created_by;
                 $records["data"][] = $row;
-
-                if($form_id == '44'):
-                    $records["total_sales"] += $d->total_price;
-                endif;
             }
+            if($form_id == '44'):
+                $t2             = $this->Formx_model->get_all_non_paging();
+                $get_data       = $t2['get_db'];
+                foreach ($get_data as $d) {
+                    $records["total_sales"] += $d->total_price;
+                }
+            endif;
         }
         $records["recordsTotal"] = $iTotalRecords;
 
