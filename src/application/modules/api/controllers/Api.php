@@ -188,7 +188,7 @@ class Api extends REST_Controller {
         if ($this->form_validation->run() == FALSE) {
             $res['message'] = 'Lengkapi form dengan benar';
             $res['field_error'] = $this->form_validation->error_array();
-            
+
         } else {
             foreach ($form_param->result() as $p) {
                 if ($p->type == 'upload') continue;
