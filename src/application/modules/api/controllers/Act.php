@@ -27,6 +27,16 @@ class Act extends REST_Controller {
         $this->output->set_content_type('application/json')->set_output(json_encode($records));
     }
 
+    public function totaltokobyagen()
+    {
+        // $created_by = $this->input->post('created_by');
+        $sql = "SELECT COUNT(id) as total FROM m_retail WHERE created_by = ?";
+        $result = $this->db->query($sql, array($this->rest->user_id));
+        $records["total"] = $result->row()->total;
+
+        $this->output->set_content_type('application/json')->set_output(json_encode($records));
+    }
+
     public function remove_post()
     {
         $whiteListFormId = [43];
