@@ -67,6 +67,19 @@ class M_before_insert extends CI_Model {
 		$data['subtotal'] = $product_price_purchase * $data['count'];
 		return $data;
 	}
+
+	public function jurnal_visitasi($data){
+		$created_by = $data['created_by'];
+		$retail_id = $data['retail_id'];
+		$q = "SELECT COUNT(id) as jumlah FROM jurnal_visitasi WHERE retail_id = '".$retail_id."';";
+		$r = $this->db->query($q);
+		$r = $r->row();
+		$jumlah = $r->jumlah;
+		if($jumlah<=0){
+			$data['is_new'] = 1;
+		}
+		return $data;
+	}
 	// public function m_user($data)
 	// {
 	// 	$w = array(
