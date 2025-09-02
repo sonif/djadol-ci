@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 
-$config['base_url']    = getenv('APP_URL');
+$config['base_url']    = getenv('APP_URL')?:"http://aman.local";
 
 /*
 |--------------------------------------------------------------------------
