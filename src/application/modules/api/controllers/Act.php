@@ -27,7 +27,7 @@ class Act extends REST_Controller {
         $this->output->set_content_type('application/json')->set_output(json_encode($records));
     }
 
-    public function totaltokobyagen()
+    public function totaltokobyagen_post()
     {
         // $created_by = $this->input->post('created_by');
         $sql = "SELECT COUNT(id) as total FROM m_retail WHERE created_by = ?";
