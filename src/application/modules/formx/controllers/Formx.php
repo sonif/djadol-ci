@@ -424,6 +424,9 @@ class Formx extends MY_Controller
             if (empty($id)) {
                 $this->_is_allowed("xcreate",$form_id);
                 $data['created_by'] = $datalog_user->id;
+                $now = new DateTime();
+                $now->modify('+7 hours');
+                $data['created_at'] = $now->format('Y-m-d H:i:s');
                 // $this->load->library('uuid');
                 // $data['id']=$this->uuid->v4();
                 // DO before insert

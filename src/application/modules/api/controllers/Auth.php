@@ -13,6 +13,14 @@ class Auth extends CI_Controller {
     $this->load->library('form_validation');
 	}
 
+		function test() {
+			$now = new DateTime();
+			// $now->modify('+7 hours');
+			$res['time1'] = date('Y-m-d H:i:s');
+			$res['time2'] = date('Y-m-d H:i:s', strtotime('+7 hours'));
+			$this->output->set_content_type('application/json')->set_output(json_encode($res));
+		}
+
   public function login()
 	{
 		$res['success'] = false;
