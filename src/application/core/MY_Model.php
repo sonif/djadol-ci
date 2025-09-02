@@ -1808,13 +1808,9 @@ class MY_Model extends CI_Model
         if($this->timestamps_format=='timestamp')
         {
             return time();
-<<<<<<< HEAD
-        } else {
-=======
         }
         else
         {
->>>>>>> parent of 31eeb52 (add 7 hour)
             return date($this->timestamps_format);
         }
     }
