@@ -1811,7 +1811,9 @@ class MY_Model extends CI_Model
         }
         else
         {
-            return date($this->timestamps_format);
+            $now = new DateTime();
+            $now->modify('+7 hours');
+            return $now->format($this->timestamps_format);
         }
     }
 
