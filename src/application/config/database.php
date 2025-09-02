@@ -75,7 +75,7 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => getenv('DB_HOST') ?: 'coolify.kopicode.com',
+	'hostname' => getenv('DB_HOST') ?: 'db',
 	'username' => getenv('DB_USER') ?: 'ci_user',
 	'password' => getenv('DB_PASS') ?: 'ci_password',
 	'database' => getenv('DB_NAME') ?: 'codeigniter',
