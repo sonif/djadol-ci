@@ -1937,7 +1937,10 @@ class MY_Model extends CI_Model
         if ($this->timestamps_format == "timestamp") {
             return time();
         } else {
-            return date($this->timestamps_format, strtotime("+7 hours"));
+            $now = new DateTime();
+            $now->modify("+7 hours");
+            return $now->format($this->timestamps_format);
+            //return date($this->timestamps_format);
         }
     }
 
