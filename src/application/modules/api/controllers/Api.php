@@ -245,7 +245,10 @@ class Api extends REST_Controller {
                 }
             }
             // $this->db->trans_start();
-            $data['created_at'] = date("Y-m-d H:i:s");
+            $now = new DateTime();
+            $now->modify('+7 hours');
+            $data['created_at'] = $now->format('Y-m-d H:i:s');
+            // $data['created_at'] = date("Y-m-d H:i:s");
             if (empty($id)) {
                 $data['created_by'] = $this->data['user']->id;
                  if($this->data['user']->usergroup_id !=1){
