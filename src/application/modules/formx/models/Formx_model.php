@@ -84,6 +84,14 @@ class Formx_model extends MY_Model {
         return $this->db->get('s_form_param');
     }
 
+    public function get_param_rest($form_id)
+    {
+        $this->db->where('form_id', $form_id);
+        $this->db->where('column_rest', '1');
+        $this->db->order_by('order_no', 'asc');
+        return $this->db->get('s_form_param');
+    }
+
     public function get_filter($form_id)
     {
         $this->db->where('form_id', $form_id);

@@ -47,6 +47,8 @@
                     <br>
                     <input type="checkbox" name="column_datatable_<?php echo $r->column_name ?>" value="1" class="column_datatable" <?php echo ($row && $row->column_datatable) ? 'checked=""' : '' ?>> Datatable
                     <br>
+                    <input type="checkbox" name="column_rest_<?php echo $r->column_name ?>" value="1" class="column_rest" <?php echo ($row && $row->column_rest) ? 'checked=""' : '' ?>> Rest
+                    <br>
                     <input type="checkbox" name="column_unique_<?php echo $r->column_name ?>" value="1" class="column_unique" <?php echo ($row && $row->is_unique) ? 'checked=""' : '' ?>> Unique
                     <br>
                     <?php

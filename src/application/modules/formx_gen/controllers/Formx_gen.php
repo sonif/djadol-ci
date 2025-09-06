@@ -225,6 +225,7 @@ class Formx_gen extends MY_Controller {
                     'order_no'         => $order,
                     'active'           => $this->input->post('active_'.$r->column_name),
                     'column_datatable' => $this->input->post('column_datatable_'.$r->column_name),
+                    'column_rest'      => $this->input->post('column_rest_'.$r->column_name),
                     'is_unique'         => $this->input->post('column_unique_'.$r->column_name),
                     'table_ref'        => $this->input->post('table_ref_'.$r->column_name),
                     'path_upload'        => $this->input->post('path_upload_'.$r->column_name),
