@@ -48,7 +48,7 @@ class Api extends REST_Controller {
         }
 
         $m_form = $this->M_form->get($form_id);
-        $form_param = $this->Formx_model->get_param($form_id);
+        $form_param = $this->Formx_model->get_param_datatable($form_id);
         $ar_haklistakses= get_listakses_formx($this->usergroup_id, 'form_'.$form_id);
 
         $customActionName=$this->input->post('customActionName');
