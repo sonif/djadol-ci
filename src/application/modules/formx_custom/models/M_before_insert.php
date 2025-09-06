@@ -53,6 +53,15 @@ class M_before_insert extends CI_Model {
 		return $data;
 	}
 
+	public function jurnal_inquiry_detail($data){
+		$product_id = $data['product_id'];
+		$q = "SELECT * FROM t_product WHERE id='".$product_id."';";
+		$product = $this->db->query($q);
+		$product = $product->row();
+		$data['product_name'] = $product->name;
+		return $data;
+	}
+
 	public function jurnal_stock($data){
 		$product_id = $data['product_id'];
 		$q = "SELECT * FROM t_product WHERE id='".$product_id."';";
