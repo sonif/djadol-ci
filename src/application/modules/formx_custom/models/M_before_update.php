@@ -23,30 +23,39 @@ class M_before_update extends CI_Model {
 	// 	return $data;
 	// }
 
-	// public function m_user($id,$data)
-	// {
-	// 	$w = array(
-	// 		'user_id !=' => $id,
-	// 		'm_staff_id' => $data['m_staff_id'],
-	// 	);
-	// 	$this->db->where($w);
-	// 	$t= $this->db->get('m_user');
+	public function jurnal_inquiry_agen($id,$data)
+	{
+		if($data['status'] == 'diterima'){
+			$this->db->where('jurnal_id', $id);
+			$inquiry = $this->db->get('jurnal_inquiry_detail');
 
-	// 	if ($t->num_rows()>0) {
-	// 		$res['success'] = false;
- //            $res['message'] = 'Staff sudah ada';
- //            $this->output->set_content_type('application/json')->_display(json_encode($res));
- //            die();
-	// 	}
+			foreach($inquiry->result() as $detail_inquiry):
+				$this->db->where('agen_id', $data['agen_id']);
+				$this->db->where('product_id', $detail_inquiry->product_id);
+				$stock_agen = $this->db->get('stock_agen');
+				
+				if($stock_agen->num_rows() > 0):
+					$row = $stock_agen->row();
+					$w = array(
+						'id' => $row->id
+					);
+					$n_data = array(
+						'count' => $row->count + $detail_inquiry->count, 
+					);
+					$this->db->update('stock_agen',$n_data,$w);
+				else:
+					$n_data = array(
+						'agen_id' => $data['agen_id'], 
+						'product_id' => $detail_inquiry->product_id, 
+						'count' => $detail_inquiry->count
+					);
+					$this->db->insert('stock_agen',$n_data);
+				endif;
+			endforeach;
+		}
 
-	// 	$multi_site_arr = $this->input->post('user_siteid[]');
-	// 	foreach ($multi_site_arr as $value) {
-	// 		$data['siteid'] = $value;
-	// 		break;
-	// 	}
-
-	// 	return $data;
-	// }
+		return $data;
+	}
 
 }
 

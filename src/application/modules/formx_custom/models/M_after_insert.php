@@ -34,6 +34,7 @@ class M_after_insert extends CI_Model {
 
 	public function jurnal_stock($id,$data)
 	{
+		//untuk menambah stock di gudang
 		$this->db->where('warehouse_id', $data['warehouse_id']);
 		$this->db->where('product_id', $data['product_id']);
 		$this->db->where('company_id', $data['company_id']);
