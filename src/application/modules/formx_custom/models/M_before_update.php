@@ -47,7 +47,8 @@ class M_before_update extends CI_Model {
 					$n_data = array(
 						'agen_id' => $data['agen_id'], 
 						'product_id' => $detail_inquiry->product_id, 
-						'count' => $detail_inquiry->count
+						'count' => $detail_inquiry->count,
+						'company_id'=> $data['company_id']
 					);
 					$this->db->insert('stock_agen',$n_data);
 				endif;
