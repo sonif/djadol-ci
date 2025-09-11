@@ -45,7 +45,7 @@ class M_before_insert extends CI_Model {
 			$product_price_agen = $product->price_sale;
 		}
 		if($data['status']=='out'){
-			$data['count'] = $data['count'] * -1;
+			$data['count'] = $data['count'];
 		}
 		$data['price'] = $product_price_agen;
 		$data['subtotal'] = $product_price_agen * $data['count'];

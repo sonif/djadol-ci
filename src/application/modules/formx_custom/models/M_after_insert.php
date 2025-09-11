@@ -18,7 +18,7 @@ class M_after_insert extends CI_Model {
 			);
 
 			$n_data = array(
-				'count' => $row->count + $data['count'], 
+				'count' => $row->count - $data['count'], 
 			);
 			$this->db->update('stock_agen',$n_data,$w);
 		else:
@@ -26,7 +26,7 @@ class M_after_insert extends CI_Model {
 				'agen_id' => $data['agen_id'], 
 				'product_id' => $data['product_id'], 
 				'company_id' => $data['company_id'],
-				'count' => $data['count']
+				'count' => ($data['count']* -1)
 			);
 			$this->db->insert('stock_agen',$n_data);
 		endif;
