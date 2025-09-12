@@ -6,7 +6,7 @@ class M_after_insert extends CI_Model {
 	public function jurnal_agen($id,$data)
 	{
 		// var_dump($data);
-		$agen_id = $data['agen_id'];
+		$agen_id = $data['created_by'];
 		$company_id = $data['company_id'];
 
 		$this->db->where('jurnal_id', $data['id']);
