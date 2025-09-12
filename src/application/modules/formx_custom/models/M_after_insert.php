@@ -18,7 +18,7 @@ class M_after_insert extends CI_Model {
 				$this->db->where('company_id',$company_id);
 				$stock_agen = $this->db->get('stock_agen');
 
-				if($stock_agen->num_rows > 0):
+				if($stock_agen->num_rows() > 0):
 					$row_stock = $stock_agen->row();
 					$w = array(
 						'id' => $row_stock->id
