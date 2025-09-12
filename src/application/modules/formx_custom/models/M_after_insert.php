@@ -7,13 +7,15 @@ class M_after_insert extends CI_Model {
 	{
 		// var_dump($data);
 		$agen_id = $data['agen_id'];
+		$company_id = $data['company_id'];
+
 		$this->db->where('jurnal_id', $data['id']);
 		$jurnal_agen_sales = $this->db->get('jurnal_agen_sales');
 		if($jurnal_agen_sales->num_rows > 0):
-			foreach($stock_agen->result() as $row){
+			foreach($jurnal_agen_sales->result() as $row){
 				$this->db->where('agen_id',$agen_id);
 				$this->db->where('product_id',$row->product_id);
-				$this->db->where('company_id',$row->company_id);
+				$this->db->where('company_id',$company_id);
 				$stock_agen = $this->db->get('stock_agen');
 
 				if($stock_agen->num_rows > 0):
