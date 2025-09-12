@@ -11,7 +11,7 @@ class M_after_insert extends CI_Model {
 
 		$this->db->where('jurnal_id', $data['id']);
 		$jurnal_agen_sales = $this->db->get('jurnal_agen_sales');
-		if($jurnal_agen_sales->num_rows > 0):
+		if($jurnal_agen_sales->num_rows() > 0):
 			foreach($jurnal_agen_sales->result() as $row){
 				$this->db->where('agen_id',$agen_id);
 				$this->db->where('product_id',$row->product_id);
