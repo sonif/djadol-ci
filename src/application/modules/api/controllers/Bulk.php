@@ -295,9 +295,14 @@ class Bulk extends REST_Controller {
                 }
                 $data[$child_key] = $last_id;
                 $data['company_id'] = $this->data['user']->company_id;
-                $this->db->insert($m_form_child->form_table, $data);
+                $id_child = $this->db->insert($m_form_child->form_table, $data);
+                // do after insert bulk down parent
+                if (method_exists($this->M_after_insert, $m_form_child->form_table)) {                    
+                    $this->M_after_insert->{$m_form_child->form_table}($id_child,$data);
+                }
             }
 
+            
             
         }
         $this->response($res,$http_code);
