@@ -286,6 +286,7 @@ class Bulk extends REST_Controller {
             
             $form_child_param= $this->Formx_model->get_param($child_id);
             $m_form_child = $this->M_form->get($child_id);
+            $this->Formx_model->set_table($child_id);
             foreach($data_receive as $det){
                 $data = [];
                 foreach ($form_child_param->result() as $p) {
@@ -295,10 +296,12 @@ class Bulk extends REST_Controller {
                 }
                 $data[$child_key] = $last_id;
                 $data['company_id'] = $this->data['user']->company_id;
-                $id_child = $this->db->insert($m_form_child->form_table, $data);
-                // do after insert bulk down parent
-                if (method_exists($this->M_after_insert, $m_form_child->form_table)) {                    
-                    $this->M_after_insert->{$m_form_child->form_table}($id_child,$data);
+                //$this->db->insert($m_form_child->form_table, $data);
+                if($rec_id =$this->Formx_model->insert($data)){
+                    // do after insert bulk down parent
+                    if (method_exists($this->M_after_insert, $m_form_child->form_table)) {                    
+                        $this->M_after_insert->{$m_form_child->form_table}($rec_id,$data);
+                    }
                 }
             }
 
