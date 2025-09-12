@@ -3,32 +3,31 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class M_after_insert extends CI_Model {
 
-	public function jurnal_agen_sales($id,$data)
+	public function jurnal_agen($id,$data)
 	{
 		// var_dump($data);
-		$this->db->where('agen_id', $data['agen_id']);
-		$this->db->where('product_id', $data['product_id']);
-		$this->db->where('company_id', $data['company_id']);
+		$agen_id = $data['agen_id'];
+		$this->db->where('jurnal_id', $data['id']);
+		$jurnal_agen_sales = $this->db->get('jurnal_agen_sales');
+		if($jurnal_agen_sales->num_rows > 0):
+			foreach($stock_agen->result() as $row){
+				$this->db->where('agen_id',$agen_id);
+				$this->db->where('product_id',$row->product_id);
+				$this->db->where('company_id',$row->company_id);
+				$stock_agen = $this->db->get('stock_agen');
 
-		$stock_agen = $this->db->get('stock_agen');
-		if($stock_agen->num_rows > 0):
-			$row = $stock_agen->row();
-			$w = array(
-				'id' => $row->id
-			);
+				if($stock_agen->num_rows > 0):
+					$row_stock = $stock_agen->row();
+					$w = array(
+						'id' => $row_stock->id
+					);
 
-			$n_data = array(
-				'count' => $row->count - $data['count'], 
-			);
-			$this->db->update('stock_agen',$n_data,$w);
-		else:
-			$n_data = array(
-				'agen_id' => $data['agen_id'], 
-				'product_id' => $data['product_id'], 
-				'company_id' => $data['company_id'],
-				'count' => ($data['count']* -1)
-			);
-			$this->db->insert('stock_agen',$n_data);
+					$n_data = array(
+						'count' => $row_stock->count - $row->count, 
+					);
+					$this->db->update('stock_agen',$n_data,$w);
+				endif;
+			}
 		endif;
 	}
 
