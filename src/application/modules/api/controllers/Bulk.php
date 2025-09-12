@@ -270,9 +270,9 @@ class Bulk extends REST_Controller {
                 }
 
                 // do after insert
-                if (method_exists($this->M_after_insert, $m_form->form_table)) {
-                    $this->M_after_insert->{$m_form->form_table}($id,$data);
-                }
+                // if (method_exists($this->M_after_insert, $m_form->form_table)) {
+                //     $this->M_after_insert->{$m_form->form_table}($id,$data);
+                // }
 
                 // resturn respone
                 $http_code = 200;
@@ -305,7 +305,9 @@ class Bulk extends REST_Controller {
                 // }
             }
 
-            
+            if (method_exists($this->M_after_insert, $m_form->form_table)) {
+                $this->M_after_insert->{$m_form->form_table}($id,$data);
+            }
             
         }
         $this->response($res,$http_code);
