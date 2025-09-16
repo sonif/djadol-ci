@@ -42,8 +42,7 @@ class Act extends REST_Controller
                 }
             } else {
                 $response["success"] = false;
-                $response["field_error"]["old_password"] = "Wrong password";
-                $response["message"] = "";
+                $response["message"] = "Wrong password";
             }
         } else {
             $response["message"] = "User not found";
