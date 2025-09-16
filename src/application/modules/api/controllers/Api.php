@@ -180,7 +180,7 @@ class Api extends REST_Controller
         }
     }
 
-    public function update_post($form_id, $id)
+    public function updateone_post($form_id, $id)
     {
         // a b d
         // b d e
