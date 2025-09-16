@@ -35,6 +35,15 @@ class Api extends REST_Controller
         }
     }
 
+    public function getone_get($form_id, $id)
+    {
+        $res = $this->Formx_model->get_row($form_id, $id);
+
+        return $this->output
+            ->set_content_type("application/json")
+            ->set_output(json_encode($res));
+    }
+
     public function all_post($form_id = null)
     {
         if (empty($form_id)) {
