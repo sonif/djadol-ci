@@ -16,6 +16,8 @@ class Act extends REST_Controller
 
     public function changeuserpassword_post()
     {
+        $this->load->model("auth/Auth_model");
+
         $response["success"] = false;
         $old_password = $this->input->post("old_password");
         $password = $this->input->post("password");
