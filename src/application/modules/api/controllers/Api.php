@@ -259,9 +259,10 @@ class Api extends REST_Controller
                         $data[$p->column_name] = $this->input->post(
                             $p->column_name,
                         );
-                    } else {
-                        $data[$p->column_name] = null;
-                    }
+                    } 
+                    // else {
+                    //     $data[$p->column_name] = null;
+                    // }
                 } elseif ($p->type == "int_separator") {
                     if (!empty($this->input->post($p->column_name))) {
                         $data[$p->column_name] = str_replace(
@@ -269,9 +270,10 @@ class Api extends REST_Controller
                             "",
                             $this->input->post($p->column_name),
                         );
-                    } else {
-                        $data[$p->column_name] = null;
-                    }
+                    } 
+                    // else {
+                    //     $data[$p->column_name] = null;
+                    // }
                 } elseif ($p->type == "checkbox") {
                     $data[$p->column_name] = json_encode(
                         $this->input->post($p->column_name),
