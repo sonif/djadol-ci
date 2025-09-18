@@ -42,7 +42,7 @@ class Laporan extends MY_Controller {
         $cb_year = $this->input->post('cb_year');
         $cb_month = $this->input->post('cb_month');
         $cb_agen = $this->input->post('cb_agen');
-        $agen_data = $this->db->get_where('m_user',array('id'=>$cb_agen))->row();
+        $agen_data = $this->db->get_where('s_user',array('id'=>$cb_agen))->row();
 
         $q = "SELECT DISTINCT(date_field)
                 ,IFNULL(`t_absen_datang`.created_at,0) as datang
