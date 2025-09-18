@@ -44,8 +44,8 @@ class Laporan extends MY_Controller {
         $cb_agen = $this->input->post('cb_agen');
 
         $q = "SELECT DISTINCT(date_field)
-                ,IFNULL(`t_absen_datang`.absen_date_time,0) as datang
-                ,IFNULL(`t_absen_pulang`.absen_date_time,0) as pulang
+                ,IFNULL(`t_absen_datang`.created_at,0) as datang
+                ,IFNULL(`t_absen_pulang`.created_at,0) as pulang
                 ,IFNULL(`t_absen_datang`.absen_date,0)
                 ,`t_absen_datang`.created_by as uid_datang
                 ,`t_absen_datang`.absen_status as status_datang
@@ -72,13 +72,13 @@ class Laporan extends MY_Controller {
                     ) AAA
                     WHERE MONTH(date_field) = '".$cb_month."') AS tbday
                     LEFT JOIN 
-                    (SELECT absen_date_time,absen_date,created_by,absen_status FROM t_absen WHERE created_by = '".$cb_agen."') as t_absen_datang 
-                    ON tbday.date_field = t_absen_datang.absen_date 
+                    (SELECT absen_date_time,created_at,created_by,absen_status FROM t_absen WHERE created_by = '".$cb_agen."') as t_absen_datang 
+                    ON tbday.date_field = CAST(t_absen_datang.created_at as DATE) 
                     LEFT JOIN 
-                    (SELECT absen_date_time,absen_date,created_by,absen_status FROM t_absen_out WHERE created_by = '".$cb_agen."') as t_absen_pulang 
-                    ON tbday.date_field = t_absen_pulang.absen_date 
+                    (SELECT absen_date_time,created_at,created_by,absen_status FROM t_absen_out WHERE created_by = '".$cb_agen."') as t_absen_pulang 
+                    ON tbday.date_field = CAST(t_absen_pulang.created_at  as DATE)
                     ORDER BY date_field;";
-        // echo $q;
+        //echo $q;
         $v_data['v_report'] = $this->db->query($q);
         $v_data['input_month']=$cb_month;
         $v_data['input_year']=$cb_year;
