@@ -46,7 +46,6 @@ class Laporan extends MY_Controller {
         $q = "SELECT DISTINCT(date_field)
                 ,IFNULL(`t_absen_datang`.created_at,0) as datang
                 ,IFNULL(`t_absen_pulang`.created_at,0) as pulang
-                ,IFNULL(`t_absen_datang`.absen_date,0)
                 ,`t_absen_datang`.created_by as uid_datang
                 ,`t_absen_datang`.absen_status as status_datang
                 ,`t_absen_pulang`.created_by as uid_pulang
@@ -78,7 +77,7 @@ class Laporan extends MY_Controller {
                     (SELECT created_at,created_by,absen_status FROM t_absen_out WHERE created_by = '".$cb_agen."') as t_absen_pulang 
                     ON tbday.date_field = CAST(t_absen_pulang.created_at  as DATE)
                     ORDER BY date_field;";
-        echo $q;
+        // echo $q;
         $v_data['v_report'] = $this->db->query($q);
         $v_data['input_month']=$cb_month;
         $v_data['input_year']=$cb_year;
