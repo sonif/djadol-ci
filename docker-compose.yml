@@ -18,7 +18,7 @@ services:
       - DB_NAME=djadol
       - DB_USER=mariadb
       - DB_PASS=XzA42BqUUq3E9YRm7OYVfGBB4t5u2tsgKcpwtlWHAFIwdqce6W0pnQZnrlVW8JwA
-
+      - DB_PORT=3306
 networks:
   coolify:
     external: true
