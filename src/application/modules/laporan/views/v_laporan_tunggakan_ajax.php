@@ -33,6 +33,13 @@
         <div>
             <?php echo "(Bulan : ".$input_month.", Tahun ".$input_year.")"; ?><br/>
             Nama User : 
+            <?php 
+                if(!empty($input_agen->full_name)){
+                    echo $input_agen->full_name." (".$input_agen->email.")"; 
+                }else{
+                    echo $input_agen->email;
+                }
+            ?>
         </div>
     </center>
 

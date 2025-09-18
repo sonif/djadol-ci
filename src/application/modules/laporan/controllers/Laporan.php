@@ -42,6 +42,7 @@ class Laporan extends MY_Controller {
         $cb_year = $this->input->post('cb_year');
         $cb_month = $this->input->post('cb_month');
         $cb_agen = $this->input->post('cb_agen');
+        $agen_data = $this->db->get_where('m_user',array('user_id'=>$cb_agen))->row();
 
         $q = "SELECT DISTINCT(date_field)
                 ,IFNULL(`t_absen_datang`.created_at,0) as datang
@@ -81,6 +82,7 @@ class Laporan extends MY_Controller {
         $v_data['v_report'] = $this->db->query($q);
         $v_data['input_month']=$cb_month;
         $v_data['input_year']=$cb_year;
+        $v_data['input_agen']=$agen_data;
 
         $this->load->view('v_laporan_tunggakan_ajax',$v_data);
     }
