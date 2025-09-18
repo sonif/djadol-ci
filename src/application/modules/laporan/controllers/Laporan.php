@@ -72,13 +72,13 @@ class Laporan extends MY_Controller {
                     ) AAA
                     WHERE MONTH(date_field) = '".$cb_month."') AS tbday
                     LEFT JOIN 
-                    (SELECT absen_date_time,created_at,created_by,absen_status FROM t_absen WHERE created_by = '".$cb_agen."') as t_absen_datang 
+                    (SELECT created_at,created_by,absen_status FROM t_absen WHERE created_by = '".$cb_agen."') as t_absen_datang 
                     ON tbday.date_field = CAST(t_absen_datang.created_at as DATE) 
                     LEFT JOIN 
-                    (SELECT absen_date_time,created_at,created_by,absen_status FROM t_absen_out WHERE created_by = '".$cb_agen."') as t_absen_pulang 
+                    (SELECT created_at,created_by,absen_status FROM t_absen_out WHERE created_by = '".$cb_agen."') as t_absen_pulang 
                     ON tbday.date_field = CAST(t_absen_pulang.created_at  as DATE)
                     ORDER BY date_field;";
-        //echo $q;
+        echo $q;
         $v_data['v_report'] = $this->db->query($q);
         $v_data['input_month']=$cb_month;
         $v_data['input_year']=$cb_year;
