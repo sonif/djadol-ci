@@ -7,7 +7,7 @@
 #
 # Host: coolify.kopicode.com (MySQL 11.8.3-MariaDB-ubu2404)
 # Database: djadol
-# Generation Time: 2025-09-18 03:28:08 +0000
+# Generation Time: 2025-09-18 08:25:10 +0000
 # ************************************************************
 
 
@@ -663,7 +663,7 @@ CREATE TABLE `s_api_keys` (
   `ip_addresses` text DEFAULT NULL,
   `date_created` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=121 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci ROW_FORMAT=DYNAMIC;
+) ENGINE=InnoDB AUTO_INCREMENT=129 DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_general_ci ROW_FORMAT=DYNAMIC;
 
 LOCK TABLES `s_api_keys` WRITE;
 /*!40000 ALTER TABLE `s_api_keys` DISABLE KEYS */;
@@ -789,7 +789,15 @@ VALUES
 	(117,31,'55b990206019f54a3c174ff8fefae7d38fc86142f01b69557ef6e82f08efd5fd',NULL,0,0,NULL,NULL),
 	(118,31,'977c0400aed581aaf54b14db441c9b1a3c41cfb07a9052162a59f41c744c62f5',NULL,0,0,NULL,NULL),
 	(119,31,'140b08ba2bc34a51e0b40b5fd5b7ef82caf492cabaa3dea27cb6fab6e4be74c1',NULL,0,0,NULL,NULL),
-	(120,31,'7e19b728b6dc1127de3d7c9a66ff7ed7c828c53e8ff50a117c9f287d0d98081b',NULL,0,0,NULL,NULL);
+	(120,31,'7e19b728b6dc1127de3d7c9a66ff7ed7c828c53e8ff50a117c9f287d0d98081b',NULL,0,0,NULL,NULL),
+	(121,31,'6edf47b6019a312fb3ea4efca3405ea6c9fc8b9b2b0a4bc5062d50e86fbe500a',NULL,0,0,NULL,NULL),
+	(122,31,'83225d19bf76c10b663ea241d7d4a2b718d8f594855b6b87e04dd3a6313908a4',NULL,0,0,NULL,NULL),
+	(123,31,'0eb0e34917ba5bf874868e159e99cf95ba1387dcc7a7309664e40f8da30b8ec5',NULL,0,0,NULL,NULL),
+	(124,31,'ad73583ed7ed23f05d1f9ed67f6405786ea7f847caba6d632484ad9ab655e11d',NULL,0,0,NULL,NULL),
+	(125,31,'2e8471faa00c6997c9fd6b013f86239b4d0722c0400d11662ddd93c058f922f5',NULL,0,0,NULL,NULL),
+	(126,31,'156538e4c8e1af275a2af647c16649676152329e4e51d4c933c49b5c0e7189ea',NULL,0,0,NULL,NULL),
+	(127,31,'f3563dfcf28475d7da2cceba4402ac402cce6d6365c5375ce4e9efea865cbac2',NULL,0,0,NULL,NULL),
+	(128,31,'ff1d3be132678b2c7af93ac0dd8bc2d5773530f524c41e3eb3ee4f81eb13fbaf',NULL,0,0,NULL,NULL);
 
 /*!40000 ALTER TABLE `s_api_keys` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1089,12 +1097,12 @@ VALUES
 	(302,'price sale min2',39,'price_sale_min2','text',NULL,NULL,'',NULL,NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(303,'price sale min3',39,'price_sale_min3','text',NULL,NULL,'',NULL,NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(304,'picture',39,'picture','text',NULL,NULL,'',NULL,NULL,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
-	(305,'username',47,'username','text',NULL,NULL,'',NULL,1,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
-	(306,'password',47,'password','password',NULL,NULL,'',NULL,1,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
-	(307,'email',47,'email','text',NULL,NULL,'',NULL,1,1,1,1,'','col-md-6',0,NULL,NULL,NULL),
+	(305,'username',47,'username','text',NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,'','col-md-6',0,NULL,NULL,NULL),
+	(306,'password',47,'password','password',NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,'','col-md-6',0,NULL,NULL,NULL),
+	(307,'email',47,'email','text',NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(308,'full name',47,'full_name','text',NULL,NULL,'',NULL,1,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
 	(309,'phone',47,'phone','text',NULL,NULL,'',NULL,1,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL),
-	(310,'foto',47,'foto','text',NULL,NULL,'',NULL,1,1,1,NULL,'','col-md-6',0,NULL,NULL,NULL);
+	(310,'foto',47,'foto','text',NULL,NULL,'',NULL,NULL,NULL,NULL,NULL,'','col-md-6',0,NULL,NULL,NULL);
 
 /*!40000 ALTER TABLE `s_form_param` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -1156,24 +1164,24 @@ INSERT INTO `s_menu` (`menu_id`, `menu_nama`, `menu_ket`, `menu_url`, `menu_icon
 VALUES
 	(1,'[< sys >]',NULL,'formx/formx/table/menu','fa fa-list',0,'y','form_1',0,NULL,NULL,NULL,NULL),
 	(2,'sys-menu',NULL,'formx/formx/table/menu','',1,'y','form_2',NULL,NULL,NULL,NULL,NULL),
-	(3,'user',NULL,'formx/formx/table/user','fa fa-user',10,'y','form_3',101,NULL,NULL,NULL,NULL),
+	(3,'user',NULL,'formx/formx/table/user','fa fa-user',10,'y','form_3',11,NULL,NULL,NULL,NULL),
 	(10,'Master',NULL,'','',0,'y','',1,NULL,NULL,NULL,NULL),
-	(26,'Laporan',NULL,'','',0,'y','',3,NULL,NULL,NULL,NULL),
+	(26,'Laporan',NULL,'','',0,'y','',4,NULL,NULL,NULL,NULL),
 	(32,'Presensi Agen/Employee',NULL,'laporan/laporan/tunggakan','fa fa-table',26,'y','',0,NULL,NULL,NULL,NULL),
 	(37,'Data Toko Retail',NULL,'formx/formx/table/31','fa fa-home',10,'y','form_31',0,NULL,NULL,NULL,NULL),
-	(38,'Master Product',NULL,'formx/formx/table/30',NULL,10,'y','form_30',0,NULL,NULL,NULL,NULL),
+	(38,'Master Product',NULL,'formx/formx/table/30',NULL,10,'y','form_30',13,NULL,NULL,NULL,NULL),
 	(39,'Data Company',NULL,'formx/formx/table/32','',1,'y','form_32',0,NULL,NULL,NULL,NULL),
-	(40,'Jurnal',NULL,'','fa fa-chart',0,'y','',1,NULL,NULL,NULL,NULL),
+	(40,'Jurnal',NULL,'','fa fa-chart',0,'y','',2,NULL,NULL,NULL,NULL),
 	(41,'sys-form generator',NULL,'formx_gen/','',1,'y','',NULL,NULL,NULL,NULL,NULL),
-	(44,'Warehouse',NULL,'formx/formx/table/35',NULL,10,'y','form_35',4,NULL,NULL,NULL,NULL),
+	(44,'Warehouse',NULL,'formx/formx/table/35',NULL,10,'y','form_35',12,NULL,NULL,NULL,NULL),
 	(45,'Stok di Warehouse',NULL,'formx/formx/table/36','',46,'y','form_36',0,NULL,NULL,NULL,NULL),
 	(46,'Stock',NULL,'','',0,'y','',3,NULL,NULL,NULL,NULL),
-	(47,'Transaksi Warehouse',NULL,'formx/formx/table/37',NULL,40,'y','form_37',0,NULL,NULL,NULL,NULL),
+	(47,'Transaksi Warehouse',NULL,'formx/formx/table/37',NULL,40,'y','form_37',21,NULL,NULL,NULL,NULL),
 	(49,'Stock di Agen',NULL,'formx/formx/table/39',NULL,46,'y','form_39',0,NULL,NULL,NULL,NULL),
 	(50,'sys-user',NULL,'formx/formx/table/40',NULL,1,'y','form_40',0,NULL,NULL,NULL,NULL),
-	(51,'Kunjungan',NULL,'formx/formx/table/43','',40,'y','form_43',0,1,'2025-08-21 13:31:39',NULL,NULL),
-	(52,'Penjualan Agen',NULL,'formx/formx/table/44',NULL,40,'y','form_44',0,NULL,NULL,NULL,NULL),
-	(53,'Inquiry Agen',NULL,'formx/formx/table/45',NULL,40,'y','form_45',0,NULL,NULL,NULL,NULL),
+	(51,'Kunjungan',NULL,'formx/formx/table/43','',40,'y','form_43',24,1,'2025-08-21 13:31:39',NULL,NULL),
+	(52,'Penjualan Agen',NULL,'formx/formx/table/44',NULL,40,'y','form_44',23,NULL,NULL,NULL,NULL),
+	(53,'Inquiry Agen',NULL,'formx/formx/table/45',NULL,40,'y','form_45',22,NULL,NULL,NULL,NULL),
 	(54,'Jurnal Inquiry Detail',NULL,'formx/formx/table/46','',0,'t','form_46',NULL,1,'2025-09-06 06:21:19',NULL,NULL),
 	(55,'[< REST-FORM >]',NULL,'','',0,'y','',NULL,NULL,NULL,1,'2025-09-18 10:19:16'),
 	(56,'MProfil',NULL,'formx/formx/table/47',NULL,55,'y','form_47',0,NULL,NULL,NULL,NULL);
@@ -1225,7 +1233,7 @@ VALUES
 	(1,1,NULL,'admin','$2y$10$2Ln2x4QpuA/N7mQLKpdmJuBLLbfNMCt1oW8YNWLPet6qvaS62Q6UW','owner',NULL,NULL,NULL,NULL,1,'Administrator',0,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
 	(29,3,NULL,NULL,'$2y$10$LHiseKYmK88tT9IvD/yhbO.kVmBnBpaHfunON3e8xfnCK0TQQfKHS','distributor',NULL,NULL,NULL,NULL,1,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
 	(30,2,NULL,NULL,'$2y$10$zbdzA25JoytWAlHkeCHfr.Mo.JclvxCGIxcZAIbnIyRcG4SawzK9S','admin',NULL,NULL,NULL,NULL,1,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
-	(31,4,NULL,NULL,'$2y$10$cb3Sj5K2HSKeRIgs3V5vWOmjNjQQmmPyFQ2NDkffQA2p0RjrO9EMe','sales1',NULL,NULL,NULL,NULL,1,'Adi Dwi',1,NULL,NULL,'2025-08-13 14:06:34',NULL,NULL,30,NULL,NULL,NULL,NULL,NULL),
+	(31,4,NULL,NULL,'$2y$10$cb3Sj5K2HSKeRIgs3V5vWOmjNjQQmmPyFQ2NDkffQA2p0RjrO9EMe','sales1',NULL,NULL,NULL,NULL,1,'Adi Dwif',1,'123','2025-09-18 15:11:52','2025-08-13 14:06:34',NULL,NULL,30,NULL,NULL,NULL,NULL,NULL),
 	(32,4,NULL,NULL,'$2y$10$QvPyq2rfTxQoC8mQmgZI3e/YSf2AnoiS6GTeok2OBd2zD9GsmulRa','sales2',NULL,NULL,NULL,NULL,1,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
 	(33,4,NULL,NULL,'$2y$10$X1KIxL7UQNH5HIn540jpaOKk7Ba0UwthBH7tUoswDIPt4Nt7ThZcK','sales1.2',NULL,NULL,NULL,NULL,1,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
 	(34,4,NULL,NULL,'$2y$10$mDRR77qWSpgkIhgVI4g/6OQEo07p9fyaPDEeIsvfGI2j/2MfGnt3i','sales1.2',NULL,NULL,NULL,NULL,1,NULL,1,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),
