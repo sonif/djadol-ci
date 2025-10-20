@@ -37,6 +37,11 @@ class Laporan extends MY_Controller {
         $this->template('v_laporan_tunggakan',$v_data);
     }
 
+    public function kunjungan(){
+        $v_data = array();
+        $this->template('v_laporan_kunjungan',$v_data);
+    }
+
     public function tunggakan_ajax(){
         $v_data = array();
         $cb_year = $this->input->post('cb_year');
@@ -85,6 +90,26 @@ class Laporan extends MY_Controller {
         $v_data['input_agen']=$agen_data;
 
         $this->load->view('v_laporan_tunggakan_ajax',$v_data);
+    }
+
+    public function kunjungan_ajax(){
+        $v_data = array();
+        $date_start = $this->input->post('date_start');
+        $date_end = $this->input->post('date_end');
+
+        $q = "SELECT a.id,a.usergroup_id,a.full_name,a.email
+                    ,b.jumlah_visitasi 
+            FROM s_user as a
+                LEFT JOIN (SELECT created_by, COUNT(id) as jumlah_visitasi FROM jurnal_visitasi 
+                            WHERE created_at BETWEEN '".$date_start."' AND '".$date_end."' ) as b 
+                ON a.id = b.created_by 
+            WHERE a.usergroup_id = 4";
+        // echo $q;
+        $v_data['v_report'] = $this->db->query($q);
+        $v_data['input_date_start']=$date_start;
+        $v_data['input_date_end']=$date_end;
+
+        $this->load->view('v_laporan_kunjungan_ajax',$v_data);
     }
 
     public function pencatatan_meteran(){
@@ -216,6 +241,7 @@ class Laporan extends MY_Controller {
 
         $this->output->set_content_type('application/json')->set_output(json_encode($records));
     }
+
 
 	
 }
