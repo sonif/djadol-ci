@@ -6,7 +6,7 @@ function selfEmployeeId(formId) {
   $(formId+" select[name=employee_id]").val(employeeid);
 }
 
-$(".jq-terima-stock").on('click', function() {
+$("jq-terima-stock").on('click', function() {
     var stock_id = $(this).attr('lang');
     stock_clear(stock_id);
 })
