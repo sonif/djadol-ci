@@ -153,44 +153,15 @@ class Laporan extends MY_Controller {
         $this->load->view('v_laporan_pencatatan_meteran_ajax',$v_data);
     }
     
-    public function by_dusun()
+    public function clear_stock()
     {
-        $this->load->model("laporan/M_laporan");
-        $v_data['month'] = $this->M_laporan->get_month_array();
-        $v_data['dusun'] = $this->M_laporan->get_dusun();
-
-        $this->template('v_laporan_by_dusun',$v_data);
+        $data_id = $this->input->post('data_id');
+        // Lakukan proses pengosongan stock berdasarkan data_id
+        $q = "UPDATE stock_agen SET count = 0 WHERE id = ".$data_id;
+        $this->db->query($q);
+        
+        $this->output->set_content_type('application/json')->set_output(json_encode(array('status' => 'success')));
     }
-
-    public function by_dusun_ajax($year)
-    {
-        $this->load->model("laporan/M_laporan");
-        $v_data['month'] = $this->M_laporan->get_month_array();
-        $v_data['dusun'] = $this->M_laporan->get_dusun();
-        $v_data['year'] = $year;
-
-        $this->load->view('v_laporan_by_dusun_ajax',$v_data);
-    }
-
-    public function bayar_by_dusun()
-    {
-        $this->load->model("laporan/M_laporan");
-        $v_data['month'] = $this->M_laporan->get_month_array();
-        $v_data['dusun'] = $this->M_laporan->get_dusun();
-
-        $this->template('v_laporan_bayar_by_dusun',$v_data);
-    }
-
-    public function bayar_by_dusun_ajax($year)
-    {
-        $this->load->model("laporan/M_laporan");
-        $v_data['month'] = $this->M_laporan->get_month_array();
-        $v_data['dusun'] = $this->M_laporan->get_dusun();
-        $v_data['year'] = $year;
-
-        $this->load->view('v_laporan_bayar_by_dusun_ajax',$v_data);
-    }
-    
     
 	public function getDatatable_belum()
     {
