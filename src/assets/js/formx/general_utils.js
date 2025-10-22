@@ -6,14 +6,18 @@ function selfEmployeeId(formId) {
   $(formId+" select[name=employee_id]").val(employeeid);
 }
 
-$("jq-terima-stock").on('click', function() {
+$('#datatable_48').on('click', '.jq-terima-stock', function () {
     var stock_id = $(this).attr('lang');
     stock_clear(stock_id);
 })
 
 
 function stock_clear(stock_id) {
-    alert("LANG: " + stock_id);
+    if (confirm('Yakin terima dan kosongkan stock ini ')) {
+      // kirim request AJAX hapus di sini
+      alert("LANG: " + stock_id);
+    }
+    
     // $.post( baseUrl+"/transaksi/infometeran/",
     //   {
     //     customer_id: customer,
