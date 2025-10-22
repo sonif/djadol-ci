@@ -1,7 +1,7 @@
 var getUrl = window.location;
 var baseUrl = getUrl .protocol + "//" + getUrl.host + "/" + getUrl.pathname.split('/')[1];
 
-$("#input_form_48 jq-terima-stock").on('click', function() {
+$(".jq-terima-stock").on('click', function() {
     var stock_id = $(this).attr('lang');
     stock_clear(stock_id);
 })
