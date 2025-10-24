@@ -80,8 +80,8 @@
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title">Dynamic Content</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+          <h5 class="modal-title">Detail</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal">x</button>
         </div>
         <div class="modal-body">
           <p class="text-muted">Loading...</p>
@@ -111,7 +111,7 @@
 
         // Send AJAX POST
         $.ajax({
-            url: '<?php echo base_url('laporan/laporan/kunjungan_detil_ajax'); ?>',
+            url: '<?php echo site_url('laporan/laporan/kunjungan_detil_ajax'); ?>',
             type: 'POST',
             data: { id: cb_agen },
             success: function(response) {
