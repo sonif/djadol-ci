@@ -10,23 +10,25 @@ function selfEmployeeId(formId) {
 }
 
 $('#datatable_48').on('click', '.jq-terima-stock', function () {
-    var stock_id = $(this).attr('lang');
-    stock_clear(stock_id);
-})
+  var stock_id = $(this).attr('lang');
+  stock_clear(stock_id);
+});
 
 
 function stock_clear(stock_id) {
     if (confirm('Yakin terima dan kosongkan stock ini ')) {
       // kirim request AJAX hapus di sini
-      $.post( baseUrl+"/laporan/laporan/clear_stock",
-      {
-        data_id : stock_id,
-      }
-    ,function( data ) {
-      alert("Stock ID " + stock_id + " telah diterima dan dikosongkan.");
-    });
+      $.post(baseUrl + "/laporan/laporan/clear_stock", { data_id: stock_id })
+        .done(function (data) {
+          alert("Stock ID " + stock_id + " telah diterima dan dikosongkan.");
+            if ($.fn.DataTable && $.fn.DataTable.isDataTable('#datatable_48')) {
+              $('#datatable_48').DataTable().ajax.reload(null, false);
+            } else {
+              location.reload();
+            }
+          })
+        .fail(function () {
+          alert('Gagal mengosongkan stock. Silakan coba lagi.');
+      });
     }
-    
-    
-  
 }
