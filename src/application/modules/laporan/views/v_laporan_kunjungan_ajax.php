@@ -113,7 +113,7 @@
         $.ajax({
             url: '<?php echo base_url('laporan/laporan/kunjungan_detil_ajax'); ?>',
             type: 'POST',
-            data: { id: id },
+            data: { id: cb_agen },
             success: function(response) {
                 $('#myModalVisit .modal-body').html(response);
             },
