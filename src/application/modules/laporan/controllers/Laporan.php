@@ -128,9 +128,9 @@ class Laporan extends MY_Controller {
                 AND jurnal_visitasi.created_at BETWEEN '".$date_start."' AND '".$date_end."' 
                 ORDER BY jurnal_visitasi.created_at ASC";
         echo $q;
-        $v_data['v_report'] = $this->db->query($q);
-        $v_data['input_date_start']=$date_start;
-        $v_data['input_date_end']=$date_end;
+        $v_data['v_report']         = $this->db->query($q);
+        $v_data['input_date_start'] = $date_start;
+        $v_data['input_date_end']   = $date_end;
 
         $this->load->view('v_laporan_kunjungan_detil_ajax',$v_data);
     }
