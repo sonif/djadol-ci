@@ -112,6 +112,29 @@ class Laporan extends MY_Controller {
         $this->load->view('v_laporan_kunjungan_ajax',$v_data);
     }
 
+    public function kunjungan_detil_ajax(){
+        $v_data = array();
+        $agen_id = $this->input->post('id');
+        $date_start = $this->input->post('date_start');
+        $date_end = $this->input->post('date_end');
+
+        $q = "SELECT created_by,created_at
+                    , s_user.full_name,m_retail.name as retail_name
+                    ,m_retail.address as retail_address
+                FROM jurnal_visitasi 
+                    LEFT JOIN s_user ON jurnal_visitasi.created_by = s_user.id 
+                    LEFT JOIN m_retail ON jurnal_visitasi.retail_id = m_retail.id
+                WHERE created_by = '".$agen_id."' 
+                AND created_at BETWEEN '".$date_start."' AND '".$date_end."' 
+                ORDER BY created_at ASC";
+        // echo $q;
+        $v_data['v_report'] = $this->db->query($q);
+        $v_data['input_date_start']=$date_start;
+        $v_data['input_date_end']=$date_end;
+
+        $this->load->view('v_laporan_kunjungan_detil_ajax',$v_data);
+    }
+
     public function pencatatan_meteran(){
         $this->load->model("laporan/M_laporan");
         $v_data['month'] = $this->M_laporan->get_month_array();

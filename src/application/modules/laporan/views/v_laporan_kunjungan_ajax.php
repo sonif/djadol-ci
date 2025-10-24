@@ -43,6 +43,7 @@
                 <th >Email</th>
                 <th >Full name</th>
                 <th >Jumlah Kunjungan</th>
+                <th>Aksi</th>
             </tr>
         </thead>
     <tbody>
@@ -64,6 +65,7 @@
                 <td><?php echo $r->email;?> </td>
                 <td><?php echo $r->full_name;?> </td>
                 <td><?php echo empty($r->jumlah_visitasi) ? "0" : $r->jumlah_visitasi; ?></td>
+                <td><button class="btn btn-info btn-sm btn_detil_visit" lang="<?php echo $r->id; ?>">Detail</button></td>
             </tr>
             
         <?php
@@ -73,6 +75,21 @@
     </table>
 </div>
 
+<!-- Modal -->
+  <div class="modal fade" id="myModalVisit" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Dynamic Content</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+        </div>
+        <div class="modal-body">
+          <p class="text-muted">Loading...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <script>    
 
     $("#btn_print_report").on('click',function(e){
@@ -81,4 +98,28 @@
         });
     });
     
+    $(".btn_detil_visit").on('click',function(e){
+        var cb_agen = $(this).attr('lang');
+        var date_start = "<?php echo $input_date_start; ?>";
+        var date_end = "<?php echo $input_date_end; ?>";
+        // Optional: show loading state
+        $('#myModalVisit .modal-body').html('<p class="text-muted">Loading...</p>');
+        
+        // Show modal first (so user sees loading)
+        let modal = new bootstrap.Modal(document.getElementById('myModalVisit'));
+        modal.show();
+
+        // Send AJAX POST
+        $.ajax({
+            url: '<?php echo base_url('laporan/laporan/kunjungan_detil_ajax'); ?>',
+            type: 'POST',
+            data: { id: id },
+            success: function(response) {
+                $('#myModalVisit .modal-body').html(response);
+            },
+            error: function() {
+                $('#myModalVisit .modal-body').html('<p class="text-danger">Error loading data.</p>');
+            }
+        });
+    });
 </script>
