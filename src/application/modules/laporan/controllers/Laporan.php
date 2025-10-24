@@ -118,8 +118,8 @@ class Laporan extends MY_Controller {
         $date_start = $this->input->post('date_start');
         $date_end = $this->input->post('date_end');
 
-        $q = "SELECT created_by,created_at
-                    , s_user.full_name,m_retail.name as retail_name
+        $q = "SELECT jurnal_visitasi.created_by,jurnal_visitasi.created_at
+                    ,s_user.full_name,m_retail.name as retail_name
                     ,m_retail.address as retail_address
                 FROM jurnal_visitasi 
                     LEFT JOIN s_user ON jurnal_visitasi.created_by = s_user.id 
