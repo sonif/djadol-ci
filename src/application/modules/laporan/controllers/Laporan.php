@@ -156,10 +156,20 @@ class Laporan extends MY_Controller {
     public function clear_stock()
     {
         $data_id = $this->input->post('data_id');
+        $q = "SELECT * FROM stock_agen WHERE id = ".$data_id;
+        $stock_data = $this->db->query($q)->row();
+
+        $q = "INSERT INTO jurnal_return_agen (agen_id,product_id,count,created_at,created_by)
+                VALUES (".$stock_data->agen_id."
+                ,".$stock_data->product_id."
+                ,".$stock_data->count."
+                ,NOW()
+                ,".$this->session->userdata('user_id').")";
+        $this->db->query($q);
         // Lakukan proses pengosongan stock berdasarkan data_id
         $q = "UPDATE stock_agen SET count = 0 WHERE id = ".$data_id;
         $this->db->query($q);
-        
+
         $this->output->set_content_type('application/json')->set_output(json_encode(array('status' => 'success')));
     }
     
