@@ -127,7 +127,7 @@ class Laporan extends MY_Controller {
                 WHERE jurnal_visitasi.created_by = '".$agen_id."' 
                 AND jurnal_visitasi.created_at BETWEEN '".$date_start."' AND '".$date_end."' 
                 ORDER BY jurnal_visitasi.created_at ASC";
-        echo $q;
+        //echo $q;
         $v_data['v_report']         = $this->db->query($q);
         $v_data['input_date_start'] = $date_start;
         $v_data['input_date_end']   = $date_end;
