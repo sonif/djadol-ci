@@ -124,9 +124,9 @@ class Laporan extends MY_Controller {
                 FROM jurnal_visitasi 
                     LEFT JOIN s_user ON jurnal_visitasi.created_by = s_user.id 
                     LEFT JOIN m_retail ON jurnal_visitasi.retail_id = m_retail.id
-                WHERE created_by = '".$agen_id."' 
-                AND created_at BETWEEN '".$date_start."' AND '".$date_end."' 
-                ORDER BY created_at ASC";
+                WHERE jurnal_visitasi.created_by = '".$agen_id."' 
+                AND jurnal_visitasi.created_at BETWEEN '".$date_start."' AND '".$date_end."' 
+                ORDER BY jurnal_visitasi.created_at ASC";
         // echo $q;
         $v_data['v_report'] = $this->db->query($q);
         $v_data['input_date_start']=$date_start;
