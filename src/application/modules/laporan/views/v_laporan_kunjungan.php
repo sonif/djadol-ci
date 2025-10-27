@@ -10,7 +10,14 @@
                 <div class="row">
                     <div class="form-group col-md-3">
                         <label for="date_start">Start Date</label>
-                        <input type="text" name="date_start" id="date_start" class="form-control datepick"/> 
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" style="cursor:pointer" onclick="$('#date_start').focus();">
+                                    <i class="fa fa-calendar"></i>
+                                </span>
+                                <input type="text" name="date_start" id="date_start" class="form-control datepick"/> 
+                            </div>
+                        </div>
                     </div>
                     <div class="form-group col-md-3">
                         <label for="date_end">End Date</label>
