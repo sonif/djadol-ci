@@ -136,6 +136,31 @@ class Laporan extends MY_Controller {
         $this->load->view('v_laporan_kunjungan_detil_ajax',$v_data);
     }
 
+    public function penjualan(){
+        $v_data = array();
+        $this->template('v_laporan_penjualan',$v_data);
+    }
+
+    public function penjualan_ajax(){
+        $v_data = array();
+        $date_start = $this->input->post('date_start');
+        $date_end = $this->input->post('date_end');
+
+        $q = "SELECT a.id,a.usergroup_id,a.full_name,a.email
+                    ,b.total_price 
+            FROM s_user as a
+                LEFT JOIN (SELECT created_by, SUM(total_price) as total_price FROM jurnal_agen  
+                            WHERE created_at BETWEEN '".$date_start."' AND '".$date_end."' ) as b 
+                ON a.id = b.created_by 
+            WHERE a.usergroup_id = 4";
+        // echo $q;
+        $v_data['v_report'] = $this->db->query($q);
+        $v_data['input_date_start']=$date_start;
+        $v_data['input_date_end']=$date_end;
+
+        $this->load->view('v_laporan_penjualan_ajax',$v_data);
+    }
+
     public function pencatatan_meteran(){
         $this->load->model("laporan/M_laporan");
         $v_data['month'] = $this->M_laporan->get_month_array();
