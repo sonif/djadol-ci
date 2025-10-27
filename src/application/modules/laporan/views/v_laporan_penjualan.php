@@ -74,7 +74,6 @@
             format:"yyyy-mm-dd",
             autoclose:true,
             todayHighlight:true,
-            
         });
 
         $("#btn_load").on('click',function(e){
