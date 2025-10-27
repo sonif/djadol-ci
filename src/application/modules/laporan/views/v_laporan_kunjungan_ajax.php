@@ -4,7 +4,7 @@
     </div>
 </div>
 
-<div id="divprint">
+<div id="divprint2">
     <style>
         table .table-report {
             border-collapse: collapse;
@@ -81,7 +81,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Detail</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal">x</button>
+          <button type="button" class="btn-close-visit" data-bs-dismiss="modal">x</button>
         </div>
         <div class="modal-body">
           <p class="text-muted">Loading...</p>
@@ -93,9 +93,14 @@
 <script>    
 
     $("#btn_print_report").on('click',function(e){
-        $('#divprint').printThis({
+        $('#divprint2').printThis({
             loadCSS : "<?php echo base_url('assets/css/table_print2.css')?>",
         });
+    });
+    
+    $(".btn-close-visit").on('click',function(e){
+        var modal = bootstrap.Modal.getInstance(document.getElementById('myModalVisit'));
+        modal.hide();
     });
     
     $(".btn_detil_visit").on('click',function(e){
