@@ -65,7 +65,11 @@
                 <td><?php echo $r->created_at;?> </td>
                 <td><?php echo $r->retail_name;?> </td>
                 <td><?php echo $r->retail_address;?></td>
-                <td><?php echo $r->latlong;?></td>
+                <td>
+                    <a href="https://www.google.com/maps/search/?api=1&query=<?php echo $r->latlong;?>" target="_blank">
+                        <?php echo $r->latlong;?>
+                    </a>
+                </td>
             </tr>
             
         <?php
