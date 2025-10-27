@@ -119,6 +119,7 @@ class Laporan extends MY_Controller {
         $date_end = $this->input->post('date_end');
 
         $q = "SELECT jurnal_visitasi.created_by,jurnal_visitasi.created_at
+                    ,jurnal_visitasi.latlong
                     ,s_user.full_name,m_retail.name as retail_name
                     ,m_retail.address as retail_address
                 FROM jurnal_visitasi 

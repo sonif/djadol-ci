@@ -43,6 +43,7 @@
                 <th >Tanggal</th>
                 <th >Nama Retail</th>
                 <th >Alamat</th>
+                <th>LatLong</th>
             </tr>
         </thead>
     <tbody>
@@ -64,6 +65,7 @@
                 <td><?php echo $r->created_at;?> </td>
                 <td><?php echo $r->retail_name;?> </td>
                 <td><?php echo $r->retail_address;?></td>
+                <td><?php echo $r->latlong;?></td>
             </tr>
             
         <?php
