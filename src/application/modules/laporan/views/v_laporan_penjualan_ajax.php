@@ -24,7 +24,7 @@
 
     <center>
         <?php
-            $tt = "Laporan Kunjungan Sales";
+            $tt = "Laporan Penjualan Sales";
             if(!empty($rtitle)){
                 $tt = $rtitle;
             }

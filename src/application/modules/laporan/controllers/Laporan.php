@@ -183,50 +183,9 @@ class Laporan extends MY_Controller {
         $v_data['input_date_start'] = $date_start;
         $v_data['input_date_end']   = $date_end;
 
-        $this->load->view('v_laporan_kunjungan_detil_ajax',$v_data);
+        $this->load->view('v_laporan_penjualan_detil_ajax',$v_data);
     }
 
-    public function pencatatan_meteran(){
-        $this->load->model("laporan/M_laporan");
-        $v_data['month'] = $this->M_laporan->get_month_array();
-
-        $this->template('v_laporan_pencatatan_meteran',$v_data);
-    }
-    
-    public function pencatatan_meteran_ajax(){
-        $v_data = array();
-        $cb_year = $this->input->post('cb_year');
-        $cb_month = $this->input->post('cb_month');
-
-        if(($cb_month-1)<=0){
-            $cb_year_before = $cb_year-1;
-            $cb_month_before = 12;
-        }else{
-            $cb_year_before = $cb_year;
-            $cb_month_before = $cb_month-1;
-        }
-
-        $cb_dusun = $this->input->post('cb_dusun');
-
-        $q = "SELECT customer_id,customer_code,customer_fullname
-                    ,customer_rt,customer_rw,dusun_name
-                    ,t_before.transaksi_count_now as bulan_lalu
-                    ,t_now.transaksi_count_now as bulan_ini 
-                    ,t_now.transaksi_status
-                FROM m_customer 
-                left join m_dusun ON m_customer.customer_dusun_id = m_dusun.dusun_id
-                left join (SELECT transaksi_count_now,transaksi_customer_id from t_transaksi WHERE transaksi_year_issue = '".$cb_year_before."' AND transaksi_month_issue = '".$cb_month_before."') t_before on m_customer.customer_id = t_before.transaksi_customer_id 
-                left join (SELECT transaksi_count_now,transaksi_customer_id,transaksi_status from t_transaksi WHERE transaksi_year_issue = '".$cb_year."'  AND transaksi_month_issue = '".$cb_month."') t_now on m_customer.customer_id = t_now.transaksi_customer_id 
-            WHERE customer_dusun_id='".$cb_dusun."'";
-
-        $v_data['v_customer'] = $this->db->query($q);
-        $v_data['input_tahun']=$cb_year;
-        $v_data['input_bulan']=$cb_month;
-        $v_data['input_dusun']=$cb_dusun;
-
-        $this->load->view('v_laporan_pencatatan_meteran_ajax',$v_data);
-    }
-    
     public function clear_stock()
     {
         $data_id = $this->input->post('data_id');
