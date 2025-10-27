@@ -66,7 +66,7 @@
                 <td><?php echo $r->retail_name;?> </td>
                 <td><?php echo $r->retail_address;?></td>
                 <td>
-                    <?php echo $r->total_price;?>
+                    <?php echo number_format($r->total_price,0,',','.');?>
                 </td>
             </tr>
             
