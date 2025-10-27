@@ -213,7 +213,7 @@ class Formx extends MY_Controller
                         // .$d->{$p->column_name}
                         .'</a>';
                     }elseif ($p->type == 'latlong') {
-                        $row[]='<a href="#" target="blank" class="btn blue"><i class="fa fa-map"></i> show'
+                        $row[]='<a href="https://www.google.com/maps/search/?api=1&query='.$d->{$p->column_name}.'" target="blank" class="btn blue"><i class="fa fa-map"></i> show'
                         // .$d->{$p->column_name}
                         .'</a>';
                     }elseif ($p->type == 'img') {
