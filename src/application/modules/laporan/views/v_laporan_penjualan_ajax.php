@@ -64,7 +64,7 @@
                 <td align="center"><?php echo $i;?></td>
                 <td><?php echo $r->email;?> </td>
                 <td><?php echo $r->full_name;?> </td>
-                <td><?php echo empty($r->total_price) ? "0" : $r->total_price; ?></td>
+                <td><?php echo empty($r->total_price) ? "0" : number_format($r->total_price, 0, ',', '.'); ?></td>
                 <td><button class="btn btn-info btn-sm btn_detil_visit" lang="<?php echo $r->id; ?>">Detail</button></td>
             </tr>
             
