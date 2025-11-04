@@ -38,6 +38,7 @@ class Laporan extends MY_Controller {
     }
 
     public function kunjungan(){
+        $this->load->model("laporan/M_laporan");
         $v_data = array();
         $this->template('v_laporan_kunjungan',$v_data);
     }
@@ -137,6 +138,7 @@ class Laporan extends MY_Controller {
     }
 
     public function penjualan(){
+        $this->load->model("laporan/M_laporan");
         $v_data = array();
         $this->template('v_laporan_penjualan',$v_data);
     }
