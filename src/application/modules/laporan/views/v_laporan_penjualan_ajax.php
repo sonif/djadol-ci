@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        <button class="btn btn-default btn-sm" id="btn_print_report"><i class="fa fa-print"></i> Print</button>
+        <button class="btn btn-default btn-sm" id="btn_print_report2"><i class="fa fa-print"></i> Print</button>
     </div>
 </div>
 
@@ -50,6 +50,9 @@
         <?php
             $i=0;
             $tstyle = " ";
+            if($v_report->num_rows() <= 0):
+                echo "<tr><td colspan='5' align='center'>-- Tidak ada data --</td></tr>";
+            endif;
             // var_dump($v_report->result());
             foreach($v_report->result() as $r):
                 $i++;
@@ -81,7 +84,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Detail</h5>
-          <button type="button" class="btn-close-visit" data-bs-dismiss="modal">x</button>
+          <button class="btn btn-default btn-sm" id="btn-close-visit">Close</button>
         </div>
         <div class="modal-body">
           <p class="text-muted">Loading...</p>
@@ -92,15 +95,14 @@
 
 <script>    
 
-    $("#btn_print_report").on('click',function(e){
+    $("#btn_print_report2").on('click',function(e){
         $('#divprint2').printThis({
             loadCSS : "<?php echo base_url('assets/css/table_print2.css')?>",
         });
     });
     
-    $(".btn-close-visit").on('click',function(e){
-        var modal = bootstrap.Modal.getInstance(document.getElementById('myModalVisit'));
-        modal.hide();
+    $("#btn-close-visit").on('click',function(e){
+        $('#myModalVisit').modal('hide');
     });
 
     $(".btn_detil_visit").on('click',function(e){

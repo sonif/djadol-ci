@@ -3,23 +3,11 @@
 <div class='card shadow'>
         <div class='card-header'>
           <div class="col-7">
-              <h5 class="h3 mb-0 text-uppercase">Laporan Absensi</h5>
+              <h5 class="h3 mb-0 text-uppercase">Laporan Stock di Sales</h5>
           </div>
         </div>
         <div class='card-body form'>
                 <div class="row">
-                    <div class="form-group col-md-3">
-                        <label for="cb_month">Bulan</label>
-                        <select name='cb_month' id="cb_month" class='form-control select2-ajax' data-url='<?php echo site_url('formx/dropdown/dd/dd_month') ?>'>
-                            
-                        </select>   
-                    </div>
-                    <div class="form-group col-md-3">
-                        <label for="cb_year">Tahun</label>
-                        <select name='cb_year' id="cb_year" class='form-control select2-ajax' data-url='<?php echo site_url('formx/dropdown/dd/dd_year') ?>'>
-                            <option value="<?php echo date('Y'); ?>" selected><?php echo date('Y'); ?></option>
-                        </select>
-                    </div>
                     <div class="form-group col-md-3">
                         <label for="cb_agen">Sales</label>
                         <select name='cb_agen' id="cb_agen" class='form-control select2-ajax' data-url='<?php echo site_url('formx/dropdown/dd/dd_user_agen') ?>'>
@@ -28,7 +16,7 @@
                 </div>
                 <div id="row">
                     <center>
-                    <button class="btn btn-default btn-sm" id="btn_load">Load Laporan</button>
+                    <button class="btn btn-primary btn-sm" id="btn_load">Load Laporan</button>
                     </center>
                 </div>
             <hr/>
@@ -54,7 +42,7 @@
 
     function load_report(){
         $("#wrap_loading").show();
-        $("#wrap_table").load("<?php echo site_url('laporan/laporan/tunggakan_ajax/');?>"
+        $("#wrap_table").load("<?php echo site_url('laporan/laporan/stock_sales_ajax/');?>"
             ,{ cb_month : $("#cb_month").val(),
                 cb_agen : $("#cb_agen").val(),
                 cb_year : $("#cb_year").val(),}

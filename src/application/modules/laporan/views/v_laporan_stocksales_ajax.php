@@ -1,10 +1,10 @@
 <div class="row">
     <div class="col-md-12">
-        <button class="btn btn-default btn-sm" id="btn_print_report"><i class="fa fa-print"></i> Print</button>
+        <button class="btn btn-default btn-sm" id="btn_print_report2"><i class="fa fa-print"></i> Print</button>
     </div>
 </div>
 
-<div id="divprint">
+<div id="divprint2">
     <style>
         table .table-report {
             border-collapse: collapse;
@@ -24,14 +24,14 @@
 
     <center>
         <?php
-            $tt = "Laporan Kunjungan Sales : Detail Retail";
+            $tt = "Laporan Sock Sales";
             if(!empty($rtitle)){
                 $tt = $rtitle;
             }
         ?>
         <h2><?php echo $tt; ?></h2>
         <div>
-            <?php echo "(Start : ".$input_date_start.", End : ".$input_date_end.")"; ?><br/>
+            <?php echo "Nama Sales : (".$input_agen->email.") ".$input_agen->full_name; ?><br/>
             
         </div>
     </center>
@@ -40,10 +40,8 @@
         <thead>                            
             <tr>
                 <th align="center">No</th>
-                <th >Tanggal</th>
-                <th >Nama Retail</th>
-                <th >Alamat</th>
-                <th>LatLong</th>
+                <th >Nama Produk</th>
+                <th >Jumlah</th>
             </tr>
         </thead>
     <tbody>
@@ -51,6 +49,9 @@
             $i=0;
             $tstyle = " ";
             // var_dump($v_report->result());
+            if($v_report->num_rows() <= 0):
+                echo "<tr><td colspan='3' align='center'>-- Tidak ada data --</td></tr>";
+            endif;
             foreach($v_report->result() as $r):
                 $i++;
                 if($i % 2 == 0):
@@ -62,14 +63,9 @@
         
             <tr <?php echo $tstyle; ?>>
                 <td align="center"><?php echo $i;?></td>
-                <td><?php echo $r->created_at;?> </td>
-                <td><?php echo $r->retail_name;?> </td>
-                <td><?php echo $r->retail_address;?></td>
-                <td>
-                    <a href="https://www.google.com/maps/search/?api=1&query=<?php echo $r->latlong;?>" target="_blank">
-                        <?php echo $r->latlong;?>
-                    </a>
-                </td>
+                <td><?php echo $r->product_name;?> </td>
+                <td><?php echo $r->count;?> </td>
+                <!-- <td><button class="btn btn-info btn-sm btn_detil_visit" lang="<?php echo $r->id; ?>">Detail</button></td> -->
             </tr>
             
         <?php
@@ -79,10 +75,12 @@
     </table>
 </div>
 
-<script>
-    $("#btn_print_report").on('click',function(e){
-        $('#divprint').printThis({
+<script>    
+
+    $("#btn_print_report2").on('click',function(e){
+        $('#divprint2').printThis({
             loadCSS : "<?php echo base_url('assets/css/table_print2.css')?>",
         });
     });
+
 </script>

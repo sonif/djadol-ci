@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-md-12">
-        <button class="btn btn-default btn-sm" id="btn_print_report"><i class="fa fa-print"></i> Print</button>
+        <button class="btn btn-default btn-sm" id="btn_print_report2"><i class="fa fa-print"></i> Print</button>
     </div>
 </div>
 
@@ -51,6 +51,10 @@
             $i=0;
             $tstyle = " ";
             // var_dump($v_report->result());
+            if($v_report->num_rows() <= 0):
+                echo "<tr><td colspan='5' align='center'>-- Tidak ada data --</td></tr>";
+            endif;
+            
             foreach($v_report->result() as $r):
                 $i++;
                 if($i % 2 == 0):
@@ -92,7 +96,7 @@
 
 <script>    
 
-    $("#btn_print_report").on('click',function(e){
+    $("#btn_print_report2").on('click',function(e){
         $('#divprint2').printThis({
             loadCSS : "<?php echo base_url('assets/css/table_print2.css')?>",
         });

@@ -77,3 +77,10 @@
     </table>
 </div>
 
+<script>
+    $("#btn_print_report").on('click',function(e){
+        $('#divprint').printThis({
+            loadCSS : "<?php echo base_url('assets/css/table_print2.css')?>",
+        });
+    });
+</script>

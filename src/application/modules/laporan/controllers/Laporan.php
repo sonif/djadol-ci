@@ -30,6 +30,30 @@ class Laporan extends MY_Controller {
         $data = array();
     }
 
+    public function stock_sales(){
+        $this->load->model("laporan/M_laporan");
+        $v_data['month'] = $this->M_laporan->get_month_array();
+
+        $this->template('v_laporan_stocksales',$v_data);
+    }
+
+    public function stock_sales_ajax(){
+        $v_data = array();
+        $cb_agen = $this->input->post('cb_agen');
+        $agen_data = $this->db->get_where('s_user',array('id'=>$cb_agen))->row();
+
+        $q = "SELECT sa.id,sa.agen_id,sa.product_id,sa.count
+                    ,mp.name as product_name
+                FROM stock_agen as sa
+                LEFT JOIN t_product as mp ON sa.product_id = mp.id
+                WHERE sa.agen_id = '".$cb_agen."' AND sa.count > 0" ;
+        // echo $q;
+        $v_data['v_report'] = $this->db->query($q);
+        $v_data['input_agen'] = $agen_data;
+
+        $this->load->view('v_laporan_stocksales_ajax',$v_data);
+    }
+
     public function tunggakan(){
         $this->load->model("laporan/M_laporan");
         $v_data['month'] = $this->M_laporan->get_month_array();
