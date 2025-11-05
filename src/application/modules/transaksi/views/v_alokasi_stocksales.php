@@ -19,7 +19,7 @@
                         <tr>
                             <th colspan="3">
                                 <div class="form-group mb-0">
-                                    <label>Sales adb :</label>
+                                    <label>Pilih Sales :</label>
                                     <select name='cb_agen' id="cb_agen" class='form-control select2-ajax' data-url='<?php echo site_url('formx/dropdown/dd/dd_user_agen'); ?>'></select>
                                 </div>
                             </th>
@@ -63,7 +63,7 @@
     }
 
     $(document).ready(function () {
-        var submitUrl = "REPLACE_WITH_REAL_ENDPOINT";
+        var submitUrl = <?php echo site_url('transaksi/transaksi/post_stocksales'); ?>;
 
         function markSelectInvalid(selectElement, invalid) {
             var $select = $(selectElement);

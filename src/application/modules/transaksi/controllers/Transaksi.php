@@ -36,6 +36,45 @@ class Transaksi extends MY_Controller {
         $this->template('v_alokasi_stocksales',$v_data);
     }
     
+    public function get_productname($id){
+        $q = "SELECT name FROM t_product WHERE id='".$id."'";
+        $sql = $this->db->query($q);
+        $res = $sql->row();
+        return $res->name;
+    }
+    public function post_stocksales(){
+        $agen_id = $this->input->post('cb_agen');
+        $products = $this->input->post('cb_product');
+        $jumlahs = $this->input->post('jumlah');
+
+        $q = "INSERT INTO jurnal_inquiry_agen(company_id,created_by,created_at,agen_id,status) VALUES(
+            '".$this->data['user']->company_id."'
+            ,'".$this->data['user']->id."'
+            ,NOW()
+            ,'".$agen_id."'
+            ,'draft'
+        )";
+        $this->db->query($q);
+        $inquiry_id = $this->db->insert_id();   
+
+        for($i=0;$i<count($products);$i++){
+            $nama_produk = get_productname($products[$i]);
+            $q_detail = "INSERT INTO jurnal_inquiry_detail(jurnal_id,product_id,product_name,count,created_by,created_at) VALUES(
+                '".$inquiry_id."'
+                ,'".$products[$i]."'
+                ,'".$nama_produk."'
+                ,'".$jumlahs[$i]."'
+                ,'".$this->data['user']->id."'
+                ,NOW()
+            )";
+            $this->db->query($q_detail);
+        }
+        $res['success'] = true;
+        $res['message'] = 'Data berhasil disimpan'; 
+        $this->output->set_content_type('application/json')->set_output(json_encode($res));
+    }
+
+
     public function input_per_dusun(){
         $v_data = array();
         $this->template('v_input_per_dusun',$v_data);
