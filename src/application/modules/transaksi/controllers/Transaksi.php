@@ -30,6 +30,12 @@ class Transaksi extends MY_Controller {
         $data = array();
     }
     
+
+    public function alokasi_stocksales(){
+        $v_data = array();
+        $this->template('v_alokasi_stocksales',$v_data);
+    }
+    
     public function input_per_dusun(){
         $v_data = array();
         $this->template('v_input_per_dusun',$v_data);

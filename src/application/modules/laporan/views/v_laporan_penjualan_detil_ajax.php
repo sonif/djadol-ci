@@ -51,6 +51,9 @@
             $i=0;
             $tstyle = " ";
             // var_dump($v_report->result());
+            if($v_report->num_rows() <= 0):
+                echo "<tr><td colspan='5' align='center'>-- Tidak ada data --</td></tr>";
+            endif;
             foreach($v_report->result() as $r):
                 $i++;
                 if($i % 2 == 0):
