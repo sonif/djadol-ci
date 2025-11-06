@@ -85,7 +85,7 @@
     }
 
     $(document).ready(function () {
-        var submitUrl = "REPLACE_WITH_REAL_ENDPOINT";
+        var submitUrl = <?php echo site_url('transaksi/transaksi/post_stocksales'); ?>;
 
         function markSelectInvalid(selectElement, invalid) {
             var $select = $(selectElement);
