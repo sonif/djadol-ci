@@ -3,6 +3,18 @@
 .select2-invalid .select2-selection {
     border-color: #dc3545;
 }
+#detailTable tbody tr td {
+    padding: 0.75rem 0.5rem;
+}
+#detailTable tbody tr + tr td {
+    padding-top: 0.50rem;
+}
+#detailTable .btn {
+    padding: 0.4rem 0.85rem;
+}
+#alokasiForm .btn-primary {
+    margin-top: 1rem;
+}
 </style>
 
 <!-- Main content -->
@@ -16,18 +28,28 @@
             <form id="alokasiForm">
                 <table id="detailTable">
                     <thead>
+                        
                         <tr>
+                            <th>Sales adb :</th>
                             <th colspan="3">
                                 <div class="form-group mb-0">
-                                    <label>Sales adb :</label>
+                                   
                                     <select name='cb_agen' id="cb_agen" class='form-control select2-ajax' data-url='<?php echo site_url('formx/dropdown/dd/dd_user_agen'); ?>'></select>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th colspan="3">
+                                <div>
+
+                                    <button type="button" class="btn btn-success btn-sm" id="addRow">+ Tambah Barang</button>
                                 </div>
                             </th>
                         </tr>
                         <tr>
                             <th width="200px">Barang</th>
                             <th width="100px">Jumlah</th>
-                            <th width="10%"><button type="button" class="btn btn-success btn-sm" id="addRow">+</button></th>
+                            <th width="10%"></th>
                         </tr>
                     </thead>
                     <tbody>
