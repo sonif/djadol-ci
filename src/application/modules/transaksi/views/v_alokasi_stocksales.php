@@ -113,22 +113,32 @@
         }
 
         function submitAllocation(payload) {
+            // Show loading indicator
+            $("#alokasiForm button[type='submit']").prop('disabled', true).html(
+            '<span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Menyimpan...'
+            );
+
             $.ajax({
-                url: submitUrl,
-                method: "POST",
-                contentType: "application/json",
-                data: JSON.stringify(payload),
-                success: function(response) {
-                    if(response.success) {
-                        alert("Alokasi stok berhasil disimpan.");
-                        location.reload();
-                    } else {
-                        alert("Gagal menyimpan alokasi stok: " + (response.message || "Unknown error"));
-                    }
-                },
-                error: function(xhr) {
-                    console.warn("Submit failed", xhr);
+            url: submitUrl,
+            method: "POST",
+            contentType: "application/json",
+            data: JSON.stringify(payload),
+            success: function(response) {
+                if(response.success) {
+                alert("Alokasi stok berhasil disimpan.");
+                location.reload();
+                } else {
+                alert("Gagal menyimpan alokasi stok: " + (response.message || "Unknown error"));
                 }
+            },
+            error: function(xhr) {
+                console.warn("Submit failed", xhr);
+                alert("Terjadi kesalahan saat menyimpan data");
+            },
+            complete: function() {
+                // Reset button state
+                $("#alokasiForm button[type='submit']").prop('disabled', false).html('Simpan Semua');
+            }
             });
         }
 
