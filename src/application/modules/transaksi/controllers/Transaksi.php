@@ -42,30 +42,32 @@ class Transaksi extends MY_Controller {
         $res = $sql->row();
         return $res->name;
     }
+    
     public function post_stocksales(){
-        $agen_id = $this->input->post('cb_agen');
-        $products = $this->input->post('cb_product');
-        $jumlahs = $this->input->post('jumlah');
+        $raw = file_get_contents("php://input");
+        $data = json_decode($raw, true);
 
         $q = "INSERT INTO jurnal_inquiry_agen(company_id,created_by,created_at,agen_id,status) VALUES(
             '".$this->data['user']->company_id."'
             ,'".$this->data['user']->id."'
             ,NOW()
-            ,'".$agen_id."'
+            ,'".$data['sales_id']."'
             ,'draft'
         )";
         $this->db->query($q);
         $inquiry_id = $this->db->insert_id();   
 
-        for($i=0;$i<count($products);$i++){
-            $nama_produk = get_productname($products[$i]);
-            $q_detail = "INSERT INTO jurnal_inquiry_detail(jurnal_id,product_id,product_name,count,created_by,created_at) VALUES(
+        $products = $data['detail'];
+        foreach($products as $i){
+            $nama_produk = $this->get_productname($i['product_id']);
+            $q_detail = "INSERT INTO jurnal_inquiry_detail(jurnal_id,product_id,product_name,count,created_by,created_at,company_id) VALUES(
                 '".$inquiry_id."'
-                ,'".$products[$i]."'
+                ,'".$i['product_id']."'
                 ,'".$nama_produk."'
-                ,'".$jumlahs[$i]."'
+                ,'".$i['jumlah']."'
                 ,'".$this->data['user']->id."'
                 ,NOW()
+                ,'".$this->data['user']->company_id."'
             )";
             $this->db->query($q_detail);
         }
@@ -73,7 +75,6 @@ class Transaksi extends MY_Controller {
         $res['message'] = 'Data berhasil disimpan'; 
         $this->output->set_content_type('application/json')->set_output(json_encode($res));
     }
-
 
     public function input_per_dusun(){
         $v_data = array();

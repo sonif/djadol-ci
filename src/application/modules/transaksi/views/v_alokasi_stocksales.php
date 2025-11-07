@@ -26,30 +26,20 @@
         </div>
         <div class='card-body form'>
             <form id="alokasiForm">
-                <table id="detailTable">
+                <table id="detailTable" width="90%" class="table table-bordered table-striped">
                     <thead>
-                        
                         <tr>
-                            <th>Sales adb :</th>
                             <th colspan="3">
-                                <div class="form-group mb-0">
-                                   
+                                <div class="form-group col-md-4">
+                                    Nama Sales :
                                     <select name='cb_agen' id="cb_agen" class='form-control select2-ajax' data-url='<?php echo site_url('formx/dropdown/dd/dd_user_agen'); ?>'></select>
                                 </div>
                             </th>
                         </tr>
                         <tr>
-                            <th colspan="3">
-                                <div>
-
-                                    <button type="button" class="btn btn-success btn-sm" id="addRow">+ Tambah Barang</button>
-                                </div>
-                            </th>
-                        </tr>
-                        <tr>
-                            <th width="200px">Barang</th>
+                            <th width="250px">Barang</th>
                             <th width="100px">Jumlah</th>
-                            <th width="10%"></th>
+                            <th width="10%"><button type="button" class="btn btn-success btn-sm" id="addRow">+ Tambah Barang</button></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -129,7 +119,12 @@
                 contentType: "application/json",
                 data: JSON.stringify(payload),
                 success: function(response) {
-                    console.log("Submit success", response);
+                    if(response.success) {
+                        alert("Alokasi stok berhasil disimpan.");
+                        location.reload();
+                    } else {
+                        alert("Gagal menyimpan alokasi stok: " + (response.message || "Unknown error"));
+                    }
                 },
                 error: function(xhr) {
                     console.warn("Submit failed", xhr);
