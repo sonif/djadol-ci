@@ -145,3 +145,21 @@ function convert_arr_primary_key($object,$column_id)
     return $res;
 }
 
+function getDistanceBetweenPoints($lat1, $lon1, $lat2, $lon2, $unit = 'K')
+{
+    $theta = $lon1 - $lon2;
+    $dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +
+            cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+    $dist = acos($dist);
+    $dist = rad2deg($dist);
+    $miles = $dist * 60 * 1.1515;
+
+    switch (strtoupper($unit)) {
+        case 'K':
+            return $miles * 1.609344; // Kilometers
+        case 'N':
+            return $miles * 0.8684;   // Nautical miles
+        default:
+            return $miles;            // Miles
+    }
+}

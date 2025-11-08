@@ -89,6 +89,77 @@ class M_before_insert extends CI_Model {
 		}
 		return $data;
 	}
+
+	function getDistanceBetweenPoints($lat1, $lon1, $lat2, $lon2, $unit = 'K')
+	{
+		$theta = $lon1 - $lon2;
+		$dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +
+				cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+		$dist = acos($dist);
+		$dist = rad2deg($dist);
+		$miles = $dist * 60 * 1.1515;
+
+		switch (strtoupper($unit)) {
+			case 'K':
+				return $miles * 1.609344; // Kilometers
+			case 'N':
+				return $miles * 0.8684;   // Nautical miles
+			default:
+				return $miles;            // Miles
+		}
+	}
+
+	public function t_absen($data){
+		$created_by = $data['created_by'];
+		$lat1 = $data['absen_latitude'];
+		$lon1 = $data['absen_longitude'];
+		$date_absen = date('Y-m-d');
+
+		$data_user = "SELECT s_user.id,s_user.lokasi_id,m_lokasi.lat, m_lokasi.long 
+					FROM s_user 
+					LEFT JOIN m_lokasi ON m_lokasi.id = s_user.lokasi_id 
+					WHERE s_user.id = '".$created_by."';";
+		$data_user = $this->db->query($data_user);
+		$data_user = $data_user->row();
+		$lat2 = $data_user->lat;
+		$lon2 = $data_user->long;
+
+		$distance = $this->getDistanceBetweenPoints($lat1, $lon1, $lat2, $lon2, 'K');
+		if($distance > 0.1){ // 100 meter
+			$this->exit_json('Anda berada di luar jangkauan absen');
+		}
+
+		$q = "SELECT COUNT(id) as jumlah FROM t_absen WHERE created_by = '".$created_by."' AND created_at = '".$date_absen."';";
+		$r = $this->db->query($q);
+		$r = $r->row();
+		$jumlah = $r->jumlah;
+		if($jumlah>0){
+			$this->exit_json('Anda sudah absen hari ini');
+		}
+		return $data;
+	}
+
+	public function t_absen_out($data){
+		$created_by = $data['created_by'];
+		$lat1 = $data['absen_latitude'];
+		$lon1 = $data['absen_longitude'];
+		$date_absen = date('Y-m-d');
+
+		$data_user = "SELECT s_user.id,s_user.lokasi_id,m_lokasi.lat, m_lokasi.long 
+					FROM s_user 
+					LEFT JOIN m_lokasi ON m_lokasi.id = s_user.lokasi_id 
+					WHERE s_user.id = '".$created_by."';";
+		$data_user = $this->db->query($data_user);
+		$data_user = $data_user->row();
+		$lat2 = $data_user->lat;
+		$lon2 = $data_user->long;
+
+		$distance = $this->getDistanceBetweenPoints($lat1, $lon1, $lat2, $lon2, 'K');
+		if($distance > 0.1){ // 100 meter
+			$this->exit_json('Anda berada di luar jangkauan absen');
+		}
+		return $data;
+	}
 	// public function m_user($data)
 	// {
 	// 	$w = array(
