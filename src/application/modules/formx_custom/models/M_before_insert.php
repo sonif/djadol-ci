@@ -115,7 +115,8 @@ class M_before_insert extends CI_Model {
 		$lon1 = $data['absen_longitude'];
 		$date_absen = date('Y-m-d');
 
-		$data_user = "SELECT s_user.id,s_user.lokasi_id,m_lokasi.lat, m_lokasi.long 
+		$data_user = "SELECT s_user.id, s_user.email, s_user.lokasi_id
+							,m_lokasi.lat, m_lokasi.long, m_lokasi.name, m_lokasi.radius, m_lokasi.status_lock 
 					FROM s_user 
 					LEFT JOIN m_lokasi ON m_lokasi.id = s_user.lokasi_id 
 					WHERE s_user.id = '".$created_by."';";
@@ -125,8 +126,10 @@ class M_before_insert extends CI_Model {
 		$lon2 = $data_user->long;
 
 		$distance = $this->getDistanceBetweenPoints($lat1, $lon1, $lat2, $lon2, 'K');
-		if($distance > 0.1){ // 100 meter
-			$this->exit_json('Anda berada di luar jangkauan absen');
+		if($data_user->status_lock == 'y'){
+			if($distance > $data_user->radius ){ // 100 meter
+				$this->exit_json('Anda berada di luar jangkauan absen');
+			}
 		}
 
 		$q = "SELECT COUNT(id) as jumlah FROM t_absen 
