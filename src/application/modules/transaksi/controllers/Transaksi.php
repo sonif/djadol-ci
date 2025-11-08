@@ -31,6 +31,11 @@ class Transaksi extends MY_Controller {
     }
     
 
+    public function warehouse(){
+        $v_data = array();
+        $this->template('v_transaksi_warehouse',$v_data);
+    }
+
     public function alokasi_stocksales(){
         $v_data = array();
         $this->template('v_alokasi_stocksales',$v_data);
