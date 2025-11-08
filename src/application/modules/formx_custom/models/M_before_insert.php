@@ -129,7 +129,8 @@ class M_before_insert extends CI_Model {
 			$this->exit_json('Anda berada di luar jangkauan absen');
 		}
 
-		$q = "SELECT COUNT(id) as jumlah FROM t_absen WHERE created_by = '".$created_by."' AND created_at = '".$date_absen."';";
+		$q = "SELECT COUNT(id) as jumlah FROM t_absen 
+				WHERE created_by = '".$created_by."' AND DATE(created_at) = '".$date_absen."';";
 		$r = $this->db->query($q);
 		$r = $r->row();
 		$jumlah = $r->jumlah;
