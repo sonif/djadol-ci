@@ -32,7 +32,7 @@
                             <th colspan="3">
                                 <div class="form-group col-md-4">
                                     Gudang :
-                                    <select name='cb_warehouse' id="cb_warehouse" class='form-control select2-ajax' data-url='<?php echo site_url('formx/dropdown/dd/dd_user_agen'); ?>'></select>
+                                    <select name='cb_warehouse' id="cb_warehouse" class='form-control select2-ajax' data-url='<?php echo site_url('formx/dropdown/dd/dd_warehouse'); ?>'></select>
                                 </div>
                             </th>
                         </tr>
@@ -55,9 +55,25 @@
 
                 <button type="submit" class="btn btn-primary">Simpan Semua</button>
             </form>
-
-            <div class='table-responsive' id='wrap_table'>
-                
+            <hr/>
+            <div class='table-responsive' id='wrap_table' style="margin-top:10px;">
+                <table class="table table-striped table-hover table-bordered" id="tbbelum"
+                                width="100%" cellspacing="0" role="grid" aria-describedby="example_info" style="width: 100%;">
+                    <thead class="thead-dark">                            
+                        <tr role="row" class="heading">
+                            <th width="30">No.</th>
+                            <th width="100" align="center">Tanggal</th>
+                            <th align="center">Warehouse</th>
+                            <th width="100" align="center">Total</th>
+                            <th width="100" align="center">Status</th>
+                            <th width="100">Action</th>      
+                        </tr>
+                        
+                    </thead>
+                    <tbody>
+                    
+                    </tbody>
+                </table>
             </div><!-- wrap_table End-->
         </div><!-- /.box-body -->
       </div><!-- /.box -->
@@ -75,7 +91,22 @@
     }
 
     $(document).ready(function () {
-        var submitUrl = "<?php echo site_url('transaksi/transaksi/post_stocksales'); ?>";
+        var tbs = new Datatable();
+        // tbs.setDefaultParam("filter_customer_name",$("#filter_customer_name").val());
+        // tbs.setDefaultParam("booking_date",$("#booking_date").val());
+        tbs.init({
+            src : $("#tbbelum"),
+            dataTable:{
+                "ajax":{
+                    "url":"<?php echo site_url("transaksi/transaksi/getDatatable_jurnalwarehouse");?>",
+                },
+                "order":[
+                    [1,"asc"]
+                ],
+            }
+        });  
+
+        var submitUrl = "<?php echo site_url('transaksi/transaksi/post_stockwarehouse'); ?>";
 
         function markSelectInvalid(selectElement, invalid) {
             var $select = $(selectElement);
@@ -125,10 +156,14 @@
             data: JSON.stringify(payload),
             success: function(response) {
                 if(response.success) {
-                alert("Alokasi stok berhasil disimpan.");
-                location.reload();
+                    alert("Alokasi stok berhasil disimpan.");
+                    $("#alokasiForm")[0].reset(); // Reset form
+                    $("#detailTable tbody tr:not(:first)").remove(); // Remove additional rows except first
+                    $(".select2-ajax").val('').trigger('change'); // Reset select2 dropdowns
+                    tbs.reload(); // Reload datatable
+                    location.reload(); // Reload the page to reflect changes
                 } else {
-                alert("Gagal menyimpan alokasi stok: " + (response.message || "Unknown error"));
+                    alert("Gagal menyimpan alokasi stok: " + (response.message || "Unknown error"));
                 }
             },
             error: function(xhr) {
@@ -138,6 +173,7 @@
             complete: function() {
                 // Reset button state
                 $("#alokasiForm button[type='submit']").prop('disabled', false).html('Simpan Semua');
+                tbs.reload();
             }
             });
         }
@@ -173,14 +209,14 @@
 
             var messages = [];
             var isValid = true;
-            var salesId = $("#cb_agen").val();
+            var wareId = $("#cb_warehouse").val();
 
-            markSelectInvalid("#cb_agen", false);
+            markSelectInvalid("#cb_warehouse", false);
 
-            if (!salesId) {
+            if (!wareId) {
                 isValid = false;
                 messages.push("Sales wajib dipilih.");
-                markSelectInvalid("#cb_agen", true);
+                markSelectInvalid("#cb_warehouse", true);
             }
 
             var detail = [];
@@ -227,7 +263,7 @@
             }
 
             var payload = {
-                sales_id: salesId,
+                warehouse_id: wareId,
                 detail: detail
             };
 
@@ -239,5 +275,7 @@
 
             submitAllocation(payload);
         });
+
+        
     });
 </script>

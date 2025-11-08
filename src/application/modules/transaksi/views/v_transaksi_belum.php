@@ -31,10 +31,10 @@
             src : $("#tbbelum"),
             dataTable:{
                 "ajax":{
-                "url":"<?php echo site_url("transaksi/transaksi/getDatatable_belum");?>",
+                    "url":"<?php echo site_url("transaksi/transaksi/getDatatable_belum");?>",
                 },
                 "order":[
-                [1,"asc"]
+                    [1,"asc"]
                 ],
             }
         });  

@@ -64,7 +64,6 @@
   
   <link type="text/css" href="<?php echo base_url('assets') ?>/css/my.css" rel="stylesheet">
 
-
 </head>
 
 <body>
