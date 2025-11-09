@@ -78,7 +78,22 @@
         </div><!-- /.box-body -->
       </div><!-- /.box -->
       
+      <div class="modal fade" id="myModalDetil" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+            <h5 class="modal-title">Detail</h5>
+            <button class="btn btn-default btn-sm" id="btn-close-visit">Close</button>
+            </div>
+            <div class="modal-body">
+            <p class="text-muted">Loading...</p>
+            </div>
+        </div>
+        </div>
+    </div>
 <script>
+    
+
     $('.date-year').datepicker({
         orientation:"left",
         format:"yyyy",
@@ -105,6 +120,50 @@
                 ],
             }
         });  
+
+        $("#btn-close-visit").on('click',function(e){
+            $('#myModalDetil').modal('hide');
+        });
+
+        // Handle click on .jq-detail button in the datatable
+        $('#tbbelum').on('click', '.jq-check', function() {
+            var jurnal_id = $(this).attr('lang');
+            if(confirm("Yakin terima jurnal ini?")){
+                $.ajax({
+                    url: '<?php echo site_url('transaksi/transaksi/terima_jurnal_warehouse'); ?>',
+                    type: 'POST',
+                    data: { id: jurnal_id },
+                    success: function(response) {
+                        alert("Jurnal telah diterima.");
+                        tbs.reload();
+                    },
+                    error: function() {
+                        alert("Error saat menerima jurnal.");
+                    } 
+                });
+            }
+        });
+
+        $('#tbbelum').on('click', '.jq-detil', function() {
+            var jurnal_id = $(this).attr('data-id') || $(this).attr('lang');
+            // Show loading state in modal
+            $('#myModalDetil .modal-body').html('<p class="text-muted">Loading...</p>');
+            $('#myModalDetil').modal('show');
+
+            // AJAX to fetch detail
+            $.ajax({
+                url: '<?php echo site_url('transaksi/transaksi/jurnal_warehouse_detil'); ?>',
+                type: 'POST',
+                data: { id: jurnal_id },
+                success: function(response) {
+                    $('#myModalDetil .modal-body').html(response);
+                },
+                error: function() {
+                    $('#myModalDetil .modal-body').html('<p class="text-danger">Error loading data.</p>');
+                }
+            });
+        });
+        
 
         var submitUrl = "<?php echo site_url('transaksi/transaksi/post_stockwarehouse'); ?>";
 
