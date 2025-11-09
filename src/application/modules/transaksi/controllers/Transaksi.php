@@ -165,9 +165,11 @@ class Transaksi extends MY_Controller {
         if ($get_data) {
             foreach ($get_data as $d) {
                 
-                $action = ' <button lang="'.$d->id.'" title="Detil" class="btn btn-sm btn-info jq-edit"><i class="fa fa-list"></i></button>';
-                // $action .= ' <button lang2="'.$d->productcategory_name.'" lang="'.$d->productcategory_id.'" title="remove" class="btn btn-danger jq-del"><i class="fa fa-trash"></i></button>';
-                
+                $action = ' <button lang="'.$d->id.'" title="Detil" class="btn btn-sm btn-info jq-detil"><i class="fa fa-list"></i></button>';
+                if( $d->status == 'draft' ):
+                    $action .= ' <button lang="'.$d->id.'" title="terima" class="btn btn-sm btn-warning jq-check"><i class="fa fa-check"></i></button>';
+                endif;
+
                 $records["data"][] = array(
                     $i++,
                     $d->created_at,
@@ -187,6 +189,76 @@ class Transaksi extends MY_Controller {
         $this->output->set_content_type('application/json')->set_output(json_encode($records));
     }
     
+    public function get_stockwarehouse_product($product_id,$warehouse_id){
+        $q = "SELECT * FROM stock_warehouse WHERE product_id='".$product_id."' AND warehouse_id='".$warehouse_id."'";
+        $sql = $this->db->query($q);
+        $res = $sql->num_rows();
+        return $res;
+    }
+
+    public function get_warehouseid_from_jurnal($jurnal_id){
+        $q = "SELECT warehouse_id FROM jurnal_stock_warehouse WHERE id='".$jurnal_id."'";
+        $sql = $this->db->query($q);
+        $r = $sql->row();
+        return $r->warehouse_id;
+    }
+
+    public function terima_jurnal_warehouse(){
+        $id = $this->input->post('id');
+
+        $q = "SELECT * FROM jurnal_stock_warehouse_detail WHERE jurnal_id='".$id."'";
+        $sql = $this->db->query($q);
+        foreach($sql->result() as $r){
+            // tambah stock di warehouse
+            if($this->get_stockwarehouse_product($r->product_id,$this->get_warehouseid_from_jurnal($id)) > 0){
+                // update stock
+                $q_stock = "UPDATE stock_warehouse SET count = count + '".$r->count."'
+                , updated_by ='".$this->data['user']->id."'
+                , updated_at = NOW() 
+                WHERE product_id='".$r->product_id."' AND warehouse_id='".$this->get_warehouseid_from_jurnal($id)."'";
+                $this->db->query($q_stock);
+                continue;
+            }else{
+                // insert stock
+                $q_stock = "INSERT INTO stock_warehouse(product_id,warehouse_id,count,created_by,created_at,company_id) VALUES(
+                    '".$r->product_id."'
+                    ,'".$this->get_warehouseid_from_jurnal($id)."'
+                    ,'".$r->count."'
+                    ,'".$this->data['user']->id."'
+                    ,NOW()
+                    ,'".$this->data['user']->company_id."'
+                )";
+                $this->db->query($q_stock);
+            }
+        }
+
+        $q_update = "UPDATE jurnal_stock_warehouse SET status = 'diterima'
+        , updated_by ='".$this->data['user']->id."'
+        , updated_at = NOW() WHERE id='".$id."'";
+        $this->db->query($q_update);
+
+        $res['success'] = true;
+        $res['message'] = 'Stok Warehouse telah Masuk, Jurnal berhasil diterima'; 
+        $this->output->set_content_type('application/json')->set_output(json_encode($res));
+        
+    }
+
+    public function jurnal_warehouse_detil(){
+        $id = $this->input->post('id');
+        $q = "SELECT * FROM jurnal_stock_warehouse_detail WHERE jurnal_id='".$id."'";
+        $sql = $this->db->query($q);
+        $data['record'] = $sql;
+
+        $q = "SELECT jurnal_stock_warehouse.*, m_warehouse.name as warehouse_name 
+            FROM jurnal_stock_warehouse 
+            LEFT JOIN m_warehouse ON m_warehouse.id = jurnal_stock_warehouse.warehouse_id
+            WHERE jurnal_stock_warehouse.id='".$id."'";
+        $sql = $this->db->query($q);
+        $data['header'] = $sql->row();
+
+        $this->load->view('v_transaksi_warehouse_detail',$data);
+    }
+
 	public function getDatatable_belum()
     {
     	$this->load->model('M_transaksi');
@@ -276,30 +348,4 @@ class Transaksi extends MY_Controller {
         $this->output->set_content_type('application/json')->set_output(json_encode($data));
     }
     
-    function infometeran()
-    {
-        $res['value'] =200;
-        $this->output->set_content_type('application/json')->set_output(json_encode($res));
-        
-    }
-    
-    function confirm_pembayaran($id){
-        $data = array();
-        
-        $this->load->model('M_transaksi');
-        $q_update = "UPDATE t_transaksi SET "             
-                ."transaksi_admin_price = '".$this->M_transaksi->get_config_val('admin_price')."' " 
-            ."WHERE transaksi_id='".$id."'";            
-        $sql_update = $this->db->query($q_update);
-
-        $q = "SELECT * FROM v_input_tagihan WHERE transaksi_id='".$id."'";
-        $sql = $this->db->query($q);
-        $data['record'] = $sql->row();
-
-        $this->load->model('M_transaksi');
-        $data['bulan'] = $this->M_transaksi->get_month_array();
-
-        $this->template('transaksi/v_confirm_pembayaran',$data);        
-    }
-	
 }
