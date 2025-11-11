@@ -30,9 +30,17 @@
                     <thead>
                         <tr>
                             <th colspan="3">
-                                <div class="form-group col-md-4">
+                                <div class="form-group col-md-3">
                                     Nama Sales :
                                     <select name='cb_agen' id="cb_agen" class='form-control select2-ajax' data-url='<?php echo site_url('formx/dropdown/dd/dd_user_agen'); ?>'></select>
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th colspan="3">
+                                <div class="form-group col-md-3">
+                                    Dari Gudang :
+                                    <select name='cb_warehouse' id="cb_warehouse" class='form-control select2-ajax' data-url='<?php echo site_url('formx/dropdown/dd/dd_warehouse'); ?>'></select>
                                 </div>
                             </th>
                         </tr>
@@ -174,13 +182,21 @@
             var messages = [];
             var isValid = true;
             var salesId = $("#cb_agen").val();
+            var warehouseId = $("#cb_warehouse").val();
 
             markSelectInvalid("#cb_agen", false);
+            markSelectInvalid("#cb_warehouse", false);
 
             if (!salesId) {
                 isValid = false;
                 messages.push("Sales wajib dipilih.");
                 markSelectInvalid("#cb_agen", true);
+            }
+
+            if (!warehouseId) {
+                isValid = false;
+                messages.push("Gudang wajib dipilih.");
+                markSelectInvalid("#cb_warehouse", true);
             }
 
             var detail = [];
@@ -228,6 +244,7 @@
 
             var payload = {
                 sales_id: salesId,
+                warehouse_id: warehouseId,
                 detail: detail
             };
 

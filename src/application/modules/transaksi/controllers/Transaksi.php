@@ -99,34 +99,55 @@ class Transaksi extends MY_Controller {
     public function post_stocksales(){
         $raw = file_get_contents("php://input");
         $data = json_decode($raw, true);
-
-        $q = "INSERT INTO jurnal_inquiry_agen(company_id,created_by,created_at,agen_id,status) VALUES(
-            '".$this->data['user']->company_id."'
-            ,'".$this->data['user']->id."'
-            ,NOW()
-            ,'".$data['sales_id']."'
-            ,'draft'
-        )";
-        $this->db->query($q);
-        $inquiry_id = $this->db->insert_id();   
-
         $products = $data['detail'];
+        $checking_stock = true;
         foreach($products as $i){
-            $nama_produk = $this->get_productname($i['product_id']);
-            $q_detail = "INSERT INTO jurnal_inquiry_detail(jurnal_id,product_id,product_name,count,created_by,created_at,company_id) VALUES(
-                '".$inquiry_id."'
-                ,'".$i['product_id']."'
-                ,'".$nama_produk."'
-                ,'".$i['jumlah']."'
+            if($this->get_stockwarehouse_product($i['product_id'],$data['warehouse_id']) < $i['jumlah']){
+                $checking_stock = false;
+                break;
+            }
+        }
+
+        if(!$checking_stock){
+            $res['success'] = false;
+            $res['message'] = 'Stok di Warehouse tidak mencukupi'; 
+            $this->output->set_content_type('application/json')->set_output(json_encode($res));
+            return;
+        }else{
+            $q = "INSERT INTO jurnal_inquiry_agen(company_id,created_by,created_at,agen_id,status) VALUES(
+                '".$this->data['user']->company_id."'
                 ,'".$this->data['user']->id."'
                 ,NOW()
-                ,'".$this->data['user']->company_id."'
+                ,'".$data['sales_id']."'
+                ,'draft'
             )";
-            $this->db->query($q_detail);
+            $this->db->query($q);
+            $inquiry_id = $this->db->insert_id(); 
+            foreach($products as $i){
+                $nama_produk = $this->get_productname($i['product_id']);
+                $q_detail = "INSERT INTO jurnal_inquiry_detail(jurnal_id,product_id,product_name,count,created_by,created_at,company_id) VALUES(
+                    '".$inquiry_id."'
+                    ,'".$i['product_id']."'
+                    ,'".$nama_produk."'
+                    ,'".$i['jumlah']."'
+                    ,'".$this->data['user']->id."'
+                    ,NOW()
+                    ,'".$this->data['user']->company_id."'
+                )";
+                $this->db->query($q_detail);
+                // kurangi stock di warehouse
+                $q_stock = "UPDATE stock_warehouse SET count = count - '".$i['jumlah']."'
+                , updated_by ='".$this->data['user']->id."'
+                , updated_at = NOW() 
+                WHERE product_id='".$i['product_id']."' AND warehouse_id='".$data['warehouse_id']."'";
+                $this->db->query($q_stock);
+            }
+            $res['success'] = true;
+            $res['message'] = 'Data berhasil disimpan'; 
+            $this->output->set_content_type('application/json')->set_output(json_encode($res));
+            return;
         }
-        $res['success'] = true;
-        $res['message'] = 'Data berhasil disimpan'; 
-        $this->output->set_content_type('application/json')->set_output(json_encode($res));
+        
     }
 
     public function input_per_dusun(){
