@@ -87,6 +87,19 @@ class M_before_insert extends CI_Model {
 		if($jumlah<=0){
 			$data['is_new'] = 1;
 		}
+		$q = "SELECT * FROM m_retail WHERE id = '".$retail_id."';";
+		$data_retail = $this->db->query($q);
+		$data_retail = $data_retail->row();
+
+		$visit_latlong = str_split(",",$data['latlong']);
+		$visit_lat = $visit_latlong[0];
+		$visit_long = $visit_latlong[1];
+
+		$distance = $this->getDistanceBetweenPoints($visit_lat, $visit_long, $data_retail->location_lat, $data_retail->location_long, 'K');
+		if($distance > 0.1 ){ // 100 meter
+			$this->exit_json('Anda berada di ('.number_format($distance,2).' Km), masih diluar jangkauan visitasi');
+		}
+		
 		return $data;
 	}
 
