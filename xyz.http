@@ -16,6 +16,6 @@ Content-Type: application/x-www-form-urlencoded
 form_id=43
 &retail_id=3
 &status=out
-&latlong=-7.0782667,113.0989033
+&latlong=-7.0782667,112.0989033
 &is_new=1
 

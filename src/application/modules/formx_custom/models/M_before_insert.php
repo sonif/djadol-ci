@@ -116,7 +116,8 @@ class M_before_insert extends CI_Model {
 
 		$distance = $this->getDistanceBetweenPoints($visit_lat, $visit_long, $data_retail->location_lat, $data_retail->location_long, 'K');
 		if($distance > 0.1 ){ // 100 meter
-			$this->exit_json('Anda berada di ('.number_format($distance,2).' Km), masih diluar jangkauan visitasi');
+			// $this->exit_json('Anda berada di ('.number_format($distance,2).' Km), masih diluar jangkauan visitasi');
+			$this->exit_json('maaf, kurang dekat dari lokasi retail');
 		}
 		
 		return $data;
