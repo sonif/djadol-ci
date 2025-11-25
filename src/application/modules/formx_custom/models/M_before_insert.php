@@ -77,6 +77,25 @@ class M_before_insert extends CI_Model {
 		return $data;
 	}
 
+	function getDistanceBetweenPoints($lat1, $lon1, $lat2, $lon2, $unit = 'K')
+	{
+		$theta = $lon1 - $lon2;
+		$dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +
+				cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
+		$dist = acos($dist);
+		$dist = rad2deg($dist);
+		$miles = $dist * 60 * 1.1515;
+
+		switch (strtoupper($unit)) {
+			case 'K':
+				return $miles * 1.609344; // Kilometers
+			case 'N':
+				return $miles * 0.8684;   // Nautical miles
+			default:
+				return $miles;            // Miles
+		}
+	}
+
 	public function jurnal_visitasi($data){
 		$created_by = $data['created_by'];
 		$retail_id = $data['retail_id'];
@@ -102,25 +121,7 @@ class M_before_insert extends CI_Model {
 		
 		return $data;
 	}
-
-	function getDistanceBetweenPoints($lat1, $lon1, $lat2, $lon2, $unit = 'K')
-	{
-		$theta = $lon1 - $lon2;
-		$dist = sin(deg2rad($lat1)) * sin(deg2rad($lat2)) +
-				cos(deg2rad($lat1)) * cos(deg2rad($lat2)) * cos(deg2rad($theta));
-		$dist = acos($dist);
-		$dist = rad2deg($dist);
-		$miles = $dist * 60 * 1.1515;
-
-		switch (strtoupper($unit)) {
-			case 'K':
-				return $miles * 1.609344; // Kilometers
-			case 'N':
-				return $miles * 0.8684;   // Nautical miles
-			default:
-				return $miles;            // Miles
-		}
-	}
+	
 
 	public function t_absen($data){
 		$created_by = $data['created_by'];
