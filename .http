@@ -1,6 +1,14 @@
 # VSCode REST Client / .http sample (multipart/form-data, with file)
 
+POST http://localhost:8000/index.php/api/auth/login
+content-type: application/json  
 
+{
+    "username": "sales1",
+    "password": "sales1"
+}
+
+# Absensi
 POST http://localhost:8000/index.php/api/form_action
 Content-Type: multipart/form-data
 token: a873e8749d522add89ef0c872a054775f8c898aaa843837fa76941cc6a1ae2cd
@@ -20,3 +28,14 @@ absen_foto=@/Users/adifalih/djava.png
 #   -F "created_by=42" \
 #   -F "company_id=7" \
 #   -F "absen_foto=@/full/path/to/photo.jpg"
+// Kunjungan
+POST http://localhost:8000/index.php/api/form_action
+content-type: application/json
+token: a873e8749d522add89ef0c872a054775f8c898aaa843837fa76941cc6a1ae2cd
+
+form_id=44
+is_new=1
+status='out'
+retail_id=3
+company_id=1
+latlong='-6.200000,106.816666'
