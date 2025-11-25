@@ -1,14 +1,14 @@
 @host=http://localhost:8000/index.php
-@token=c8e39086629c6d1c68001c2de8294d5b4a1ec9d62f7c7e6b0ebd8cfbf2e71f0b
+@token=cfc16690c0f35e1905d8397dbd2461aca3e1a73eca86d6e70a1862053a50087a
 
-###
+###Login User Sales
 POST {{host}}/api/auth/login
 Content-Type: application/x-www-form-urlencoded
 
 username=sales1
 &password=sales1
 
-###
+###Kunjungan Form Retail Out
 POST {{host}}/api/form_action
 token : {{token}}
 Content-Type: application/x-www-form-urlencoded

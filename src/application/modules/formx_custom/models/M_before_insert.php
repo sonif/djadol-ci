@@ -110,7 +110,7 @@ class M_before_insert extends CI_Model {
 		$data_retail = $this->db->query($q);
 		$data_retail = $data_retail->row();
 
-		$visit_latlong = str_split(",",$data['latlong']);
+		$visit_latlong = explode(',', $data['latlong']);
 		$visit_lat = $visit_latlong[0];
 		$visit_long = $visit_latlong[1];
 
