@@ -158,6 +158,11 @@ class Bulk extends REST_Controller
         $res["message"] = "Simpan gagal";
 
         $data_receive = json_decode($this->input->post("detail"));
+        if(!isset($data_receive[0])){
+            $res["message"] = "Data detail tidak ditemukan";
+            $this->response($res, $http_code);
+            exit();
+        }
         //var_dump($data_receive);
         // $relation_id = $this->input->post('relation_id');
 
