@@ -75,11 +75,10 @@ $query_builder = true;
 
 $db["default"] = [
     "dsn" => "",
-    "hostname" => getenv("DB_HOST") ?: "coolify.kopicode.com",
-    "username" => getenv("DB_USER") ?: "mariadb",
-    "password" => getenv("DB_PASS") ?: "XzA42BqUUq3E9YRm7OYVfGBB4t5u2tsgKcpwtlWHAFIwdqce6W0pnQZnrlVW8JwA",
+    "hostname" => getenv("DB_HOST") ?: "127.0.0.1",
+    "username" => getenv("DB_USER") ?: "djadol",
+    "password" => getenv("DB_PASS") ?: "AY8rbLRDjBe2p8kd",
     "database" => getenv("DB_NAME") ?: "djadol",
-    "port" => getenv("DB_PORT") ?: "5432",
     "dbdriver" => "mysqli",
     "dbprefix" => "",
     "pconnect" => false,
