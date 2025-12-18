@@ -96,6 +96,15 @@ class Transaksi extends MY_Controller {
         return $res->name;
     }
     
+
+    public function get_stockwarehouse_product($product_id,$warehouse_id){
+        $q = "SELECT * FROM stock_warehouse WHERE product_id='".$product_id."' AND warehouse_id='".$warehouse_id."'";
+        $sql = $this->db->query($q);
+        $res = $sql->row();
+        $res = $res ? $res->count : 0;
+        return $res;
+    }
+    
     public function post_stocksales(){
         $raw = file_get_contents("php://input");
         $data = json_decode($raw, true);
@@ -210,12 +219,6 @@ class Transaksi extends MY_Controller {
         $this->output->set_content_type('application/json')->set_output(json_encode($records));
     }
     
-    public function get_stockwarehouse_product($product_id,$warehouse_id){
-        $q = "SELECT * FROM stock_warehouse WHERE product_id='".$product_id."' AND warehouse_id='".$warehouse_id."'";
-        $sql = $this->db->query($q);
-        $res = $sql->num_rows();
-        return $res;
-    }
 
     public function get_warehouseid_from_jurnal($jurnal_id){
         $q = "SELECT warehouse_id FROM jurnal_stock_warehouse WHERE id='".$jurnal_id."'";
