@@ -151,7 +151,7 @@ class Laporan extends MY_Controller {
                     LEFT JOIN s_user ON jurnal_visitasi.created_by = s_user.id 
                     LEFT JOIN m_retail ON jurnal_visitasi.retail_id = m_retail.id
                 WHERE jurnal_visitasi.created_by = '".$agen_id."' 
-                AND jurnal_visitasi.created_at BETWEEN '".$date_start."' AND '".$date_end."' 
+                AND jurnal_visitasi.created_at >= '".$date_start." 00:00:00' AND jurnal_visitasi.created_at <='".$date_end." 23:59:59' 
                 ORDER BY jurnal_visitasi.created_at ASC";
         //echo $q;
         $v_data['v_report']         = $this->db->query($q);
@@ -176,7 +176,7 @@ class Laporan extends MY_Controller {
                     ,b.total_price 
             FROM s_user as a
                 LEFT JOIN (SELECT created_by, SUM(total_price) as total_price FROM jurnal_agen  
-                            WHERE created_at BETWEEN '".$date_start."' AND '".$date_end."' ) as b 
+                            WHERE created_at >= '".$date_start." 00:00:00' AND created_at <= '".$date_end." 23:59:59' ) as b 
                 ON a.id = b.created_by 
             WHERE a.usergroup_id = 4";
         // echo $q;
@@ -202,7 +202,7 @@ class Laporan extends MY_Controller {
                     LEFT JOIN s_user ON jurnal_agen.created_by = s_user.id 
                     LEFT JOIN m_retail ON jurnal_agen.retail_id = m_retail.id
                 WHERE jurnal_agen.created_by = '".$agen_id."' 
-                AND jurnal_agen.created_at BETWEEN '".$date_start."' AND '".$date_end."' 
+                AND jurnal_agen.created_at >= '".$date_start." 00:00:00' AND jurnal_agen.created_at <='".$date_end." 23:59:59' 
                 ORDER BY jurnal_agen.created_at ASC";
         //echo $q;
         $v_data['v_report']         = $this->db->query($q);
