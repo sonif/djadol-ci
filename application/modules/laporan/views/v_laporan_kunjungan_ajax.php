@@ -85,7 +85,7 @@
       <div class="modal-content">
         <div class="modal-header">
           <h5 class="modal-title">Detail</h5>
-          <button type="button" class="btn-close-visit" data-bs-dismiss="modal">x</button>
+          <button class="btn btn-default btn-sm" data-bs-dismiss="modal">x</button>
         </div>
         <div class="modal-body">
           <p class="text-muted">Loading...</p>
@@ -100,11 +100,6 @@
         $('#divprint2').printThis({
             loadCSS : "<?php echo base_url('assets/css/table_print2.css')?>",
         });
-    });
-    
-    $(".btn-close-visit").on('click',function(e){
-        var modal = $('#myModalVisit').modal();
-        modal.hide();
     });
     
     $(".btn_detil_visit").on('click',function(e){
