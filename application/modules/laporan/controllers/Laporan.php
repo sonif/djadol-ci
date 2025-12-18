@@ -126,7 +126,7 @@ class Laporan extends MY_Controller {
                     ,b.jumlah_visitasi 
             FROM s_user as a
                 LEFT JOIN (SELECT created_by, COUNT(id) as jumlah_visitasi FROM jurnal_visitasi 
-                            WHERE created_at BETWEEN '".$date_start."' AND '".$date_end."' ) as b 
+                            WHERE created_at >= '".$date_start." 00:00:00' AND created_at <= '".$date_end." 23:59:59' ) as b 
                 ON a.id = b.created_by 
             WHERE a.usergroup_id = 4";
         // echo $q;
