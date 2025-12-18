@@ -103,7 +103,7 @@
     });
     
     $(".btn-close-visit").on('click',function(e){
-        var modal = bootstrap.Modal.getInstance(document.getElementById('myModalVisit'));
+        var modal = $('#myModalVisit').modal();
         modal.hide();
     });
     
