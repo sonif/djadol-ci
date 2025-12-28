@@ -79,14 +79,14 @@
 </div>
 
 <!-- Modal -->
-  <div class="modal fade" id="myModalVisit" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
+  <div class="modal fade" id="myModalVisit">
+    <div class="modal-dialog modal-lg" style="height: 80vh;">
+      <div class="modal-content" style="height: 100%;">
         <div class="modal-header">
           <h5 class="modal-title">Detail</h5>
-          <button class="btn btn-default btn-sm" id="btn-close-visit">Close</button>
+          <span class="btn btn-secondary btn-sm" id="btn-close-visit"  data-dismiss="modal" >Close</span>
         </div>
-        <div class="modal-body">
+        <div class="modal-body" style="overflow-y: auto;">
           <p class="text-muted">Loading...</p>
         </div>
       </div>
@@ -94,6 +94,13 @@
   </div>
 
 <script>    
+    $(document).on('show.bs.modal', '.modal', function () {
+        var zIndex = 1040 + (10 * $('.modal:visible').length);
+        $(this).css('z-index', zIndex);
+        setTimeout(function() {
+            $('.modal-backdrop').not('.modal-stack').css('z-index', zIndex - 1).addClass('modal-stack');
+        }, 0);
+    });
 
     $("#btn_print_report2").on('click',function(e){
         $('#divprint2').printThis({
@@ -130,3 +137,5 @@
         });
     });
 </script>
+
+

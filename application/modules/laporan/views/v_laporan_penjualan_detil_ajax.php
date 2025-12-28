@@ -1,10 +1,10 @@
 <div class="row">
     <div class="col-md-12">
-        <button class="btn btn-default btn-sm" id="btn_print_report"><i class="fa fa-print"></i> Print</button>
+        <button class="btn btn-default btn-sm" id="btn_print_report2"><i class="fa fa-print"></i> Print</button>
     </div>
 </div>
 
-<div id="divprint">
+<div id="divprint2">
     <style>
         table .table-report {
             border-collapse: collapse;
@@ -44,6 +44,7 @@
                 <th >Nama Retail</th>
                 <th >Alamat</th>
                 <th>Total</th>
+                <th>Aksi</th>
             </tr>
         </thead>
     <tbody>
@@ -71,6 +72,12 @@
                 <td>
                     <?php echo number_format($r->total_price,0,',','.');?>
                 </td>
+                <td>
+                    <span lang ="<?php echo $r->jurnal_id; ?>" 
+                    class="btn btn-info btn-sm btn_detil_sale1" >
+                        Detail
+                    </span>
+                </td>
             </tr>
             
         <?php
@@ -80,10 +87,53 @@
     </table>
 </div>
 
+<!-- Modal -->
+  <div class="modal fade" id="myModalSales">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Detail</h5>
+          <span class="btn btn-secondary btn-sm" data-dismiss="modal" id="btn-close-Msales">Close</span>
+        </div>
+        <div class="modal-body">
+          <p class="text-muted">Loading...</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
 <script>
-    $("#btn_print_report").on('click',function(e){
-        $('#divprint').printThis({
+    $("#btn_print_report2").on('click',function(e){
+        $('#divprint2').printThis({
             loadCSS : "<?php echo base_url('assets/css/table_print2.css')?>",
+        });
+    });
+
+    $("#btn-close-Msales").on('click',function(e){
+        $('#myModalSales').modal('hide');
+    });
+
+    $(".btn_detil_sale1").on('click',function(e){
+        var jurnal = $(this).attr('lang');
+        
+        // Optional: show loading state
+        $('#myModalSales .modal-body').html('<p class="text-muted">Loading...</p>');
+        
+        // Show modal first (so user sees loading)
+        let modal = new bootstrap.Modal(document.getElementById('myModalSales'));
+        modal.show();
+
+        // Send AJAX POST
+        $.ajax({
+            url: '<?php echo site_url('laporan/laporan/penjualan_detil_produk_ajax'); ?>',
+            type: 'POST',
+            data: { id: jurnal},
+            success: function(response) {
+                $('#myModalSales .modal-body').html(response);
+            },
+            error: function() {
+                $('#myModalSales .modal-body').html('<p class="text-danger">Error loading data.</p>');
+            }
         });
     });
 </script>

@@ -1,4 +1,12 @@
-
+<style>
+    body.modal-open {
+        overflow: auto !important;
+        padding-right: 0 !important;
+    }
+    .modal-backdrop {
+        display: none !important;
+    }
+</style>
 <!-- Main content -->
 <div class='card shadow'>
         <div class='card-header'>

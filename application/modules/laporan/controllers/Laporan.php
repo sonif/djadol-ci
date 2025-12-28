@@ -198,6 +198,7 @@ class Laporan extends MY_Controller {
                     ,jurnal_agen.total_price
                     ,s_user.full_name,m_retail.name as retail_name
                     ,m_retail.address as retail_address
+                    ,jurnal_agen.id as jurnal_id
                 FROM jurnal_agen 
                     LEFT JOIN s_user ON jurnal_agen.created_by = s_user.id 
                     LEFT JOIN m_retail ON jurnal_agen.retail_id = m_retail.id
@@ -210,6 +211,29 @@ class Laporan extends MY_Controller {
         $v_data['input_date_end']   = $date_end;
 
         $this->load->view('v_laporan_penjualan_detil_ajax',$v_data);
+    }
+
+    public function penjualan_detil_produk_ajax(){
+        $v_data = array();
+        $jurnal_id = $this->input->post('id');
+        $q = "SELECT jurnal_agen.created_by,jurnal_agen.created_at
+                    ,jurnal_agen.latlong
+                    ,jurnal_agen.total_price
+                    ,s_user.full_name,m_retail.name as retail_name
+                    ,m_retail.address as retail_address
+                    ,jurnal_agen.id as jurnal_id
+                FROM jurnal_agen 
+                    LEFT JOIN s_user ON jurnal_agen.created_by = s_user.id 
+                    LEFT JOIN m_retail ON jurnal_agen.retail_id = m_retail.id
+                WHERE jurnal_agen.id = '".$jurnal_id."' ";
+        $v_data['v_parent'] = $this->db->query($q)->row();
+
+        $q = "SELECT * 
+                FROM jurnal_agen_sales
+                WHERE jurnal_id = '".$jurnal_id."' ";
+        $v_data['v_report']         = $this->db->query($q);
+
+        $this->load->view('v_laporan_penjualan_detil_produk_ajax',$v_data);
     }
 
     public function clear_stock()
