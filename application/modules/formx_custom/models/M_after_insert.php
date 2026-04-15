@@ -32,34 +32,34 @@ class M_after_insert extends CI_Model
         }
     }
 
-    public function jurnal_stock($id, $data)
-    {
-        //untuk menambah stock di gudang
-        $this->db->where("warehouse_id", $data["warehouse_id"]);
-        $this->db->where("product_id", $data["product_id"]);
-        $this->db->where("company_id", $data["company_id"]);
+    // public function jurnal_stock_warehouse($id, $data)
+    // {
+    //     //untuk menambah stock di gudang
+    //     $this->db->where("warehouse_id", $data["warehouse_id"]);
+    //     $this->db->where("product_id", $data["product_id"]);
+    //     $this->db->where("company_id", $data["company_id"]);
 
-        $stock_warehouse = $this->db->get("stock_warehouse");
-        if ($stock_warehouse->num_rows() > 0):
-            $row = $stock_warehouse->row();
-            $w = [
-                "id" => $row->id,
-            ];
-            $n_data = [
-                "count" => $row->count + $data["count"],
-            ];
-            $this->db->update("stock_warehouse", $n_data, $w);
-        else:
-            $n_data = [
-                "warehouse_id" => $data["warehouse_id"],
-                "product_id" => $data["product_id"],
-                "company_id" => $data["company_id"],
-                "count" => $data["count"],
-                "created_by" => $data["created_by"],
-            ];
-            $this->db->insert("stock_warehouse", $n_data);
-        endif;
-    }
+    //     $stock_warehouse = $this->db->get("stock_warehouse");
+    //     if ($stock_warehouse->num_rows() > 0):
+    //         $row = $stock_warehouse->row();
+    //         $w = [
+    //             "id" => $row->id,
+    //         ];
+    //         $n_data = [
+    //             "count" => $row->count + $data["count"],
+    //         ];
+    //         $this->db->update("stock_warehouse", $n_data, $w);
+    //     else:
+    //         $n_data = [
+    //             "warehouse_id" => $data["warehouse_id"],
+    //             "product_id" => $data["product_id"],
+    //             "company_id" => $data["company_id"],
+    //             "count" => $data["count"],
+    //             "created_by" => $data["created_by"],
+    //         ];
+    //         $this->db->insert("stock_warehouse", $n_data);
+    //     endif;
+    // }
 
     // public function t_form_shift_meeting($id,$data)
     // {

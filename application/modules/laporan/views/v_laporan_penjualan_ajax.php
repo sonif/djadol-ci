@@ -68,7 +68,10 @@
                 <td><?php echo $r->email;?> </td>
                 <td><?php echo $r->full_name;?> </td>
                 <td><?php echo empty($r->total_price) ? "0" : number_format($r->total_price, 0, ',', '.'); ?></td>
-                <td><button class="btn btn-info btn-sm btn_detil_visit" lang="<?php echo $r->id; ?>">Detail</button></td>
+                <td>
+                    <button class="btn btn-info btn-sm btn_detil_visit" lang="<?php echo $r->id; ?>">Detail</button>
+                    <button class="btn btn-info btn-sm btn_detil_sale_grup_product" lang="<?php echo $r->id; ?>">Produk Terjual</button>
+                </td>
             </tr>
             
         <?php
@@ -126,6 +129,31 @@
         // Send AJAX POST
         $.ajax({
             url: '<?php echo site_url('laporan/laporan/penjualan_detil_ajax'); ?>',
+            type: 'POST',
+            data: { id: cb_agen, date_start: date_start, date_end: date_end },
+            success: function(response) {
+                $('#myModalVisit .modal-body').html(response);
+            },
+            error: function() {
+                $('#myModalVisit .modal-body').html('<p class="text-danger">Error loading data.</p>');
+            }
+        });
+    });
+
+    $(".btn_detil_sale_grup_product").on('click',function(e){
+        var cb_agen = $(this).attr('lang');
+        var date_start = "<?php echo $input_date_start; ?>";
+        var date_end = "<?php echo $input_date_end; ?>";
+        // Optional: show loading state
+        $('#myModalVisit .modal-body').html('<p class="text-muted">Loading...</p>');
+        
+        // Show modal first (so user sees loading)
+        let modal = new bootstrap.Modal(document.getElementById('myModalVisit'));
+        modal.show();
+
+        // Send AJAX POST
+        $.ajax({
+            url: '<?php echo site_url('laporan/laporan/penjualan_detil_group_product_ajax'); ?>',
             type: 'POST',
             data: { id: cb_agen, date_start: date_start, date_end: date_end },
             success: function(response) {

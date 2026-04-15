@@ -75,9 +75,9 @@ $query_builder = true;
 
 $db["default"] = [
     "dsn" => "",
-    "hostname" => getenv("DB_HOST") ?: "127.0.0.1",
-    "username" => getenv("DB_USER") ?: "djadol",
-    "password" => getenv("DB_PASS") ?: "AY8rbLRDjBe2p8kd",
+    "hostname" => getenv("DB_HOST") ?: "localhost",
+    "username" => getenv("DB_USER") ?: "root",
+    "password" => getenv("DB_PASS") ?: "root",
     "database" => getenv("DB_NAME") ?: "djadol",
     "dbdriver" => "mysqli",
     "dbprefix" => "",
