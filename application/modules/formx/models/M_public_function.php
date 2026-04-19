@@ -14,7 +14,7 @@ class M_public_function extends MY_Model {
         $this->load->library('upload', $config);
 
         if(!file_exists($config['upload_path'])) {
-            mkdir($config['upload_path'],0775,true);
+            mkdir($config['upload_path'],02775,true);
         }
 
 
@@ -70,7 +70,7 @@ class M_public_function extends MY_Model {
         $this->load->library('upload', $config);
 
         if(!file_exists($config['upload_path'])) {
-            mkdir($config['upload_path'],0775,true);
+            mkdir($config['upload_path'],02775,true);
         }
 
 
