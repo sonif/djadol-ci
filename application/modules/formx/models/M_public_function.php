@@ -199,7 +199,7 @@ class M_public_function extends MY_Model {
         foreach ($imageNewSize as $key => $value) {
             $config['image_library']  = 'gd2';
             $config['source_image']   = $targetFile;
-            $config['new_image']      = $raw_name.'_'.$imageNewSize[$key]['name'].$file_ext;
+            $config['new_image']      = dirname($targetFile).'/'.$raw_name.'_'.$imageNewSize[$key]['name'].$file_ext;
             // $config['create_thumb']   = TRUE;
             $config['maintain_ratio'] = TRUE;
             $config['quality']          = 80;
