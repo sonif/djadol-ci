@@ -35,6 +35,10 @@ user_guide_src/cilexer/pycilexer.egg-info/*
 /tests/results/
 
 uploads/*
+!uploads/login/
+uploads/login/*
+!uploads/login/.htaccess
+!uploads/login/index.html
 dart/*
 ci_modules/*
 .env

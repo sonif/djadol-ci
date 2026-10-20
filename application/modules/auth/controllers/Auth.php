@@ -19,7 +19,8 @@ class Auth extends CI_Controller {
 	// log the user in
 	public function login()
 	{
-		$this->load->view('auth/v_login_argon');
+		$this->load->model('auth/Login_settings_model', 'login_settings');
+		$this->load->view('auth/v_login_argon', array('login_settings' => $this->login_settings->get_settings()));
 	}
 
 	public function login_action()

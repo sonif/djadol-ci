@@ -17,9 +17,28 @@
 
   <link href="<?php echo base_url('assets') ?>/js/plugins/bootstrap-sweetalert/sweetalert.css" rel="stylesheet" type="text/css" />
 
+  <?php if ($login_settings['background_type'] !== 'default'): ?>
+  <style>
+    body.login-custom-background {
+      min-height: 100vh;
+      background-color: <?php echo html_escape($login_settings['background_color']); ?> !important;
+      <?php if ($login_settings['background_type'] === 'image'): ?>
+      background-image: url(<?php echo json_encode(base_url($login_settings['background_image']), JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      <?php endif; ?>
+    }
+    .login-custom-background .header { background: transparent !important; }
+    .login-custom-background .separator { display: none; }
+    .login-custom-background footer .copyright { color: #fff !important; text-shadow: 0 1px 3px #172b4d; }
+    .login-custom-background footer a { color: inherit; }
+  </style>
+  <?php endif; ?>
+
 </head>
 
-<body class="bg-default">
+<body class="bg-default<?php echo $login_settings['background_type'] !== 'default' ? ' login-custom-background' : ''; ?>">
   <div class="main-content">	
     <!-- Header -->
     <div class="header bg-gradient-primary py-7 py-lg-7">
@@ -41,7 +60,7 @@
             </div> -->
             <div class="card-body px-lg-5 py-lg-4 text-center">
               <h1><?php echo APP_NAME ?></h1>
-              <img src="<?php echo base_url('assets/djadol.png') ?>" width="100%" style="max-width:240px;max-height:240px;" class="pb-4"/>
+              <img src="<?php echo html_escape(base_url($login_settings['logo'])); ?>" alt="Logo aplikasi" width="100%" style="max-width:240px;max-height:240px;object-fit:contain;" class="pb-4"/>
               <form role="form" id="login-form" action="<?php echo site_url('auth/login_action') ?>" method="post">
                 <div class="form-group mb-3">
                   <div class="input-group input-group-alternative">
